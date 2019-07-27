@@ -10,9 +10,9 @@ import Foundation
 
 class Todo {
     var title: String
-    var desc: String
+    var desc: String?
     var id: UUID?
-    init(title: String, desc: String, id: UUID? = nil) {
+    init(title: String, desc: String?, id: UUID? = nil) {
         self.title = title
         self.desc = desc
         self.id = id

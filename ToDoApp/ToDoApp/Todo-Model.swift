@@ -28,8 +28,9 @@ class ToDoModelController {
         return todos[index]
     }
     
-    private func addTodo(withTitle title: String, desc: String) {
-        
+    func addTodo(withTitle title: String, desc: String?) {
+        let newTodo = Todo(title: title, desc: desc)
+        todos += [newTodo]
     }
     
     private func deleteTodo(withIdentifier id: UUID) {

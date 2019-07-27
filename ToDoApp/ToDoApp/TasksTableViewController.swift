@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TasksTableViewController: UIViewController {
     
     let model = ToDoModelController()
     var tableViewDataSource: ToDoTableViewDataSource?
@@ -30,6 +30,11 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func addNewTask(withTitle title: String) {
+        model.addTodo(withTitle: title, desc: nil)
+        toDoTableView.reloadData()
     }
     
     
