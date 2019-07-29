@@ -11,14 +11,21 @@ import UIKit
 
 class ToDoTableViewDelegate: NSObject {
     var toDoModelController: ToDoModelController
+    var vc: TasksTableViewController
     
-    init(tableView: UITableView, toDoModelController: ToDoModelController) {
+    init(tableView: UITableView, toDoModelController: ToDoModelController, vc: TasksTableViewController) {
         self.toDoModelController = toDoModelController
+        self.vc = vc
         super.init()
         tableView.delegate = self
+        
     }
 }
 
 extension ToDoTableViewDelegate: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vc.selectedTask = toDoModelController.getTodo(atIndex: indexPath.row)
+    }
     
 }

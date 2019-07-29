@@ -29,6 +29,7 @@ extension ToDoTableViewDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         cell.textLabel?.text = toDoModelController.getTodo(atIndex: indexPath.row).title
+        cell.selectionStyle = .none
         return cell
     }
     
