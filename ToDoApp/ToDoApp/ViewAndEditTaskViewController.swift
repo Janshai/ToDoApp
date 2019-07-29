@@ -56,6 +56,7 @@ class ViewAndEditTaskViewController: UIViewController {
             todo = Todo(title: titleTextView.text, id: todo.id)
             if let presenter = presentingViewController as? TasksTableViewController {
                 presenter.editTask(withId: todo.id, toNowEqual: todo)
+                
             }
         }
         isEditingTodo = !isEditingTodo

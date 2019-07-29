@@ -34,7 +34,7 @@ class ToDoModelController {
     }
     
     func deleteTodo(withIdentifier id: UUID) {
-        
+        todos.removeAll(where: {$0.id == id})
     }
     
     func editTodo(withIdentifier id: UUID, toNowEqual newTodo: Todo) {

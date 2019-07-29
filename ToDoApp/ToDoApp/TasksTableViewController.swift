@@ -14,9 +14,9 @@ class TasksTableViewController: UIViewController {
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
     let selectSegueIdetifier = "showTask"
-    var selectedTask: Todo? = nil {
+    var selectedTask: (task: Todo?, path: IndexPath?) = (nil, nil) {
         didSet {
-            if selectedTask != nil {
+            if selectedTask.task != nil {
                 performSegue(withIdentifier: selectSegueIdetifier, sender: nil)
             }
         }
@@ -43,7 +43,7 @@ class TasksTableViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == selectSegueIdetifier {
             let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-            viewAndEditTaskController?.todo = selectedTask
+            viewAndEditTaskController?.todo = selectedTask.task
         }
     }
     
@@ -54,7 +54,14 @@ class TasksTableViewController: UIViewController {
     
     func editTask(withId id: UUID, toNowEqual todo: Todo) {
         model.editTodo(withIdentifier: id, toNowEqual: todo)
-        toDoTableView.reloadData()
+        if let path = selectedTask.path {
+            reloadTableViewData(atRow: path)
+        }
+        
+    }
+    
+    func reloadTableViewData(atRow indexPath: IndexPath) {
+        toDoTableView.reloadRows(at: [indexPath], with: .fade)
     }
     
     @IBAction func pressAddTodo(_ sender: UIButton) {
