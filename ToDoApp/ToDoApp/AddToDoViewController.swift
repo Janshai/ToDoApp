@@ -40,11 +40,40 @@ class AddToDoViewController: UIViewController {
         AddToDoLabel.layer.borderColor = UIColor.black.cgColor
         
         TitleTextField.borderStyle = .roundedRect
+        TitleTextField.autocorrectionType = .no
+        TitleTextField.delegate = self
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowOrChangeFrame(notification:)), name: UIResponder.keyboardWillShowNotification
+            , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowOrChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
     
+    @objc func handleKeyboardShowOrChangeFrame(notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = keyboardFrame.cgRectValue.height
+            self.view.frame.origin.y = -(height)
+        }
+    }
     
+    @objc func handleKeyboardHide(notification: Notification) {
+        self.view.frame.origin.y = 0
+    }
+
+}
+
+extension AddToDoViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        TitleTextField.resignFirstResponder()
+        return true
+    }
 }

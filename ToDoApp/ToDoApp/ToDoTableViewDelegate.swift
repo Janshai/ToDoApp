@@ -25,7 +25,7 @@ class ToDoTableViewDelegate: NSObject {
         let todo = toDoModelController.getTodo(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
             self.toDoModelController.deleteTodo(withIdentifier: todo.id)
-
+            self.vc.deleteTableViewData(atRow: indexPath, withAnimation: .left)
             completionHandler(true)
         }
         action.backgroundColor = #colorLiteral(red: 1, green: 0.20458019, blue: 0.1013487829, alpha: 1)
@@ -36,9 +36,10 @@ class ToDoTableViewDelegate: NSObject {
         let todo = toDoModelController.getTodo(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "Complete") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
             self.toDoModelController.deleteTodo(withIdentifier: todo.id)
-            self.vc.reloadTableViewData(atRow: indexPath)
+            self.vc.deleteTableViewData(atRow: indexPath, withAnimation: .right)
             completionHandler(true)
         }
+        action.image = UIImage(named: "TickIcon")
         action.backgroundColor = #colorLiteral(red: 0.001046009478, green: 0.8197078109, blue: 0, alpha: 1)
         return action
     }
@@ -47,7 +48,7 @@ class ToDoTableViewDelegate: NSObject {
 extension ToDoTableViewDelegate: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        vc.selectedTask.task = toDoModelController.getTodo(atIndex: indexPath.row)
+        vc.selectedTask = (toDoModelController.getTodo(atIndex: indexPath.row), indexPath)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         

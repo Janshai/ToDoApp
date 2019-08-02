@@ -55,13 +55,13 @@ class TasksTableViewController: UIViewController {
     func editTask(withId id: UUID, toNowEqual todo: Todo) {
         model.editTodo(withIdentifier: id, toNowEqual: todo)
         if let path = selectedTask.path {
-            reloadTableViewData(atRow: path)
+            toDoTableView.reloadRows(at: [path], with: .fade)
         }
         
     }
     
-    func reloadTableViewData(atRow indexPath: IndexPath) {
-        toDoTableView.reloadRows(at: [indexPath], with: .fade)
+    func deleteTableViewData(atRow indexPath: IndexPath, withAnimation animation: UITableView.RowAnimation) {
+        toDoTableView.deleteRows(at: [indexPath], with: animation)
     }
     
     @IBAction func pressAddTodo(_ sender: UIButton) {

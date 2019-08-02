@@ -67,10 +67,11 @@ class ViewAndEditTaskViewController: UIViewController {
         
         titleTextView.text = todo.title
         titleTextView.delegate = self
-        
+        titleTextView.autocorrectionType = .no
         titleTextView.layer.cornerRadius = 5.0
         titleTextView.layer.borderColor = UIColor.lightGray.cgColor
         titleTextView.layer.borderWidth = 1.0
+        titleTextView.doneAccessory = true
         editButton.layer.cornerRadius = 5.0
         editButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), for: .normal)
         editButton.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
@@ -123,3 +124,5 @@ extension ViewAndEditTaskViewController: UITextViewDelegate {
         })
     }
 }
+
+
