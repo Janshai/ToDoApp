@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		040A6A4222C8189A0035D7BC /* ToDoTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */; };
 		040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A4322C94A100035D7BC /* AddToDoViewController.swift */; };
 		040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A743E22F46C4C00E67C5F /* Extensions.swift */; };
+		040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 040A744722F88E6F00E67C5F /* Default-568h@2x.png */; };
 		047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E115F22ECB33D00097A8E /* TasksTableViewController.swift */; };
 		047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */; };
 		DB7FF87A151B8867E4BFEAE4 /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */; };
@@ -37,6 +38,7 @@
 		040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewDelegate.swift; sourceTree = "<group>"; };
 		040A6A4322C94A100035D7BC /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		040A743E22F46C4C00E67C5F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		040A744722F88E6F00E67C5F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		047E115F22ECB33D00097A8E /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAndEditTaskViewController.swift; sourceTree = "<group>"; };
 		426088FDFCEE450558585D89 /* Pods-ToDoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		040A6A1A22C73A8F0035D7BC = {
 			isa = PBXGroup;
 			children = (
+				040A744722F88E6F00E67C5F /* Default-568h@2x.png */,
 				040A6A2522C73A8F0035D7BC /* ToDoApp */,
 				040A6A2422C73A8F0035D7BC /* Products */,
 				54518B087824EF5C05345CF1 /* Pods */,
@@ -77,22 +80,78 @@
 		040A6A2522C73A8F0035D7BC /* ToDoApp */ = {
 			isa = PBXGroup;
 			children = (
-				047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */,
-				040A743E22F46C4C00E67C5F /* Extensions.swift */,
 				040A6A2622C73A8F0035D7BC /* AppDelegate.swift */,
-				047E115F22ECB33D00097A8E /* TasksTableViewController.swift */,
-				040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */,
-				040A6A3F22C813530035D7BC /* ToDoTableViewDataSource.swift */,
-				040A6A3B22C7D47F0035D7BC /* Todo-Model.swift */,
-				040A6A3D22C7D5C70035D7BC /* Todo.swift */,
-				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
-				040A6A4322C94A100035D7BC /* AddToDoViewController.swift */,
-				040A6A3022C73A900035D7BC /* Assets.xcassets */,
-				040A6A3222C73A900035D7BC /* LaunchScreen.storyboard */,
 				040A6A3522C73A900035D7BC /* Info.plist */,
+				040A744622F88E4100E67C5F /* Core-Files */,
+				040A744222F8804000E67C5F /* Model */,
+				040A744122F87F0200E67C5F /* View-Models */,
+				040A744022F87EDB00E67C5F /* View */,
+				040A6A3222C73A900035D7BC /* LaunchScreen.storyboard */,
+				040A6A3022C73A900035D7BC /* Assets.xcassets */,
 				040A6A2D22C73A8F0035D7BC /* ToDoApp.xcdatamodeld */,
 			);
 			path = ToDoApp;
+			sourceTree = "<group>";
+		};
+		040A744022F87EDB00E67C5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				040A744522F88DF500E67C5F /* Storyboards */,
+				040A744422F88DE400E67C5F /* VCs */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		040A744122F87F0200E67C5F /* View-Models */ = {
+			isa = PBXGroup;
+			children = (
+				040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */,
+				040A6A3F22C813530035D7BC /* ToDoTableViewDataSource.swift */,
+			);
+			path = "View-Models";
+			sourceTree = "<group>";
+		};
+		040A744222F8804000E67C5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				040A744322F8805300E67C5F /* Todo */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		040A744322F8805300E67C5F /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				040A6A3D22C7D5C70035D7BC /* Todo.swift */,
+				040A6A3B22C7D47F0035D7BC /* Todo-Model.swift */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		040A744422F88DE400E67C5F /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				047E115F22ECB33D00097A8E /* TasksTableViewController.swift */,
+				047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */,
+				040A6A4322C94A100035D7BC /* AddToDoViewController.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		040A744522F88DF500E67C5F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		040A744622F88E4100E67C5F /* Core-Files */ = {
+			isa = PBXGroup;
+			children = (
+				040A743E22F46C4C00E67C5F /* Extensions.swift */,
+			);
+			path = "Core-Files";
 			sourceTree = "<group>";
 		};
 		54518B087824EF5C05345CF1 /* Pods */ = {
@@ -174,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				040A6A3422C73A900035D7BC /* LaunchScreen.storyboard in Resources */,
+				040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */,
 				040A6A3122C73A900035D7BC /* Assets.xcassets in Resources */,
 				040A6A2C22C73A8F0035D7BC /* Main.storyboard in Resources */,
 			);
