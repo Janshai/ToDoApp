@@ -20,10 +20,12 @@ class AddToDoViewController: UIViewController {
                 presenter.addNewTask(withTitle: input)
             }
         }
+        hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func touchCancelButton(_ sender: UIButton) {
+        hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
     
@@ -48,9 +50,9 @@ class AddToDoViewController: UIViewController {
             , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowOrChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
-        
+    
     }
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -68,12 +70,16 @@ class AddToDoViewController: UIViewController {
     @objc func handleKeyboardHide(notification: Notification) {
         self.view.frame.origin.y = 0
     }
+    
+    private func hideKeyboard() {
+        TitleTextField.resignFirstResponder()
+    }
 
 }
 
 extension AddToDoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        TitleTextField.resignFirstResponder()
+        hideKeyboard()
         return true
     }
 }
