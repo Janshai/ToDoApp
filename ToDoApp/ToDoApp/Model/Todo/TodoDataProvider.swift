@@ -28,8 +28,11 @@ class NetworkTodoDataProvider: TodoDataProvider {
         
     }
     
-    func deleteTodo(withID: String) {
-        
+    func deleteTodo(withID id: String) {
+        let url = baseURL + "/" + id
+        AF.request(url, method: .delete).response() { data in
+            print(String(describing:data.response))
+        }
     }
     
     func fetchTodos(onCompletion completion: @escaping (_ result: Result<[Todo], Error>) -> Void ) {
