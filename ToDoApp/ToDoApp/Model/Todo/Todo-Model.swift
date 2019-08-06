@@ -41,10 +41,28 @@ class ToDoModelController {
         return todos[index]
     }
     
-    func addTodo(withTitle title: String) {
-        let values: [TodoFields: Any] = [TodoFields.title: title]
-        let newTodo = todoDataProvider.addTodo(withValues: values)
-        todos += [newTodo]
+    func addTodo(withTitle title: String) -> Result<String, Error> {
+        
+        let values: [TodoFields: Encodable] = [TodoFields.title: title]
+        var newTodo: Todo?
+        let group = DispatchGroup()
+        group.enter()
+        todoDataProvider.addTodo(withValues: values) { result in
+            print("here")
+            switch result {
+            case .success(let todo): newTodo = todo
+            case .failure(let error): print(error)
+            }
+            group.leave()
+        }
+        group.wait()
+        
+        if let todo = newTodo {
+            todos += [todo]
+            return .success(todo.id)
+        } else {
+            return .failure(TimeOutError())
+        }
     }
     
     func deleteTodo(withIdentifier id: String) {
@@ -57,4 +75,8 @@ class ToDoModelController {
         let todo = todos.first(where: {$0.id == id})
         todo?.title = newTodo.title
     }
+}
+
+struct TimeOutError: Error {
+    
 }

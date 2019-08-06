@@ -15,8 +15,13 @@ class NetworkTodoDataProvider: TodoDataProvider {
        self.baseURL = (baseURL ?? Config.apiBaseURL) + "todo"
     }
     
-    func addTodo(withValues values: [TodoFields: Any]) -> Todo{
-        return Todo(title: values[.title] as! String, id: UUID().uuidString)
+    func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
+        let decoder = createDecoderForMongoDates()
+        let params = TodoParameters(withFieldsDict: values)
+        AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<Todo>) in
+            completion(response.result)
+
+        }
     }
     
     func updateTodo(withID: String, toMatch: Todo) {
@@ -28,6 +33,15 @@ class NetworkTodoDataProvider: TodoDataProvider {
     }
     
     func fetchTodos(onCompletion completion: @escaping (_ result: Result<[Todo], Error>) -> Void ) {
+        
+        let decoder = createDecoderForMongoDates()
+        
+        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<[Todo]>) in
+            completion(response.result)
+        }
+    }
+    
+    private func createDecoderForMongoDates() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom() { decoder in
             let container = try decoder.singleValueContainer()
@@ -40,14 +54,9 @@ class NetworkTodoDataProvider: TodoDataProvider {
                 throw DecodingError.dataCorruptedError(in: container, debugDescription: "Couldn't convert date")
             }
         }
-        
-        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<[Todo]>) in
-            switch response.result {
-            case .success(let data): completion(.success(data))
-            case .failure(let error): completion(.failure(error))
-            }
-        }
+        return decoder
     }
+    
 }
 
 protocol TodoDataProvider {
@@ -55,13 +64,27 @@ protocol TodoDataProvider {
     
     func fetchTodos(onCompletion completion: @escaping (_ result: Result<[Todo], Error>) -> Void)
     
-    func addTodo(withValues: [TodoFields: Any]) -> Todo
+    func addTodo(withValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
     func updateTodo(withID: String, toMatch: Todo)
     
     func deleteTodo(withID: String)
 }
 
-enum TodoFields: Hashable {
-    case title
+fileprivate class TodoParameters: Encodable {
+    var title: String
+    init?(withFieldsDict dict: [TodoFields:Encodable]) {
+        if let t = dict[.title] as? String {
+            self.title = t
+        } else {
+            return nil
+        }
+    }
+    
 }
+enum TodoFields: String, Hashable {
+    case title
+    
+}
+
+

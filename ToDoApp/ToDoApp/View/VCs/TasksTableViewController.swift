@@ -9,11 +9,15 @@
 import UIKit
 
 class TasksTableViewController: UIViewController {
-    let group = DispatchGroup()
-    lazy var model: ToDoModelController = ToDoModelController(group: group)
+   
+    let initialTodoLoadingGroup = DispatchGroup()
+    lazy var model: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
+   
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
+    
     let selectSegueIdetifier = "showTask"
+    
     var selectedTask: (task: Todo?, path: IndexPath?) = (nil, nil) {
         didSet {
             if selectedTask.task != nil {
@@ -26,12 +30,19 @@ class TasksTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let loadingView = UIActivityIndicatorView()
+        setup(LoadingView: loadingView)
+        
+        
         tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: model, vc: self)
         
         tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: model)
         
-        group.notify(queue: .main) {
+        initialTodoLoadingGroup.notify(queue: .main) {
+            loadingView.stopAnimating()
             self.toDoTableView.reloadData()
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
         
     }
@@ -49,8 +60,14 @@ class TasksTableViewController: UIViewController {
     }
     
     func addNewTask(withTitle title: String) {
-        model.addTodo(withTitle: title)
-        toDoTableView.reloadData()
+        DispatchQueue.global(qos: .userInitiated).async {
+            //TODO: pop up an error message if the todo doesn't add correctly and handle that.
+            self.model.addTodo(withTitle: title)
+            DispatchQueue.main.async {
+                self.toDoTableView.reloadData()
+            }
+        }
+        
     }
     
     func editTask(withId id: String, toNowEqual todo: Todo) {
@@ -69,6 +86,15 @@ class TasksTableViewController: UIViewController {
     }
     
     @IBOutlet weak var toDoTableView: UITableView!
+    
+    func setup(LoadingView loadingView: UIActivityIndicatorView) {
+        loadingView.hidesWhenStopped = true
+        loadingView.center = self.view.center
+        loadingView.style = .gray
+        view.addSubview(loadingView)
+        loadingView.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
     
     
 }
