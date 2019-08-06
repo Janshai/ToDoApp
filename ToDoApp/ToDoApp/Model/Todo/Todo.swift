@@ -8,11 +8,20 @@
 
 import Foundation
 
-class Todo {
-    var title: String
-    var id: UUID
-    init(title: String, id: UUID? = nil) {
+class Todo: Codable {
+    public var title: String
+    public private(set) var id: String
+    public private(set) var createdAt: Date
+    
+    init(title: String, id: String? = nil, createdAt: Date? = nil) {
         self.title = title
-        self.id = id ?? UUID()
+        self.id = id ?? UUID().uuidString
+        self.createdAt = createdAt ?? Date()
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case title
+        case id = "_id"
+        case createdAt
     }
 }

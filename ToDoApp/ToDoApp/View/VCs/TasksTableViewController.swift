@@ -9,8 +9,8 @@
 import UIKit
 
 class TasksTableViewController: UIViewController {
-    
-    let model = ToDoModelController()
+    let group = DispatchGroup()
+    lazy var model: ToDoModelController = ToDoModelController(group: group)
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
     let selectSegueIdetifier = "showTask"
@@ -26,12 +26,13 @@ class TasksTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: model, vc: self)
         
         tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: model)
         
-        
+        group.notify(queue: .main) {
+            self.toDoTableView.reloadData()
+        }
         
     }
 
@@ -52,7 +53,7 @@ class TasksTableViewController: UIViewController {
         toDoTableView.reloadData()
     }
     
-    func editTask(withId id: UUID, toNowEqual todo: Todo) {
+    func editTask(withId id: String, toNowEqual todo: Todo) {
         model.editTodo(withIdentifier: id, toNowEqual: todo)
         if let path = selectedTask.path {
             toDoTableView.reloadRows(at: [path], with: .fade)

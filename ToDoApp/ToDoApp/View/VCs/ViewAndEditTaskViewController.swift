@@ -53,7 +53,7 @@ class ViewAndEditTaskViewController: UIViewController {
     }
     @IBAction func touchEdit(_ sender: UIButton) {
         if isEditingTodo {
-            todo = Todo(title: titleTextView.text, id: todo.id)
+            todo = Todo(title: titleTextView.text)
             if let presenter = presentingViewController as? TasksTableViewController {
                 presenter.editTask(withId: todo.id, toNowEqual: todo)
                 
