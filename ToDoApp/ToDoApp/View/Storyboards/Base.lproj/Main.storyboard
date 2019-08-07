@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tasks Table View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="TasksTableViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA2-Qa-PHq">
+                                <rect key="frame" x="16" y="573" width="343" height="74"/>
+                                <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="6o0-XL-xls"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="49"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressAddTodo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YKk-hv-VTS"/>
+                                    <segue destination="tff-iP-Xzw" kind="presentation" identifier="addToDo" modalPresentationStyle="overCurrentContext" id="ANs-dA-6h3"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hpi-IS-lYv">
+                                <rect key="frame" x="16" y="20" width="343" height="545"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="e8q-jZ-Lq5" rowHeight="70" style="IBUITableViewCellStyleDefault" id="IcW-eK-aYZ">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IcW-eK-aYZ" id="ve4-yI-l6c">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e8q-jZ-Lq5">
+                                                    <rect key="frame" x="15" y="0.0" width="313" height="69.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ItQ-Qx-z6T" kind="presentation" identifier="showTask" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="QIQ-XP-QMj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92013007614213194" green="0.92013007614213194" blue="0.92013007614213194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Hpi-IS-lYv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CBR-MF-b1f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hpi-IS-lYv" secondAttribute="trailing" constant="16" id="W15-Sj-P4u"/>
+                            <constraint firstAttribute="bottom" secondItem="wA2-Qa-PHq" secondAttribute="bottom" constant="20" symbolic="YES" id="bw2-nS-tTX"/>
+                            <constraint firstItem="wA2-Qa-PHq" firstAttribute="trailing" secondItem="Hpi-IS-lYv" secondAttribute="trailing" id="g1R-6B-IBD"/>
+                            <constraint firstItem="wA2-Qa-PHq" firstAttribute="top" secondItem="Hpi-IS-lYv" secondAttribute="bottom" constant="8" symbolic="YES" id="mAA-sR-xUN"/>
+                            <constraint firstItem="Hpi-IS-lYv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="p3B-gm-073"/>
+                            <constraint firstItem="wA2-Qa-PHq" firstAttribute="leading" secondItem="Hpi-IS-lYv" secondAttribute="leading" id="pDJ-TF-qE7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="toDoTableView" destination="Hpi-IS-lYv" id="0eC-Mr-6bh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="84" y="116"/>
+        </scene>
+        <!--AddTodo-->
+        <scene sceneID="86e-CI-Ikf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddTodo" id="tff-iP-Xzw" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oja-V5-Vqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="757" y="580"/>
+        </scene>
+        <!--View And Edit Task View Controller-->
+        <scene sceneID="uqv-az-1eW">
+            <objects>
+                <viewController storyboardIdentifier="viewAndEditTask" id="ItQ-Qx-z6T" customClass="ViewAndEditTaskViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jVw-4y-5VS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeK-23-dlW">
+                                <rect key="frame" x="47" y="143.5" width="281" height="400"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Title" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCE-mz-MuV">
+                                        <rect key="frame" x="15" y="10" width="251" height="36.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36.5" id="av2-hS-5Ja"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emo-s2-iTb">
+                                        <rect key="frame" x="15" y="306.5" width="251" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" red="0.1195555831" green="0.67192842119999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchEdit:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="vcP-0c-QhG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-1k-zaM">
+                                        <rect key="frame" x="16" y="348" width="250" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <state key="normal" title="Close"/>
+                                        <connections>
+                                            <action selector="touchClose:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="H4k-Z8-j8K"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="15" id="0zh-Eh-5hg"/>
+                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="centerX" secondItem="KeK-23-dlW" secondAttribute="centerX" id="9sa-CS-E2Z"/>
+                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iCE-mz-MuV" secondAttribute="bottom" constant="10" id="Ci8-qs-RKZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="31q-1k-zaM" secondAttribute="bottom" constant="20" id="F9m-Uu-P96"/>
+                                    <constraint firstAttribute="trailing" secondItem="31q-1k-zaM" secondAttribute="trailing" constant="15" id="Roe-hH-Uk4"/>
+                                    <constraint firstItem="iCE-mz-MuV" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="15" id="dA8-4z-dW0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Emo-s2-iTb" secondAttribute="trailing" constant="15" id="etE-6L-bF4"/>
+                                    <constraint firstItem="iCE-mz-MuV" firstAttribute="top" secondItem="KeK-23-dlW" secondAttribute="top" constant="10" id="gxP-z9-nWj"/>
+                                    <constraint firstItem="31q-1k-zaM" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="16" id="q7O-qM-YaF"/>
+                                    <constraint firstItem="31q-1k-zaM" firstAttribute="top" secondItem="Emo-s2-iTb" secondAttribute="bottom" constant="9.5" id="vcX-5X-kI6"/>
+                                    <constraint firstAttribute="trailing" secondItem="iCE-mz-MuV" secondAttribute="trailing" constant="15" id="zuT-ny-nWY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85574635152284262" green="0.85574635152284262" blue="0.85574635152284262" alpha="0.69563356164383561" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KeK-23-dlW" firstAttribute="centerX" secondItem="iVx-1y-lGI" secondAttribute="centerX" id="5fH-CT-s9z"/>
+                            <constraint firstItem="KeK-23-dlW" firstAttribute="height" secondItem="jVw-4y-5VS" secondAttribute="height" multiplier="0.6" id="Sal-Ss-Woc"/>
+                            <constraint firstItem="KeK-23-dlW" firstAttribute="centerY" secondItem="iVx-1y-lGI" secondAttribute="centerY" id="XvP-HS-jG1"/>
+                            <constraint firstItem="KeK-23-dlW" firstAttribute="width" secondItem="jVw-4y-5VS" secondAttribute="width" multiplier="0.75" id="slE-fo-Xu5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iVx-1y-lGI"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="31q-1k-zaM" id="4Pj-Xb-c9l"/>
+                        <outlet property="editButton" destination="Emo-s2-iTb" id="j2M-kd-53T"/>
+                        <outlet property="popUpView" destination="KeK-23-dlW" id="JMD-zR-RU6"/>
+                        <outlet property="titleTextView" destination="iCE-mz-MuV" id="JOQ-Sp-27G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7OI-05-ss4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1496.8" y="124.58770614692655"/>
+        </scene>
+    </scenes>
+</document>
