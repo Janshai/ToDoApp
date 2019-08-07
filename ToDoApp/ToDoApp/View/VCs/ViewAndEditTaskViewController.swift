@@ -11,6 +11,11 @@ import UIKit
 class ViewAndEditTaskViewController: UIViewController {
     
     var todo: Todo!
+    var taskIndex: Int!
+    var todoModelController: ToDoModelController!
+    var changed = false
+    var callback: ((Bool) -> Void)?
+    
     var isEditingTodo = false {
         didSet {
             if isEditingTodo {
@@ -53,17 +58,19 @@ class ViewAndEditTaskViewController: UIViewController {
     }
     @IBAction func touchEdit(_ sender: UIButton) {
         if isEditingTodo {
-            todo = Todo(title: titleTextView.text, id: todo.id)
-            if let presenter = presentingViewController as? TasksTableViewController {
-                presenter.editTask(withId: todo.id, toNowEqual: todo)
-                
-            }
+            // create dict of values
+            let dict = createNewValuesDict()
+            changed = true
+            //call edit todo on model controller
+            todoModelController.editTodo(withIdentifier: todo.id, andNewValues: dict) {_ in}
         }
         isEditingTodo = !isEditingTodo
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        todo = todoModelController.getTodo(atIndex: taskIndex)
         
         titleTextView.text = todo.title
         titleTextView.delegate = self
@@ -82,8 +89,16 @@ class ViewAndEditTaskViewController: UIViewController {
         closeButton.layer.borderWidth = 1.0
         popUpView.layer.cornerRadius = 5.0
         
-
+        
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if let completion = callback {
+            completion(changed)
+        }
     }
     
 
@@ -100,6 +115,15 @@ class ViewAndEditTaskViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func createNewValuesDict() -> [TodoFields:Encodable] {
+        var dict: [TodoFields:Encodable] = [:]
+        if titleTextView.text != todo.title {
+            dict[.title] = titleTextView.text
+        }
+        
+        return dict
+    }
 
 }
 
@@ -120,7 +144,6 @@ extension ViewAndEditTaskViewController: UITextViewDelegate {
                     constraint.constant = estimatedSize.height
                 }
             }
-            
         })
     }
 }

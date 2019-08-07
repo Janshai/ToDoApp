@@ -15,9 +15,25 @@ class AddToDoViewController: UIViewController {
     
     @IBAction func touchPlusButton(_ sender: UIButton) {
         
-        if let presenter = presentingViewController as? TasksTableViewController {
-            if let input = TitleTextField.text {
-                presenter.addNewTask(withTitle: input)
+        //TODO: fix this in the same way i fixed it in the edit vc
+        if let title = self.TitleTextField.text {
+            DispatchQueue.global(qos: .userInitiated).async {
+                //TODO: pop up an error message if the todo doesn't add correctly and handle that.
+               
+                self.todoModelController.addTodo(withTitle: title){ result in
+                    switch result {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            if let completion = self.callback {
+                                completion(true)
+                            }
+                            
+                        }
+                    case .failure(_): print("Failure caught in VC")
+                    }
+                }
+                
+                
             }
         }
         hideKeyboard()
@@ -28,6 +44,9 @@ class AddToDoViewController: UIViewController {
         hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
+    
+    var todoModelController: ToDoModelController!
+    var callback: ((Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()

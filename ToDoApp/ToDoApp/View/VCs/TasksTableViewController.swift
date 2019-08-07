@@ -9,14 +9,19 @@
 import UIKit
 
 class TasksTableViewController: UIViewController {
-    
-    let model = ToDoModelController()
+   
+    let initialTodoLoadingGroup = DispatchGroup()
+    lazy var model: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
+   
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
+    
     let selectSegueIdetifier = "showTask"
-    var selectedTask: (task: Todo?, path: IndexPath?) = (nil, nil) {
+    let addTodoSegueIdentifier =  "addToDo"
+    
+    var selectedTaskIndex: Int? {
         didSet {
-            if selectedTask.task != nil {
+            if selectedTaskIndex != nil {
                 performSegue(withIdentifier: selectSegueIdetifier, sender: nil)
             }
         }
@@ -27,12 +32,36 @@ class TasksTableViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let loadingView = UIActivityIndicatorView()
+        setup(LoadingView: loadingView)
+        
+        
         tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: model, vc: self)
         
         tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: model)
         
+        initialTodoLoadingGroup.notify(queue: .main) {
+            loadingView.stopAnimating()
+            self.toDoTableView.reloadData()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
         
-        
+    }
+    
+    func editModalCompletion(withChanges changed: Bool) {
+        if changed {
+            if let index = selectedTaskIndex {
+                let path = IndexPath(row: index, section: 0)
+                toDoTableView.reloadRows(at: [path], with: .fade)
+                selectedTaskIndex = nil
+            }
+        }
+    }
+    
+    func addTodoCompletion(withChanges changed: Bool) {
+        if changed {
+            toDoTableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,21 +72,14 @@ class TasksTableViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == selectSegueIdetifier {
             let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-            viewAndEditTaskController?.todo = selectedTask.task
+            viewAndEditTaskController?.taskIndex = selectedTaskIndex
+            viewAndEditTaskController?.todoModelController = model
+            viewAndEditTaskController?.callback = editModalCompletion(withChanges:)
+        } else if segue.identifier == addTodoSegueIdentifier {
+            let addTodoController = segue.destination as? AddToDoViewController
+            addTodoController?.todoModelController = model
+            addTodoController?.callback = addTodoCompletion(withChanges:)
         }
-    }
-    
-    func addNewTask(withTitle title: String) {
-        model.addTodo(withTitle: title)
-        toDoTableView.reloadData()
-    }
-    
-    func editTask(withId id: UUID, toNowEqual todo: Todo) {
-        model.editTodo(withIdentifier: id, toNowEqual: todo)
-        if let path = selectedTask.path {
-            toDoTableView.reloadRows(at: [path], with: .fade)
-        }
-        
     }
     
     func deleteTableViewData(atRow indexPath: IndexPath, withAnimation animation: UITableView.RowAnimation) {
@@ -68,6 +90,15 @@ class TasksTableViewController: UIViewController {
     }
     
     @IBOutlet weak var toDoTableView: UITableView!
+    
+    func setup(LoadingView loadingView: UIActivityIndicatorView) {
+        loadingView.hidesWhenStopped = true
+        loadingView.center = self.view.center
+        loadingView.style = .gray
+        view.addSubview(loadingView)
+        loadingView.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
     
     
 }
