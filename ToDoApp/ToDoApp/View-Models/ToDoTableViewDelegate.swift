@@ -24,7 +24,7 @@ class ToDoTableViewDelegate: NSObject {
     private func contextualDeletionAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
         let todo = toDoModelController.getTodo(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
-            self.toDoModelController.deleteTodo(withIdentifier: todo.id)
+            self.toDoModelController.deleteTodo(withIdentifier: todo.id) {_ in }
             self.vc.deleteTableViewData(atRow: indexPath, withAnimation: .left)
             completionHandler(true)
         }
@@ -35,7 +35,7 @@ class ToDoTableViewDelegate: NSObject {
     private func contextualCompletionAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
         let todo = toDoModelController.getTodo(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "Complete") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
-            self.toDoModelController.deleteTodo(withIdentifier: todo.id)
+            self.toDoModelController.deleteTodo(withIdentifier: todo.id) {_ in }
             self.vc.deleteTableViewData(atRow: indexPath, withAnimation: .right)
             completionHandler(true)
         }
@@ -48,7 +48,7 @@ class ToDoTableViewDelegate: NSObject {
 extension ToDoTableViewDelegate: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        vc.selectedTask = (toDoModelController.getTodo(atIndex: indexPath.row), indexPath)
+        vc.selectedTaskIndex = indexPath.row
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         

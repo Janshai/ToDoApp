@@ -24,8 +24,16 @@ class NetworkTodoDataProvider: TodoDataProvider {
         }
     }
     
-    func updateTodo(withID: String, toMatch: Todo) {
-        
+    func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable]) {
+        let params = TodoParameters(withFieldsDict: values)
+        let url = baseURL + "/" + id
+        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseJSON() { response in
+            
+            switch response.result {
+            case .success(let json): print(json)
+            case .failure(let error): print(error)
+            }
+        }
     }
     
     func deleteTodo(withID id: String) {
@@ -69,7 +77,7 @@ protocol TodoDataProvider {
     
     func addTodo(withValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
-    func updateTodo(withID: String, toMatch: Todo)
+    func updateTodo(withID: String, withNewValues: [TodoFields: Encodable])
     
     func deleteTodo(withID: String)
 }

@@ -17,10 +17,11 @@ class TasksTableViewController: UIViewController {
     var tableViewDelegate: ToDoTableViewDelegate?
     
     let selectSegueIdetifier = "showTask"
+    let addTodoSegueIdentifier =  "addToDo"
     
-    var selectedTask: (task: Todo?, path: IndexPath?) = (nil, nil) {
+    var selectedTaskIndex: Int? {
         didSet {
-            if selectedTask.task != nil {
+            if selectedTaskIndex != nil {
                 performSegue(withIdentifier: selectSegueIdetifier, sender: nil)
             }
         }
@@ -46,6 +47,22 @@ class TasksTableViewController: UIViewController {
         }
         
     }
+    
+    func editModalCompletion(withChanges changed: Bool) {
+        if changed {
+            if let index = selectedTaskIndex {
+                let path = IndexPath(row: index, section: 0)
+                toDoTableView.reloadRows(at: [path], with: .fade)
+                selectedTaskIndex = nil
+            }
+        }
+    }
+    
+    func addTodoCompletion(withChanges changed: Bool) {
+        if changed {
+            toDoTableView.reloadData()
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,27 +72,14 @@ class TasksTableViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == selectSegueIdetifier {
             let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-            viewAndEditTaskController?.todo = selectedTask.task
+            viewAndEditTaskController?.taskIndex = selectedTaskIndex
+            viewAndEditTaskController?.todoModelController = model
+            viewAndEditTaskController?.callback = editModalCompletion(withChanges:)
+        } else if segue.identifier == addTodoSegueIdentifier {
+            let addTodoController = segue.destination as? AddToDoViewController
+            addTodoController?.todoModelController = model
+            addTodoController?.callback = addTodoCompletion(withChanges:)
         }
-    }
-    
-    func addNewTask(withTitle title: String) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            //TODO: pop up an error message if the todo doesn't add correctly and handle that.
-            self.model.addTodo(withTitle: title)
-            DispatchQueue.main.async {
-                self.toDoTableView.reloadData()
-            }
-        }
-        
-    }
-    
-    func editTask(withId id: String, toNowEqual todo: Todo) {
-        model.editTodo(withIdentifier: id, toNowEqual: todo)
-        if let path = selectedTask.path {
-            toDoTableView.reloadRows(at: [path], with: .fade)
-        }
-        
     }
     
     func deleteTableViewData(atRow indexPath: IndexPath, withAnimation animation: UITableView.RowAnimation) {

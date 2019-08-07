@@ -148,8 +148,8 @@
 		040A744522F88DF500E67C5F /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
 				040A744F22F9D58E00E67C5F /* AddTodo.storyboard */,
+				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
