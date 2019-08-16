@@ -18,12 +18,17 @@ class NetworkTodoDataProvider: TodoDataProvider {
     func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
         let decoder = createDecoderForMongoDates()
         let params = TodoParameters(withFieldsDict: values)
-        AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<Todo>) in
-            completion(response.result)
+        
+        AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
+            
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todos): completion(.success(todos[0]))
+            case .failure(let error): completion(.failure(error))
+            }
 
         }
     }
-    
+
     func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable]) {
         let params = TodoParameters(withFieldsDict: values)
         let url = baseURL + "/" + id
@@ -47,8 +52,12 @@ class NetworkTodoDataProvider: TodoDataProvider {
         
         let decoder = createDecoderForMongoDates()
         
-        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<[Todo]>) in
-            completion(response.result)
+        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todos): completion(.success(todos))
+            case .failure(let error): completion(.failure(error))
+            }
+
         }
     }
     
@@ -66,6 +75,30 @@ class NetworkTodoDataProvider: TodoDataProvider {
             }
         }
         return decoder
+    }
+    
+    private func handleErrors(forTodoDataResponse response: DataResponse<TodoResponse>) -> Result<[Todo], Error> {
+        switch response.result {
+        case .failure(let error): return .failure(error)
+        case .success(let todoResponse):
+            if todoResponse.success {
+                
+                if let todo = todoResponse.todo {
+                    return .success([todo])
+                } else if let todos = todoResponse.todos {
+                    return .success(todos)
+                } else {
+                    return .failure(NSError(domain: "Invalid Response", code: 0000))
+                }
+            } else {
+                
+                if let error = todoResponse.error {
+                    return .failure(NSError(domain: error, code: 0000))
+                } else {
+                    return .failure(NSError(domain: "Invalid Response", code: 0000))
+                }
+            }
+        }
     }
     
 }
