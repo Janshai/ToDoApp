@@ -19,8 +19,6 @@ class ViewAndEditTaskViewController: UIViewController {
     var isEditingTodo = false {
         didSet {
             if isEditingTodo {
-                editButton.setTitleColor(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), for: .normal)
-                editButton.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 editButton.setTitle("Save", for: .normal)
                 closeButton.setTitle("Cancel", for: .normal)
                 titleTextView.isEditable = true
@@ -31,8 +29,6 @@ class ViewAndEditTaskViewController: UIViewController {
                 
                 
             } else {
-                editButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), for: .normal)
-                editButton.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
                 editButton.setTitle("Edit", for: .normal)
                 closeButton.setTitle("Close", for: .normal)
                 titleTextView.isEditable = false
@@ -44,7 +40,6 @@ class ViewAndEditTaskViewController: UIViewController {
         }
     }
     @IBOutlet weak var titleTextView: UITextView!
-    @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBAction func touchClose(_ sender: UIButton) {
@@ -79,16 +74,14 @@ class ViewAndEditTaskViewController: UIViewController {
         titleTextView.layer.borderColor = UIColor.lightGray.cgColor
         titleTextView.layer.borderWidth = 1.0
         titleTextView.doneAccessory = true
-        editButton.layer.cornerRadius = 5.0
-        editButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), for: .normal)
-        editButton.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        editButton.layer.borderWidth = 1.0
-        closeButton.layer.cornerRadius = 5.0
-        closeButton.setTitleColor(#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), for: .normal)
-        closeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        closeButton.layer.borderWidth = 1.0
-        popUpView.layer.cornerRadius = 5.0
-        
+//        editButton.layer.cornerRadius = 5.0
+//        editButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), for: .normal)
+//        editButton.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+//        editButton.layer.borderWidth = 1.0
+//        closeButton.layer.cornerRadius = 5.0
+//        closeButton.setTitleColor(#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), for: .normal)
+//        closeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+//        closeButton.layer.borderWidth = 1.0
         
         
         
@@ -129,22 +122,22 @@ class ViewAndEditTaskViewController: UIViewController {
 
 extension ViewAndEditTaskViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: popUpView.frame.width - 30, height: popUpView.frame.height)
-        let estimatedSize = textView.sizeThatFits(size)
-        print(estimatedSize)
-        if UIDevice.current.orientation.isLandscape {
-            textView.isScrollEnabled = estimatedSize.height > 150
-        } else {
-            textView.isScrollEnabled = estimatedSize.height > 320
-        }
-        
-        textView.constraints.forEach({(constraint) in
-            if !textView.isScrollEnabled {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
-        })
+//        let size = CGSize(width: popUpView.frame.width - 30, height: popUpView.frame.height)
+//        let estimatedSize = textView.sizeThatFits(size)
+//        print(estimatedSize)
+//        if UIDevice.current.orientation.isLandscape {
+//            textView.isScrollEnabled = estimatedSize.height > 150
+//        } else {
+//            textView.isScrollEnabled = estimatedSize.height > 320
+//        }
+//
+//        textView.constraints.forEach({(constraint) in
+//            if !textView.isScrollEnabled {
+//                if constraint.firstAttribute == .height {
+//                    constraint.constant = estimatedSize.height
+//                }
+//            }
+//        })
     }
 }
 

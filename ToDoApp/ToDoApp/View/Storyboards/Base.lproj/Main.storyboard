@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -55,7 +56,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="ItQ-Qx-z6T" kind="presentation" identifier="showTask" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="QIQ-XP-QMj"/>
+                                            <segue destination="ItQ-Qx-z6T" kind="presentation" identifier="showTask" modalPresentationStyle="overFullScreen" id="QIQ-XP-QMj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -97,11 +98,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeK-23-dlW">
-                                <rect key="frame" x="47" y="143.5" width="281" height="400"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="3KI-tn-ip0">
+                                <rect key="frame" x="37.5" y="40" width="300" height="627"/>
                                 <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="d6m-5F-urv">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emo-s2-iTb">
+                                                <rect key="frame" x="0.0" y="0.0" width="146" height="32"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <state key="normal" title="Edit"/>
+                                                <connections>
+                                                    <action selector="touchEdit:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="vcP-0c-QhG"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-1k-zaM">
+                                                <rect key="frame" x="154" y="0.0" width="146" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <state key="normal" title="Close"/>
+                                                <connections>
+                                                    <action selector="touchClose:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="H4k-Z8-j8K"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Title" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCE-mz-MuV">
-                                        <rect key="frame" x="15" y="10" width="251" height="36.5"/>
+                                        <rect key="frame" x="0.0" y="57" width="300" height="36.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36.5" id="av2-hS-5Ja"/>
@@ -109,55 +132,25 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emo-s2-iTb">
-                                        <rect key="frame" x="15" y="306.5" width="251" height="32"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                        <state key="normal" title="Edit">
-                                            <color key="titleColor" red="0.1195555831" green="0.67192842119999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="touchEdit:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="vcP-0c-QhG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31q-1k-zaM">
-                                        <rect key="frame" x="16" y="348" width="250" height="32"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                        <state key="normal" title="Close"/>
-                                        <connections>
-                                            <action selector="touchClose:" destination="ItQ-Qx-z6T" eventType="touchUpInside" id="H4k-Z8-j8K"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbl-JY-MHp">
+                                        <rect key="frame" x="0.0" y="118.5" width="300" height="508.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="15" id="0zh-Eh-5hg"/>
-                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="centerX" secondItem="KeK-23-dlW" secondAttribute="centerX" id="9sa-CS-E2Z"/>
-                                    <constraint firstItem="Emo-s2-iTb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iCE-mz-MuV" secondAttribute="bottom" constant="10" id="Ci8-qs-RKZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="31q-1k-zaM" secondAttribute="bottom" constant="20" id="F9m-Uu-P96"/>
-                                    <constraint firstAttribute="trailing" secondItem="31q-1k-zaM" secondAttribute="trailing" constant="15" id="Roe-hH-Uk4"/>
-                                    <constraint firstItem="iCE-mz-MuV" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="15" id="dA8-4z-dW0"/>
-                                    <constraint firstAttribute="trailing" secondItem="Emo-s2-iTb" secondAttribute="trailing" constant="15" id="etE-6L-bF4"/>
-                                    <constraint firstItem="iCE-mz-MuV" firstAttribute="top" secondItem="KeK-23-dlW" secondAttribute="top" constant="10" id="gxP-z9-nWj"/>
-                                    <constraint firstItem="31q-1k-zaM" firstAttribute="leading" secondItem="KeK-23-dlW" secondAttribute="leading" constant="16" id="q7O-qM-YaF"/>
-                                    <constraint firstItem="31q-1k-zaM" firstAttribute="top" secondItem="Emo-s2-iTb" secondAttribute="bottom" constant="9.5" id="vcX-5X-kI6"/>
-                                    <constraint firstAttribute="trailing" secondItem="iCE-mz-MuV" secondAttribute="trailing" constant="15" id="zuT-ny-nWY"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.85574635152284262" green="0.85574635152284262" blue="0.85574635152284262" alpha="0.69563356164383561" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KeK-23-dlW" firstAttribute="centerX" secondItem="iVx-1y-lGI" secondAttribute="centerX" id="5fH-CT-s9z"/>
-                            <constraint firstItem="KeK-23-dlW" firstAttribute="height" secondItem="jVw-4y-5VS" secondAttribute="height" multiplier="0.6" id="Sal-Ss-Woc"/>
-                            <constraint firstItem="KeK-23-dlW" firstAttribute="centerY" secondItem="iVx-1y-lGI" secondAttribute="centerY" id="XvP-HS-jG1"/>
-                            <constraint firstItem="KeK-23-dlW" firstAttribute="width" secondItem="jVw-4y-5VS" secondAttribute="width" multiplier="0.75" id="slE-fo-Xu5"/>
+                            <constraint firstItem="iVx-1y-lGI" firstAttribute="bottom" secondItem="3KI-tn-ip0" secondAttribute="bottom" id="ZyL-Rf-Tb4"/>
+                            <constraint firstItem="3KI-tn-ip0" firstAttribute="top" secondItem="iVx-1y-lGI" secondAttribute="top" constant="20" id="anA-Os-lAw"/>
+                            <constraint firstItem="3KI-tn-ip0" firstAttribute="width" secondItem="jVw-4y-5VS" secondAttribute="width" multiplier="0.8" id="blY-TK-kyp"/>
+                            <constraint firstItem="3KI-tn-ip0" firstAttribute="centerX" secondItem="iVx-1y-lGI" secondAttribute="centerX" id="tZ1-Bh-Oq1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iVx-1y-lGI"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="31q-1k-zaM" id="4Pj-Xb-c9l"/>
                         <outlet property="editButton" destination="Emo-s2-iTb" id="j2M-kd-53T"/>
-                        <outlet property="popUpView" destination="KeK-23-dlW" id="JMD-zR-RU6"/>
                         <outlet property="titleTextView" destination="iCE-mz-MuV" id="JOQ-Sp-27G"/>
                     </connections>
                 </viewController>
