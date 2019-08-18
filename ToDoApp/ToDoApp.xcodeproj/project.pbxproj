@@ -28,6 +28,9 @@
 		04E775A22309A56C00D1EFBB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A12309A56C00D1EFBB /* Category.swift */; };
 		04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A32309A66300D1EFBB /* CategoryModelController.swift */; };
 		04E775A72309CC9500D1EFBB /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */; };
+		04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */; };
+		04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */; };
+		04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */; };
 		DB7FF87A151B8867E4BFEAE4 /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +58,9 @@
 		04E775A12309A56C00D1EFBB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		04E775A32309A66300D1EFBB /* CategoryModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelController.swift; sourceTree = "<group>"; };
 		04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDataSource.swift; sourceTree = "<group>"; };
+		04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDelegate.swift; sourceTree = "<group>"; };
+		04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		426088FDFCEE450558585D89 /* Pods-ToDoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8FEC3622F035665FE52FE6F /* Pods-ToDoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +128,8 @@
 			children = (
 				040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */,
 				040A6A3F22C813530035D7BC /* ToDoTableViewDataSource.swift */,
+				04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */,
+				04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */,
 			);
 			path = "View-Models";
 			sourceTree = "<group>";
@@ -187,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */,
+				04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,10 +335,13 @@
 				040A6A2F22C73A8F0035D7BC /* ToDoApp.xcdatamodeld in Sources */,
 				04E7759F2307374700D1EFBB /* TodoResponse.swift in Sources */,
 				040A6A4022C813530035D7BC /* ToDoTableViewDataSource.swift in Sources */,
+				04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */,
 				040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */,
 				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
+				04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
+				04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */,
 				040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */,
 				047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */,
 				040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */,

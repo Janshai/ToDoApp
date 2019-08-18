@@ -16,6 +16,9 @@ class ViewAndEditTaskViewController: UIViewController {
     var changed = false
     var callback: ((Bool) -> Void)?
     
+    var categoryCollectionDataSource: CategoriesCollectionDataSource?
+    var categoryCollectionDelegate: CategoriesCollectionDelegate?
+    
     var isEditingTodo = false {
         didSet {
             if isEditingTodo {
@@ -42,6 +45,10 @@ class ViewAndEditTaskViewController: UIViewController {
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var categoriesCollectionView: UICollectionView!
+    
+    
+    
     @IBAction func touchClose(_ sender: UIButton) {
         if isEditingTodo {
             titleTextView.text = todo.title
@@ -67,6 +74,12 @@ class ViewAndEditTaskViewController: UIViewController {
         
         todo = todoModelController.getTodo(atIndex: taskIndex)
         
+        categoryCollectionDelegate = CategoriesCollectionDelegate()
+        categoryCollectionDataSource = CategoriesCollectionDataSource()
+        
+        categoriesCollectionView.delegate = categoryCollectionDelegate
+        categoriesCollectionView.dataSource = categoryCollectionDataSource
+        
         titleTextView.text = todo.title
         titleTextView.delegate = self
         titleTextView.autocorrectionType = .no
@@ -74,16 +87,6 @@ class ViewAndEditTaskViewController: UIViewController {
         titleTextView.layer.borderColor = UIColor.lightGray.cgColor
         titleTextView.layer.borderWidth = 1.0
         titleTextView.doneAccessory = true
-//        editButton.layer.cornerRadius = 5.0
-//        editButton.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), for: .normal)
-//        editButton.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-//        editButton.layer.borderWidth = 1.0
-//        closeButton.layer.cornerRadius = 5.0
-//        closeButton.setTitleColor(#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), for: .normal)
-//        closeButton.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-//        closeButton.layer.borderWidth = 1.0
-        
-        
         
         // Do any additional setup after loading the view.
     }
