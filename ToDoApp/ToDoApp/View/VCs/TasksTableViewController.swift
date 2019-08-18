@@ -11,7 +11,8 @@ import UIKit
 class TasksTableViewController: UIViewController {
    
     let initialTodoLoadingGroup = DispatchGroup()
-    lazy var model: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
+    lazy var todoModelController: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
+    lazy var categoryModelController: CategoryModelController = CategoryModelController()
    
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
@@ -36,9 +37,9 @@ class TasksTableViewController: UIViewController {
         setup(LoadingView: loadingView)
         
         
-        tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: model, vc: self)
+        tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: todoModelController, vc: self)
         
-        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: model)
+        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: todoModelController, categoryModelController: categoryModelController)
         
         initialTodoLoadingGroup.notify(queue: .main) {
             loadingView.stopAnimating()
@@ -73,11 +74,11 @@ class TasksTableViewController: UIViewController {
         if segue.identifier == selectSegueIdetifier {
             let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
             viewAndEditTaskController?.taskIndex = selectedTaskIndex
-            viewAndEditTaskController?.todoModelController = model
+            viewAndEditTaskController?.todoModelController = todoModelController
             viewAndEditTaskController?.callback = editModalCompletion(withChanges:)
         } else if segue.identifier == addTodoSegueIdentifier {
             let addTodoController = segue.destination as? AddToDoViewController
-            addTodoController?.todoModelController = model
+            addTodoController?.todoModelController = todoModelController
             addTodoController?.callback = addTodoCompletion(withChanges:)
         }
     }

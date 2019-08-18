@@ -12,11 +12,14 @@ import UIKit
 class ToDoTableViewDataSource: NSObject {
     
     private var toDoModelController: ToDoModelController
+    private var categoryModelController: CategoryModelController
     
-    init(tableview: UITableView, toDoModelController: ToDoModelController) {
+    init(tableview: UITableView, toDoModelController: ToDoModelController, categoryModelController: CategoryModelController) {
         self.toDoModelController = toDoModelController
+        self.categoryModelController = categoryModelController
         super.init()
         tableview.dataSource = self
+        
         
     }
 }
@@ -27,10 +30,24 @@ extension ToDoTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = toDoModelController.getTodo(atIndex: indexPath.row).title
-        cell.selectionStyle = .none
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell {
+            let todo = toDoModelController.getTodo(atIndex: indexPath.row)
+            cell.taskTitleLabel.text = todo.title
+            if todo.categoryIDs.count > 0, let category = categoryModelController.getCategory(withID: todo.categoryIDs[0]) {
+                cell.primaryCategoryLabel.text = category.name
+                cell.emojiLabel.text = "😀"
+            } else {
+                cell.primaryCategoryLabel.text = ""
+            }
+            cell.selectionStyle = .none
+            return cell
+        } else {
+            let errorCell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            errorCell.textLabel?.text = toDoModelController.getTodo(atIndex: indexPath.row).title
+            errorCell.selectionStyle = .none
+            return errorCell
+        }
+        
     }
     
     
