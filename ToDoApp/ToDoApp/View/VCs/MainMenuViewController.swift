@@ -22,9 +22,7 @@ class MainMenuViewController: UIViewController {
         super.viewDidLoad()
         
         tableviewDataSource = MMTableViewDataSource(tableView: tableView, categoryModelController: categoryModelController)
-        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController) { (_, display) in
-            self.performSegue(withIdentifier: self.todoScreenSegue, sender: display)
-        }
+        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController, selectRowAction: tableViewSelectBehaviour(_:display:), editBehaviour: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -33,6 +31,10 @@ class MainMenuViewController: UIViewController {
             todoVC.displaying = display
             todoVC.categoryModelController = self.categoryModelController
         }
+    }
+    
+    private func tableViewSelectBehaviour(_: UITableView, display: TaskDisplay) {
+        performSegue(withIdentifier: todoScreenSegue, sender: display)
     }
 
 }

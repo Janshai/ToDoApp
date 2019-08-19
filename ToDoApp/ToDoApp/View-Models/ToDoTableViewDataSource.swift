@@ -42,7 +42,9 @@ class ToDoTableViewDataSource: NSObject {
 
 extension ToDoTableViewDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoModelController.numberOfTodos(applyingFilter: createCorrectFilter())
+        let numberOfRows = toDoModelController.numberOfTodos(applyingFilter: createCorrectFilter())
+        
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

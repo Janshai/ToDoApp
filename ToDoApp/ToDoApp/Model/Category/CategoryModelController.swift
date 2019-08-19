@@ -22,7 +22,9 @@ class CategoryModelController {
     
     init () {
         self.categories = [Category(name: "Productivity"),
-                           Category(name: "School")]
+                           Category(name: "School"),
+                           Category(name: "Work"),
+                           Category(name: "Reading")]
     }
     
     public func getCategory(withID id: String) -> Category? {
@@ -35,6 +37,10 @@ class CategoryModelController {
     
     public func getCategory(atIndex index: Int) -> Category {
         return categories[index]
+    }
+    
+    public func deleteCategory(withID id: String) {
+        categories.removeAll() { $0.id == id }
     }
     
 }

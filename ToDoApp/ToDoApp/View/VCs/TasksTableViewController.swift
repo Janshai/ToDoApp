@@ -38,6 +38,14 @@ class TasksTableViewController: UIViewController {
         let loadingView = UIActivityIndicatorView()
         setup(LoadingView: loadingView)
         
+        switch displaying! {
+        case .allTodos:
+            navigationItem.title = "All Todos"
+        case .category(let category):
+            navigationItem.title = category.name
+        }
+        
+        
         
         tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: todoModelController, vc: self)
         
