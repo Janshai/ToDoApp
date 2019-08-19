@@ -12,7 +12,9 @@ class TasksTableViewController: UIViewController {
    
     let initialTodoLoadingGroup = DispatchGroup()
     lazy var todoModelController: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
-    lazy var categoryModelController: CategoryModelController = CategoryModelController()
+    var categoryModelController: CategoryModelController!
+    
+    var displaying: String!
    
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?

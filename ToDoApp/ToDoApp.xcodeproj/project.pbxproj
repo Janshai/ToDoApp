@@ -31,6 +31,9 @@
 		04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */; };
 		04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */; };
 		04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */; };
+		04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */; };
+		04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */; };
+		04E775B3230AFEFA00D1EFBB /* MMTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */; };
 		DB7FF87A151B8867E4BFEAE4 /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +64,9 @@
 		04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDataSource.swift; sourceTree = "<group>"; };
 		04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDelegate.swift; sourceTree = "<group>"; };
 		04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewAndEditTodo.storyboard; sourceTree = "<group>"; };
+		04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTableViewDataSource.swift; sourceTree = "<group>"; };
 		426088FDFCEE450558585D89 /* Pods-ToDoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8FEC3622F035665FE52FE6F /* Pods-ToDoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +136,7 @@
 				040A6A3F22C813530035D7BC /* ToDoTableViewDataSource.swift */,
 				04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */,
 				04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */,
+				04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */,
 			);
 			path = "View-Models";
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 				047E115F22ECB33D00097A8E /* TasksTableViewController.swift */,
 				047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */,
 				040A6A4322C94A100035D7BC /* AddToDoViewController.swift */,
+				04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -169,6 +177,7 @@
 			children = (
 				040A744F22F9D58E00E67C5F /* AddTodo.storyboard */,
 				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
+				04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -281,6 +290,7 @@
 				040A6A3422C73A900035D7BC /* LaunchScreen.storyboard in Resources */,
 				040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */,
 				040A6A3122C73A900035D7BC /* Assets.xcassets in Resources */,
+				04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */,
 				040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */,
 				040A6A2C22C73A8F0035D7BC /* Main.storyboard in Resources */,
 			);
@@ -347,8 +357,10 @@
 				040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */,
 				04E775A72309CC9500D1EFBB /* TodoTableViewCell.swift in Sources */,
 				047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */,
+				04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */,
 				040A6A3E22C7D5C70035D7BC /* Todo.swift in Sources */,
 				04E775A22309A56C00D1EFBB /* Category.swift in Sources */,
+				04E775B3230AFEFA00D1EFBB /* MMTableViewDataSource.swift in Sources */,
 				04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

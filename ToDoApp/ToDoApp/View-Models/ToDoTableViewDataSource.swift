@@ -30,7 +30,7 @@ extension ToDoTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TodoTableViewCell {
             let todo = toDoModelController.getTodo(atIndex: indexPath.row)
             cell.taskTitleLabel.text = todo.title
             if todo.categoryIDs.count > 0, let category = categoryModelController.getCategory(withID: todo.categoryIDs[0]) {
