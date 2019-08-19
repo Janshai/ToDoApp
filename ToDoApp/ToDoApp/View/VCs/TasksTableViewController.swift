@@ -14,7 +14,7 @@ class TasksTableViewController: UIViewController {
     lazy var todoModelController: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
     var categoryModelController: CategoryModelController!
     
-    var displaying: String!
+    var displaying: TaskDisplay!
    
     var tableViewDataSource: ToDoTableViewDataSource?
     var tableViewDelegate: ToDoTableViewDelegate?
@@ -41,7 +41,7 @@ class TasksTableViewController: UIViewController {
         
         tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: todoModelController, vc: self)
         
-        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: todoModelController, categoryModelController: categoryModelController)
+        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: todoModelController, categoryModelController: categoryModelController, displaying: displaying)
         
         initialTodoLoadingGroup.notify(queue: .main) {
             loadingView.stopAnimating()
@@ -50,6 +50,7 @@ class TasksTableViewController: UIViewController {
         }
         
     }
+    
     
     func editModalCompletion(withChanges changed: Bool) {
         if changed {

@@ -13,9 +13,6 @@ class ToDoModelController {
     
     private var todoDataProvider: TodoDataProvider
     private var todos: [Todo] = []
-    var numberOfTodos: Int {
-        return todos.count
-    }
     
     //TODO: make init optional and then handle this at the front end by hiding the tableview and displaying try again later message
     
@@ -32,8 +29,22 @@ class ToDoModelController {
 
     }
     
-    func getTodo(atIndex index: Int) -> Todo {
-        return todos[index]
+    func numberOfTodos(applyingFilter filter: ((Todo) -> Bool)? = nil) -> Int {
+        if let setFilter = filter {
+            return todos.filter(setFilter).count
+        } else {
+            return todos.count
+        }
+    }
+    
+    func getTodo(atIndex index: Int, applyingFilter filter: ((Todo) -> Bool)? = nil) -> Todo {
+        if let setFilter = filter {
+            let filteredTodos = todos.filter(setFilter)
+            return filteredTodos[index]
+        } else {
+            return todos[index]
+        }
+        
     }
     
     func addTodo(withTitle title: String, andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void){

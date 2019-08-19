@@ -12,6 +12,7 @@ class MainMenuViewController: UIViewController {
 
     let todoScreenSegue = "TodoScreen"
     var tableviewDataSource: UITableViewDataSource?
+    var tableviewDelegate: UITableViewDelegate?
     lazy var categoryModelController = CategoryModelController()
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,25 +21,18 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableviewDataSource = MMTableViewDataSource()
-        
-        tableView.delegate = self
-        tableView.dataSource = tableviewDataSource
+        tableviewDataSource = MMTableViewDataSource(tableView: tableView, categoryModelController: categoryModelController)
+        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController) { (_, display) in
+            self.performSegue(withIdentifier: self.todoScreenSegue, sender: display)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == todoScreenSegue, let display = sender as? String, let todoVC = segue.destination as? TasksTableViewController {
+        if segue.identifier == todoScreenSegue, let display = sender as? TaskDisplay, let todoVC = segue.destination as? TasksTableViewController {
             todoVC.displaying = display
             todoVC.categoryModelController = self.categoryModelController
         }
     }
 
-}
-
-extension MainMenuViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: todoScreenSegue, sender: "AllTodos")
-    }
 }

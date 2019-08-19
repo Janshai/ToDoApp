@@ -128,6 +128,7 @@ fileprivate class TodoParameters: Encodable {
 }
 enum TodoFields: String, Hashable {
     case title
+    case categoryIDs
     
 }
 
