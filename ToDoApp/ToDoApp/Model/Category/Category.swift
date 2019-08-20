@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Category: Codable {
     
@@ -27,5 +28,15 @@ class Category: Codable {
         case colour
         case emoji
         case id = "_id"
+    }
+    
+    public func UIColor() -> UIColor {
+        if let categoryColourName = CategoryColours(rawValue: colour) {
+            if let categoryColour = Config.categoryColours.first(where: { $0.name == categoryColourName}) {
+                return categoryColour.colour
+            }
+        }
+        
+        return #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
 }

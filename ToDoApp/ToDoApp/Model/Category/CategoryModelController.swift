@@ -22,7 +22,7 @@ class CategoryModelController {
     
     init () {
         self.categories = [Category(name: "Productivity", colour: .lightGreen, emoji: "💡"),
-                           Category(name: "School", colour: .yellow, emoji: "👨🏼‍🎓"),
+                           Category(name: "Uni", colour: .yellow, emoji: "👨🏼‍🎓"),
                            Category(name: "Work", colour: .brown, emoji: "💩"),
                            Category(name: "Reading", colour: .darkGreen, emoji: "📕")]
     }

@@ -33,8 +33,13 @@ class MainMenuViewController: UIViewController {
         if segue.identifier == todoScreenSegue, let display = sender as? TaskDisplay, let todoVC = segue.destination as? TasksTableViewController {
             todoVC.displaying = display
             todoVC.categoryModelController = self.categoryModelController
-        } else if segue.identifier == editCategorySegue, let vc = segue.destination as? EditCategoryViewController, let category = sender as? Category {
-            vc.category = category
+        } else if segue.identifier == editCategorySegue, let vc = segue.destination as? CategoryViewController {
+            if let category = sender as? Category {
+                vc.function = .edit
+                vc.category = category
+            } else {
+                vc.function = .add
+            }
         }
     }
     

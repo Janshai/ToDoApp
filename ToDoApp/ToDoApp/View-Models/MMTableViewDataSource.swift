@@ -54,12 +54,7 @@ extension MMTableViewDataSource: UITableViewDataSource {
                 let category = categoryModel.getCategory(atIndex: indexPath.row)
                 cell.taskTitleLabel.text = category.name
                 cell.emojiLabel.text = category.emoji
-                if let categoryColourName = CategoryColours(rawValue: category.colour) {
-                    if let categoryColour = Config.categoryColours.first(where: { $0.name == categoryColourName}) {
-                        
-                        cell.contentView.backgroundColor = categoryColour.colour.withAlphaComponent(0.5)
-                    }
-                }
+                cell.contentView.backgroundColor = category.UIColor().withAlphaComponent(0.5)
                 
             default:
                 return backupCell
@@ -79,6 +74,8 @@ extension MMTableViewDataSource: UITableViewDataSource {
             return nil
         }
     }
+    
+    
     
     
 }

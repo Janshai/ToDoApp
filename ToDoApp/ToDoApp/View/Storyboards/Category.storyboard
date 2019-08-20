@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Edit Category View Controller-->
+        <!--Category View Controller-->
         <scene sceneID="swv-TN-Jrl">
             <objects>
-                <viewController id="lOi-nk-iK7" customClass="EditCategoryViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lOi-nk-iK7" customClass="CategoryViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jAe-8G-btO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -189,6 +189,7 @@
                         <outlet property="confirmButton" destination="5BF-SZ-5Aw" id="b6U-JX-krx"/>
                         <outlet property="headerView" destination="YmY-Ii-abG" id="gyb-5D-XWq"/>
                         <outlet property="tableView" destination="AND-my-GDj" id="itM-fE-cp1"/>
+                        <outlet property="titleLabel" destination="Rc1-As-zkC" id="Tic-ZN-Qs1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QPD-Ft-Iqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
