@@ -44,7 +44,9 @@ class MMTableViewDelegate: NSObject {
             tableView.reloadRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }
-        action.backgroundColor = #colorLiteral(red: 0.001046009478, green: 0.8197078109, blue: 0, alpha: 1)
+        action.backgroundColor = #colorLiteral(red: 0.1932181939, green: 0.660575954, blue: 1, alpha: 1)
+        action.image = UIImage(named: "EditIcon")
+        
         return action
     }
 }
