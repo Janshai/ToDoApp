@@ -36,6 +36,10 @@
 		04E775B3230AFEFA00D1EFBB /* MMTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */; };
 		04E775B7230B29E000D1EFBB /* MMTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B6230B29E000D1EFBB /* MMTableViewDelegate.swift */; };
 		04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */; };
+		04E775BB230B79E500D1EFBB /* EditCategory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775BA230B79E500D1EFBB /* EditCategory.storyboard */; };
+		04E775BD230B815E00D1EFBB /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BC230B815E00D1EFBB /* EditCategoryViewController.swift */; };
+		04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BE230B829900D1EFBB /* NameTableViewCell.swift */; };
+		04E775C3230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */; };
 		DB7FF87A151B8867E4BFEAE4 /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +75,10 @@
 		04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTableViewDataSource.swift; sourceTree = "<group>"; };
 		04E775B6230B29E000D1EFBB /* MMTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTableViewDelegate.swift; sourceTree = "<group>"; };
 		04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDisplayEnum.swift; sourceTree = "<group>"; };
+		04E775BA230B79E500D1EFBB /* EditCategory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCategory.storyboard; sourceTree = "<group>"; };
+		04E775BC230B815E00D1EFBB /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
+		04E775BE230B829900D1EFBB /* NameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
+		04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerTableViewCell.swift; sourceTree = "<group>"; };
 		426088FDFCEE450558585D89 /* Pods-ToDoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8FEC3622F035665FE52FE6F /* Pods-ToDoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +181,7 @@
 				047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */,
 				040A6A4322C94A100035D7BC /* AddToDoViewController.swift */,
 				04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */,
+				04E775BC230B815E00D1EFBB /* EditCategoryViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -183,6 +192,7 @@
 				040A744F22F9D58E00E67C5F /* AddTodo.storyboard */,
 				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
 				04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */,
+				04E775BA230B79E500D1EFBB /* EditCategory.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -210,7 +220,9 @@
 			isa = PBXGroup;
 			children = (
 				04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */,
+				04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */,
 				04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */,
+				04E775BE230B829900D1EFBB /* NameTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,6 +309,7 @@
 				040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */,
 				040A6A3122C73A900035D7BC /* Assets.xcassets in Resources */,
 				04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */,
+				04E775BB230B79E500D1EFBB /* EditCategory.storyboard in Resources */,
 				040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */,
 				040A6A2C22C73A8F0035D7BC /* Main.storyboard in Resources */,
 			);
@@ -356,9 +369,11 @@
 				04E775B7230B29E000D1EFBB /* MMTableViewDelegate.swift in Sources */,
 				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
 				04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */,
+				04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
 				04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */,
+				04E775BD230B815E00D1EFBB /* EditCategoryViewController.swift in Sources */,
 				040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */,
 				047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */,
 				040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */,
@@ -367,6 +382,7 @@
 				04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */,
 				04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */,
 				040A6A3E22C7D5C70035D7BC /* Todo.swift in Sources */,
+				04E775C3230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift in Sources */,
 				04E775A22309A56C00D1EFBB /* Category.swift in Sources */,
 				04E775B3230AFEFA00D1EFBB /* MMTableViewDataSource.swift in Sources */,
 				04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */,

@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (5.0.0-beta.7)
+  - ISEmojiView (0.2.2)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.5)
+  - ISEmojiView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - ISEmojiView
 
 SPEC CHECKSUMS:
   Alamofire: bd07938ceecad59d2492aeecb1f785a8f2721160
+  ISEmojiView: 3198116ef9f442857c3a69241b15e3ad7856f461
 
-PODFILE CHECKSUM: 03677d67efaf2bfb244820a5ba38cb789dd3a83e
+PODFILE CHECKSUM: b47020b52aaf8cc2e99f9806e3c4663528fba2b2
 
 COCOAPODS: 1.7.5

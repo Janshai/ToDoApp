@@ -96,11 +96,20 @@
                     <connections>
                         <outlet property="tableView" destination="f3L-OD-Cnd" id="VjK-7e-CCz"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="TodoScreen" id="6Sk-cg-jzZ"/>
+                        <segue destination="BUU-m2-qaD" kind="presentation" identifier="EditCategory" modalPresentationStyle="overFullScreen" id="D7J-yV-AK9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLV-OD-t7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-890.39999999999998" y="97.601199400299862"/>
+        </scene>
+        <!--EditCategory-->
+        <scene sceneID="HQM-gL-6gT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditCategory" id="BUU-m2-qaD" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e2g-p7-HiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-486" y="515"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OmJ-BN-6rp">
