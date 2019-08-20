@@ -38,8 +38,11 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHF-N5-z7b">
-                                                    <rect key="frame" x="95" y="22.5" width="289" height="30"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHF-N5-z7b">
+                                                    <rect key="frame" x="95" y="20" width="289" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="G6e-ze-14O"/>
+                                                    </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -57,7 +60,7 @@
                                             <outlet property="textField" destination="fHF-N5-z7b" id="Ftz-Mw-e5l"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="colour" id="f8W-5D-Srb">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="colour" id="f8W-5D-Srb" customClass="ColourPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8W-5D-Srb" id="gfc-u3-SIP">
@@ -73,12 +76,28 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A5J-hN-uX1">
+                                                    <rect key="frame" x="95" y="20" width="35" height="35"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="A5J-hN-uX1" secondAttribute="height" multiplier="1:1" id="TVJ-VC-eDJ"/>
+                                                        <constraint firstAttribute="width" constant="35" id="YrZ-r8-VLz"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JL9-Mj-SD7" firstAttribute="centerY" secondItem="gfc-u3-SIP" secondAttribute="centerY" id="AAN-Um-FIf"/>
+                                                <constraint firstItem="A5J-hN-uX1" firstAttribute="centerY" secondItem="gfc-u3-SIP" secondAttribute="centerY" id="SZf-Pv-md3"/>
                                                 <constraint firstItem="JL9-Mj-SD7" firstAttribute="leading" secondItem="gfc-u3-SIP" secondAttribute="leadingMargin" id="U0C-xW-PZ2"/>
+                                                <constraint firstItem="A5J-hN-uX1" firstAttribute="leading" secondItem="JL9-Mj-SD7" secondAttribute="trailing" id="ogf-nT-uMv"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="colourField" destination="A5J-hN-uX1" id="nO7-SI-a5a"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emoji" id="oNe-NM-k3A" customClass="EmojiPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="205.5" width="414" height="75"/>
@@ -96,10 +115,12 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gdj-ku-dWH">
-                                                    <rect key="frame" x="95" y="22.5" width="40" height="30"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gdj-ku-dWH">
+                                                    <rect key="frame" x="95" y="20" width="35" height="35"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="FIl-vP-9Wc"/>
+                                                        <constraint firstAttribute="width" constant="35" id="FIl-vP-9Wc"/>
+                                                        <constraint firstAttribute="height" constant="35" id="ay3-KL-njU"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -128,10 +149,25 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BF-SZ-5Aw">
+                                        <rect key="frame" x="371" y="18.5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="5BF-SZ-5Aw" secondAttribute="height" multiplier="1:1" id="9Np-eY-3LY"/>
+                                            <constraint firstAttribute="width" constant="30" id="uaT-xb-nCx"/>
+                                        </constraints>
+                                        <state key="normal" image="TickIcon">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapConfirmButton:" destination="lOi-nk-iK7" eventType="touchUpInside" id="Y7c-lo-Ycy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="5BF-SZ-5Aw" firstAttribute="centerY" secondItem="YmY-Ii-abG" secondAttribute="centerY" id="2bw-VN-Lq8"/>
                                     <constraint firstItem="Rc1-As-zkC" firstAttribute="centerX" secondItem="YmY-Ii-abG" secondAttribute="centerX" id="BTR-cC-oPd"/>
+                                    <constraint firstAttribute="trailing" secondItem="5BF-SZ-5Aw" secondAttribute="trailing" constant="12" id="HYz-LZ-D2c"/>
                                     <constraint firstItem="Rc1-As-zkC" firstAttribute="centerY" secondItem="YmY-Ii-abG" secondAttribute="centerY" id="gwa-Bt-3Kx"/>
                                 </constraints>
                             </view>
@@ -150,6 +186,7 @@
                         <viewLayoutGuide key="safeArea" id="pBu-EP-Rjd"/>
                     </view>
                     <connections>
+                        <outlet property="confirmButton" destination="5BF-SZ-5Aw" id="b6U-JX-krx"/>
                         <outlet property="headerView" destination="YmY-Ii-abG" id="gyb-5D-XWq"/>
                         <outlet property="tableView" destination="AND-my-GDj" id="itM-fE-cp1"/>
                     </connections>
@@ -159,4 +196,7 @@
             <point key="canvasLocation" x="105.79710144927537" y="73.660714285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="TickIcon" width="30" height="30"/>
+    </resources>
 </document>

@@ -12,8 +12,15 @@ class EditCategoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var confirmButton: UIButton!
+    
+    @IBAction func tapConfirmButton(_ sender: UIButton) {
+        
+        dismiss(animated: true, completion: completion)
+    }
     
     var category: Category!
+    var completion: (() -> Void)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +29,8 @@ class EditCategoryViewController: UIViewController {
         headerView.clipsToBounds = true
         headerView.layer.cornerRadius = 8.0
         headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        confirmButton.imageView?.setImageColor(color: .white)
+        self.completion = {}
         
     }
     
@@ -44,7 +53,10 @@ extension EditCategoryViewController: UITableViewDataSource {
                 return cell
                 
             }
-        case 1: break
+        case 1:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "colour") as? ColourPickerTableViewCell {
+                return cell
+            }
         case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "emoji") as? EmojiPickerTableViewCell {
                 return cell
@@ -55,5 +67,11 @@ extension EditCategoryViewController: UITableViewDataSource {
     }
     
     
+}
+
+extension EditCategoryViewController:UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 

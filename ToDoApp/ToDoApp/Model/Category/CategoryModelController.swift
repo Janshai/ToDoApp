@@ -21,10 +21,10 @@ class CategoryModelController {
 //    }
     
     init () {
-        self.categories = [Category(name: "Productivity"),
-                           Category(name: "School"),
-                           Category(name: "Work"),
-                           Category(name: "Reading")]
+        self.categories = [Category(name: "Productivity", colour: .lightGreen, emoji: "💡"),
+                           Category(name: "School", colour: .yellow, emoji: "👨🏼‍🎓"),
+                           Category(name: "Work", colour: .brown, emoji: "💩"),
+                           Category(name: "Reading", colour: .darkGreen, emoji: "📕")]
     }
     
     public func getCategory(withID id: String) -> Category? {

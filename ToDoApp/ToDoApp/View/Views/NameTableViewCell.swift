@@ -17,6 +17,7 @@ class NameTableViewCell: UITableViewCell {
         // Initialization code
         textField.doneAccessory = true
         textField.autocorrectionType = .no
+        textField.borderStyle = .roundedRect
     }
 
 

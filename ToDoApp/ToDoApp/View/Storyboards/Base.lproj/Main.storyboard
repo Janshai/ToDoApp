@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-OD-Cnd">
-                                <rect key="frame" x="1" y="65" width="373" height="601"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                                <color key="backgroundColor" red="0.93831297588832485" green="0.93831297588832485" blue="0.93831297588832485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="70" id="Tda-0C-1UJ" customClass="TodoTableViewCell" customModule="ToDoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="373" height="70"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tda-0C-1UJ" id="Xqt-ma-C7S">
-                                            <rect key="frame" x="0.0" y="0.0" width="373" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="6pH-hY-m4g">
@@ -86,9 +86,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="f3L-OD-Cnd" firstAttribute="top" secondItem="IJF-4L-ohT" secondAttribute="top" constant="1" id="Xc0-Ip-QZx"/>
-                            <constraint firstItem="IJF-4L-ohT" firstAttribute="bottom" secondItem="f3L-OD-Cnd" secondAttribute="bottom" constant="1" id="k0E-jD-a7S"/>
-                            <constraint firstItem="f3L-OD-Cnd" firstAttribute="leading" secondItem="IJF-4L-ohT" secondAttribute="leading" constant="1" id="qr9-JJ-QZV"/>
-                            <constraint firstItem="IJF-4L-ohT" firstAttribute="trailing" secondItem="f3L-OD-Cnd" secondAttribute="trailing" constant="1" id="y82-ub-11u"/>
+                            <constraint firstAttribute="bottom" secondItem="f3L-OD-Cnd" secondAttribute="bottom" id="k0E-jD-a7S"/>
+                            <constraint firstItem="f3L-OD-Cnd" firstAttribute="leading" secondItem="IJF-4L-ohT" secondAttribute="leading" id="qr9-JJ-QZV"/>
+                            <constraint firstItem="IJF-4L-ohT" firstAttribute="trailing" secondItem="f3L-OD-Cnd" secondAttribute="trailing" id="y82-ub-11u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IJF-4L-ohT"/>
                     </view>

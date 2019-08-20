@@ -40,6 +40,7 @@
 		04E775BD230B815E00D1EFBB /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BC230B815E00D1EFBB /* EditCategoryViewController.swift */; };
 		04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BE230B829900D1EFBB /* NameTableViewCell.swift */; };
 		04E775C3230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */; };
+		04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */; };
 		DB7FF87A151B8867E4BFEAE4 /* Pods_ToDoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		04E775BC230B815E00D1EFBB /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
 		04E775BE230B829900D1EFBB /* NameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerTableViewCell.swift; sourceTree = "<group>"; };
+		04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPickerTableViewCell.swift; sourceTree = "<group>"; };
 		426088FDFCEE450558585D89 /* Pods-ToDoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8FEC3622F035665FE52FE6F /* Pods-ToDoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoApp/Pods-ToDoApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE8019D90498BA0F10B2DEC5 /* Pods_ToDoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +225,7 @@
 				04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */,
 				04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */,
 				04E775BE230B829900D1EFBB /* NameTableViewCell.swift */,
+				04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				040A6A4022C813530035D7BC /* ToDoTableViewDataSource.swift in Sources */,
 				04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */,
 				040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */,
+				04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */,
 				04E775B7230B29E000D1EFBB /* MMTableViewDelegate.swift in Sources */,
 				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
 				04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */,

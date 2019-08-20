@@ -22,6 +22,8 @@ class EmojiPickerTableViewCell: UITableViewCell {
         emojiView.delegate = self
         textField.inputView = emojiView
         textField.doneAccessory = true
+        textField.clearsOnBeginEditing = true
+        textField.borderStyle = .roundedRect
     }
 
 
@@ -30,6 +32,7 @@ class EmojiPickerTableViewCell: UITableViewCell {
 extension EmojiPickerTableViewCell: EmojiViewDelegate {
     func emojiViewDidSelectEmoji(_ emoji: String, emojiView: EmojiView) {
         textField.insertText(emoji)
+        textField.resignFirstResponder()
     }
     
     
