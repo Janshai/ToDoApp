@@ -11,7 +11,7 @@ import UIKit
 class MainMenuViewController: UIViewController {
 
     let todoScreenSegue = "TodoScreen"
-    let editCategorySegue = "EditCategory"
+    let CategorySegue = "Category"
     var tableviewDataSource: UITableViewDataSource?
     var tableviewDelegate: UITableViewDelegate?
     lazy var categoryModelController = CategoryModelController()
@@ -23,7 +23,7 @@ class MainMenuViewController: UIViewController {
         super.viewDidLoad()
         
         tableviewDataSource = MMTableViewDataSource(tableView: tableView, categoryModelController: categoryModelController)
-        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController, selectRowAction: tableViewSelectBehaviour(_:display:), editBehaviour: editCategoryBehaviour(category:))
+        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController, selectRowAction: tableViewSelectBehaviour(_:display:), editBehaviour: editCategoryBehaviour(category:), addBehaviour: addCategoryBehaviour )
         
         
     }
@@ -33,7 +33,7 @@ class MainMenuViewController: UIViewController {
         if segue.identifier == todoScreenSegue, let display = sender as? TaskDisplay, let todoVC = segue.destination as? TasksTableViewController {
             todoVC.displaying = display
             todoVC.categoryModelController = self.categoryModelController
-        } else if segue.identifier == editCategorySegue, let vc = segue.destination as? CategoryViewController {
+        } else if segue.identifier == CategorySegue, let vc = segue.destination as? CategoryViewController {
             if let category = sender as? Category {
                 vc.function = .edit
                 vc.category = category
@@ -48,7 +48,11 @@ class MainMenuViewController: UIViewController {
     }
     
     private func editCategoryBehaviour(category: Category) {
-        performSegue(withIdentifier: editCategorySegue, sender: category)
+        performSegue(withIdentifier: CategorySegue, sender: category)
+    }
+    
+    private func addCategoryBehaviour() {
+        performSegue(withIdentifier: CategorySegue, sender: nil)
     }
 
 }

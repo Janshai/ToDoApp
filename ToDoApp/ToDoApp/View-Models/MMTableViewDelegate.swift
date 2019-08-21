@@ -14,11 +14,13 @@ class MMTableViewDelegate: NSObject {
     var categoryModelController: CategoryModelController
     var selectRowFunc: ((UITableView, TaskDisplay) -> Void)?
     var editCategoryBehaviour: ((Category) -> Void)?
+    var addCategoryBehaviour: (() -> Void)?
     
-    init(tableView:UITableView, categoryModelController: CategoryModelController, selectRowAction:  ((UITableView, TaskDisplay) -> Void)?, editBehaviour: ((Category) -> Void)?) {
+    init(tableView:UITableView, categoryModelController: CategoryModelController, selectRowAction:  ((UITableView, TaskDisplay) -> Void)?, editBehaviour: ((Category) -> Void)?, addBehaviour: (() -> Void)?) {
         self.categoryModelController = categoryModelController
         self.selectRowFunc = selectRowAction
         self.editCategoryBehaviour = editBehaviour
+        self.addCategoryBehaviour = addBehaviour
         super.init()
         tableView.delegate = self
     }
@@ -48,6 +50,26 @@ class MMTableViewDelegate: NSObject {
         action.image = UIImage(named: "EditIcon")
         
         return action
+    }
+    
+    private func setupCategoriesHeader(forTableView tableView: UITableView) -> UIView? {
+        if let view = tableView.dequeueReusableCell(withIdentifier: "header") as? MMTableViewHeader {
+            
+            view.rightSideButtonAction = { button in
+                if let action = self.addCategoryBehaviour {
+                    action()
+                }
+            }
+            
+            view.nameLabel.text = "CATEGORIES"
+            view.contentView.backgroundColor = tableView.backgroundColor
+            
+            return view
+        } else {
+            return nil
+        }
+        
+        
     }
 }
 
@@ -97,6 +119,20 @@ extension MMTableViewDelegate: UITableViewDelegate {
         default:
             return emptySwipe
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case 1:
+            return setupCategoriesHeader(forTableView: tableView)
+        default:
+            return nil
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
     }
     
     

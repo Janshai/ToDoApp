@@ -80,6 +80,45 @@
                                             <outlet property="taskTitleLabel" destination="tGH-f0-oHM" id="Ah9-J9-KyP"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="header" rowHeight="30" id="2eG-xc-ho8" customClass="MMTableViewHeader" customModule="ToDoApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="125.5" width="375" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2eG-xc-ho8" id="84M-7T-LTz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="29.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X97-qZ-UHo">
+                                                    <rect key="frame" x="323" y="5" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="X97-qZ-UHo" secondAttribute="height" multiplier="1:1" id="6wK-8E-zVH"/>
+                                                        <constraint firstAttribute="height" constant="20" id="xtn-BM-0na"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.44302397970000001" green="0.44279187920000002" blue="0.46347188950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="touchRightSideButton:" destination="2eG-xc-ho8" eventType="touchUpInside" id="HCe-hJ-BEe"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfh-3E-7Q9">
+                                                    <rect key="frame" x="15" y="6.5" width="38" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.44302397966384888" green="0.44279187917709351" blue="0.46347188949584961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="X97-qZ-UHo" firstAttribute="trailing" secondItem="84M-7T-LTz" secondAttribute="trailingMargin" constant="-17" id="5bB-S4-yaR"/>
+                                                <constraint firstItem="X97-qZ-UHo" firstAttribute="centerY" secondItem="84M-7T-LTz" secondAttribute="centerY" id="JpO-LY-gd4"/>
+                                                <constraint firstItem="Jfh-3E-7Q9" firstAttribute="leading" secondItem="84M-7T-LTz" secondAttribute="leadingMargin" id="aaK-qi-xS1"/>
+                                                <constraint firstItem="Jfh-3E-7Q9" firstAttribute="centerY" secondItem="84M-7T-LTz" secondAttribute="centerY" id="sh9-XQ-MEd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="backgroundView" destination="84M-7T-LTz" id="0Wr-Ir-KwK"/>
+                                            <outlet property="nameLabel" destination="Jfh-3E-7Q9" id="21O-Va-wmd"/>
+                                            <outlet property="rightSideButton" destination="X97-qZ-UHo" id="JDv-TY-vgQ"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -96,7 +135,7 @@
                     <connections>
                         <outlet property="tableView" destination="f3L-OD-Cnd" id="VjK-7e-CCz"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="TodoScreen" id="6Sk-cg-jzZ"/>
-                        <segue destination="BUU-m2-qaD" kind="presentation" identifier="EditCategory" modalPresentationStyle="overFullScreen" id="D7J-yV-AK9"/>
+                        <segue destination="BUU-m2-qaD" kind="presentation" identifier="Category" modalPresentationStyle="overFullScreen" id="D7J-yV-AK9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLV-OD-t7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -109,7 +148,7 @@
                 <viewControllerPlaceholder storyboardName="Category" id="BUU-m2-qaD" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e2g-p7-HiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-486" y="515"/>
+            <point key="canvasLocation" x="-491" y="512"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OmJ-BN-6rp">

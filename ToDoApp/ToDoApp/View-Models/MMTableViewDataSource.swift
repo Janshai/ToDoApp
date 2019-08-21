@@ -66,16 +66,14 @@ extension MMTableViewDataSource: UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 1:
+        if section == 1 {
             return "Categories"
-        default:
+        } else {
             return nil
         }
     }
-    
-    
     
     
 }
