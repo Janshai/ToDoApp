@@ -39,12 +39,20 @@ class CategoryModelController {
         return categories[index]
     }
     
-    public func getAllCategoryViewModels(forDisplayingOnMenu menu: Bool? = nil) -> [CategoryViewModel] {
+    public func getAllCategoryViewModels(forDisplayingOnMenu menu: Bool = false) -> [CategoryViewModel] {
         return categories.map({return CategoryViewModel(category: $0, onMenu: menu)})
     }
     
-    public func getCategoryViewModel(atIndex index: Int, forDisplayingOnMenu menu: Bool? = nil) -> CategoryViewModel {
+    public func getCategoryViewModel(atIndex index: Int, forDisplayingOnMenu menu: Bool = false) -> CategoryViewModel {
         return CategoryViewModel(category: categories[index], onMenu: menu)
+    }
+    
+    public func getCategoryViewModel(withID id: String, forDisplayingOnMenu menu: Bool = false) -> CategoryViewModel? {
+        if let index = categories.firstIndex(where: { $0.id == id }) {
+            return CategoryViewModel(category: categories[index], onMenu: menu)
+        } else {
+            return nil
+        }
     }
     
     public func deleteCategory(withID id: String) {

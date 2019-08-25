@@ -32,17 +32,24 @@ class CategoryViewModel {
         }
     }
     
+    var taskFilter: (Todo) -> Bool {
+        return { (todo) -> Bool in
+            return todo.categoryIDs.contains(self.category.id)
+        }
+    }
+    
     var emoji: String
     
-    init(category: Category, onMenu: Bool? = nil) {
+    init(category: Category, onMenu: Bool = false) {
         self.category = category
         self.name = category.name
         self.emoji = category.emoji
-        self.isDisplayingOnMenu = onMenu ?? false
+        self.isDisplayingOnMenu = onMenu
         setUIColors()
         
         
     }
+    
     
     private func setUIColors() {
         let rawColour = rawUIColor()

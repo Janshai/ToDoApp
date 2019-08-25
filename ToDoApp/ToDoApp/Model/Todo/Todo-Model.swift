@@ -90,6 +90,17 @@ class ToDoModelController {
         
         
     }
+    
+    func getAllTaskViewModels(applyingFilter filter: ((Todo) -> Bool)? = nil, forDisplayingOnMenu menu: Bool = false) -> [TaskViewModel] {
+        var desiredTasks: [Todo]
+        if let setFilter = filter {
+            desiredTasks = todos.filter(setFilter)
+        } else {
+            desiredTasks = todos
+        }
+        
+        return desiredTasks.map(){ TaskViewModel(task: $0, taskModel: self, categoryModel: nil, onMenu: menu) }
+    }
 }
 
 struct SyncError: Error {

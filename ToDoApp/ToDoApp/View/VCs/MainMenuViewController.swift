@@ -98,8 +98,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
             cell.emojiLabel.text = "📝"
         case 1:
             let categoryViewModel = categoryViewModels[indexPath.row]
-            cell.primaryCategoryViewModel = categoryViewModel
-            cell.taskTitleLabel.text = categoryViewModel.name
+            cell.categoryViewModel = categoryViewModel
             
         default:
             return cell
@@ -117,8 +116,8 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         var displayType: TaskDisplay
         switch indexPath.section {
         case 1:
-            let category = categoryModelController.getCategory(atIndex: indexPath.row)
-            displayType = .category(category)
+            let categoryViewModel = categoryModelController.getCategoryViewModel(atIndex: indexPath.row)
+            displayType = .category(categoryViewModel)
         default:
             displayType = .allTodos
         }

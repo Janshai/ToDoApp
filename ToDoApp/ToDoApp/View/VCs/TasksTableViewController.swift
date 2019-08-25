@@ -9,18 +9,17 @@
 import UIKit
 
 class TasksTableViewController: UIViewController {
-   
-    let initialTodoLoadingGroup = DispatchGroup()
-    lazy var todoModelController: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
-    var categoryModelController: CategoryModelController!
-    
-    var displaying: TaskDisplay!
-   
-    var tableViewDataSource: ToDoTableViewDataSource?
-    var tableViewDelegate: ToDoTableViewDelegate?
     
     let selectSegueIdetifier = "showTask"
     let addTodoSegueIdentifier =  "addToDo"
+   
+    let initialTodoLoadingGroup = DispatchGroup()
+    var todoModelController: ToDoModelController!
+    var categoryModelController: CategoryModelController!
+    
+    private var taskViewModels = [TaskViewModel]()
+    
+    var displaying: TaskDisplay!
     
     var selectedTaskIndex: Int? {
         didSet {
@@ -30,6 +29,8 @@ class TasksTableViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var toDoTableView: UITableView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,82 +38,112 @@ class TasksTableViewController: UIViewController {
         
         let loadingView = UIActivityIndicatorView()
         setup(LoadingView: loadingView)
+        setupNavBar()
         
-        switch displaying! {
-        case .allTodos:
-            navigationItem.title = "All Todos"
-        case .category(let category):
-            navigationItem.title = category.name
-        }
-        
-        
-        
-        tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: todoModelController, vc: self)
-        
-        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: todoModelController, categoryModelController: categoryModelController, displaying: displaying)
+        todoModelController = ToDoModelController(group: initialTodoLoadingGroup)
+        toDoTableView.delegate = self
+        toDoTableView.dataSource = self
         
         initialTodoLoadingGroup.notify(queue: .main) {
             loadingView.stopAnimating()
             self.toDoTableView.reloadData()
-            UIApplication.shared.endIgnoringInteractionEvents()
         }
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == selectSegueIdetifier {
+            prepareForViewAndEdit(segue: segue)
+        } else if segue.identifier == addTodoSegueIdentifier {
+            prepareForAddTodo(segue: segue)
+        }
+    }
     
-    func editModalCompletion(withChanges changed: Bool) {
-        if changed {
-            if let index = selectedTaskIndex {
-                let path = IndexPath(row: index, section: 0)
-                toDoTableView.reloadRows(at: [path], with: .fade)
-                selectedTaskIndex = nil
+    private func prepareForAddTodo(segue: UIStoryboardSegue) {
+        let addTodoController = segue.destination as? AddToDoViewController
+        addTodoController?.todoModelController = todoModelController
+        addTodoController?.callback = { changed in
+            if changed {
+                self.toDoTableView.performBatchUpdates({
+                    self.toDoTableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                }, completion: nil)
+            }
+        }
+        addTodoController?.categoryModelController = categoryModelController
+    }
+    
+    private func prepareForViewAndEdit(segue: UIStoryboardSegue) {
+        let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
+        viewAndEditTaskController?.taskIndex = selectedTaskIndex
+        viewAndEditTaskController?.todoModelController = todoModelController
+        viewAndEditTaskController?.callback = { changed in
+            if changed {
+                if let index = self.selectedTaskIndex {
+                    let path = IndexPath(row: index, section: 0)
+                    self.toDoTableView.reloadRows(at: [path], with: .fade)
+                    self.selectedTaskIndex = nil
+                }
             }
         }
     }
     
-    func addTodoCompletion(withChanges changed: Bool) {
-        if changed {
-            toDoTableView.reloadData()
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == selectSegueIdetifier {
-            let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-            viewAndEditTaskController?.taskIndex = selectedTaskIndex
-            viewAndEditTaskController?.todoModelController = todoModelController
-            viewAndEditTaskController?.callback = editModalCompletion(withChanges:)
-        } else if segue.identifier == addTodoSegueIdentifier {
-            let addTodoController = segue.destination as? AddToDoViewController
-            addTodoController?.todoModelController = todoModelController
-            addTodoController?.callback = addTodoCompletion(withChanges:)
-            addTodoController?.categoryModelController = categoryModelController
-        }
-    }
-    
-    func deleteTableViewData(atRow indexPath: IndexPath, withAnimation animation: UITableView.RowAnimation) {
-        toDoTableView.deleteRows(at: [indexPath], with: animation)
-    }
-    
-    @IBAction func pressAddTodo(_ sender: UIButton) {
-    }
-    
-    @IBOutlet weak var toDoTableView: UITableView!
-    
-    func setup(LoadingView loadingView: UIActivityIndicatorView) {
+    private func setup(LoadingView loadingView: UIActivityIndicatorView) {
         loadingView.hidesWhenStopped = true
         loadingView.center = self.view.center
         loadingView.style = .gray
         view.addSubview(loadingView)
         loadingView.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    private func setupNavBar() {
+        switch displaying! {
+        case .allTodos:
+            navigationItem.title = "All Todos"
+        case .category(let categoryViewModel):
+            navigationItem.title = categoryViewModel.name
+        }
+    }
+    
+    private func createCorrectFilter() -> ((Todo) -> Bool)? {
+        var filter: ((Todo) -> Bool)?
+        switch displaying! {
+        case .allTodos:
+            filter = nil
+        case .category(let categoryViewModel):
+            filter = categoryViewModel.taskFilter
+        }
+        return filter
     }
     
     
+}
+
+extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.taskViewModels = todoModelController.getAllTaskViewModels(applyingFilter: createCorrectFilter(), forDisplayingOnMenu: true)
+        taskViewModels.forEach() { $0.categoryModel = self.categoryModelController }
+        return taskViewModels.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TaskTableViewCell
+        let taskViewModel = taskViewModels[indexPath.row]
+        cell.taskViewModel = taskViewModel
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTaskIndex = indexPath.row
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return TaskTableView.taskCompleteSwipe(forTask: taskViewModels[indexPath.row], onTableView: tableView, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return TaskTableView.taskDeleteSwipe(forTask: taskViewModels[indexPath.row], onTableView: tableView, forRowAt: indexPath)
+    }
 }
 

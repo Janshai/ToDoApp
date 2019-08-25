@@ -10,5 +10,5 @@ import Foundation
 
 enum TaskDisplay{
     case allTodos
-    case category(Category)
+    case category(CategoryViewModel)
 }
