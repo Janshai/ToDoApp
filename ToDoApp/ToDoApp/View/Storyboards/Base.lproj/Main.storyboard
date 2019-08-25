@@ -18,12 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-OD-Cnd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="50" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-OD-Cnd">
                                 <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                                 <color key="backgroundColor" red="0.93831297588832485" green="0.93831297588832485" blue="0.93831297588832485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="70" id="Tda-0C-1UJ" customClass="TaskTableViewCell" customModule="ToDoApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="70" id="Tda-0C-1UJ" customClass="TaskTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tda-0C-1UJ" id="Xqt-ma-C7S">
@@ -78,46 +78,6 @@
                                             <outlet property="emojiLabel" destination="NR6-6w-U59" id="wtP-eq-ago"/>
                                             <outlet property="primaryCategoryLabel" destination="i7I-bo-35H" id="50A-Ve-1nR"/>
                                             <outlet property="taskTitleLabel" destination="tGH-f0-oHM" id="Ah9-J9-KyP"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="header" rowHeight="30" id="2eG-xc-ho8" customClass="MMTableViewHeader" customModule="ToDoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="125.5" width="375" height="30"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2eG-xc-ho8" id="84M-7T-LTz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="29.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X97-qZ-UHo">
-                                                    <rect key="frame" x="323" y="5" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="X97-qZ-UHo" secondAttribute="height" multiplier="1:1" id="6wK-8E-zVH"/>
-                                                        <constraint firstAttribute="height" constant="20" id="xtn-BM-0na"/>
-                                                    </constraints>
-                                                    <color key="tintColor" red="0.44302397970000001" green="0.44279187920000002" blue="0.46347188950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <connections>
-                                                        <action selector="touchRightSideButton:" destination="2eG-xc-ho8" eventType="touchUpInside" id="HCe-hJ-BEe"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORIES:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfh-3E-7Q9">
-                                                    <rect key="frame" x="15" y="6.5" width="89.5" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.44302397966384888" green="0.44279187917709351" blue="0.46347188949584961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.89794141054153442" green="0.89809560775756836" blue="0.89793163537979126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="X97-qZ-UHo" firstAttribute="trailing" secondItem="84M-7T-LTz" secondAttribute="trailingMargin" constant="-17" id="5bB-S4-yaR"/>
-                                                <constraint firstItem="X97-qZ-UHo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Jfh-3E-7Q9" secondAttribute="trailing" constant="10" id="J9i-3b-TKt"/>
-                                                <constraint firstItem="X97-qZ-UHo" firstAttribute="centerY" secondItem="84M-7T-LTz" secondAttribute="centerY" id="JpO-LY-gd4"/>
-                                                <constraint firstItem="Jfh-3E-7Q9" firstAttribute="leading" secondItem="84M-7T-LTz" secondAttribute="leadingMargin" id="aaK-qi-xS1"/>
-                                                <constraint firstItem="Jfh-3E-7Q9" firstAttribute="centerY" secondItem="84M-7T-LTz" secondAttribute="centerY" id="sh9-XQ-MEd"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="backgroundView" destination="84M-7T-LTz" id="0Wr-Ir-KwK"/>
-                                            <outlet property="nameLabel" destination="Jfh-3E-7Q9" id="21O-Va-wmd"/>
-                                            <outlet property="rightSideButton" destination="X97-qZ-UHo" id="JDv-TY-vgQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

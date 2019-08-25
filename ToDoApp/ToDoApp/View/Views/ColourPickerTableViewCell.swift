@@ -11,6 +11,11 @@ import UIKit
 class ColourPickerTableViewCell: UITableViewCell {
     
     let colours = Config.categoryColours
+    var categoryViewModel: CategoryViewModel? {
+        didSet {
+            colourField.backgroundColor = categoryViewModel?.foregroundColour
+        }
+    }
 
   
     @IBOutlet weak var colourField: UITextField!
@@ -20,6 +25,7 @@ class ColourPickerTableViewCell: UITableViewCell {
         // Initialization code
         
         colourField.borderStyle = .roundedRect
+        colourField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         createPicker()
         

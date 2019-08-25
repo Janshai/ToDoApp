@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="269" width="414" height="627"/>
                                 <color key="backgroundColor" red="0.9505869289340102" green="0.9505869289340102" blue="0.9505869289340102" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="name" id="ciZ-8U-Nth" customClass="NameTableViewCell" customModule="ToDoApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="name" id="ciZ-8U-Nth" customClass="CategoryNameTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ciZ-8U-Nth" id="YNq-nf-YJf">
@@ -60,7 +60,7 @@
                                             <outlet property="textField" destination="fHF-N5-z7b" id="Ftz-Mw-e5l"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="colour" id="f8W-5D-Srb" customClass="ColourPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="colour" id="f8W-5D-Srb" customClass="ColourPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="130.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8W-5D-Srb" id="gfc-u3-SIP">
@@ -99,7 +99,7 @@
                                             <outlet property="colourField" destination="A5J-hN-uX1" id="nO7-SI-a5a"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emoji" id="oNe-NM-k3A" customClass="EmojiPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emoji" id="oNe-NM-k3A" customClass="EmojiPickerTableViewCell" customModule="ToDoApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="205.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oNe-NM-k3A" id="dKx-FX-73e">

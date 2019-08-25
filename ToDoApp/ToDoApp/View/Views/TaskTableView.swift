@@ -37,17 +37,19 @@ class TaskTableViewCell: UITableViewCell {
 
 
 class TaskTableView {
-    class func categoryEditSwipe(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: (Category) -> Void) -> UISwipeActionsConfiguration {
+    private static var categoryModelController = CategoryModelController()
+    
+    class func categoryEditSwipe(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: @escaping (CategoryViewModel) -> Void) -> UISwipeActionsConfiguration {
         let editAction = contextualEditCategoryAction(forTableView: tableView, forRowAt: indexPath, withAction: action)
         let swipeAction = UISwipeActionsConfiguration(actions: [editAction])
         swipeAction.performsFirstActionWithFullSwipe = true
         return swipeAction
     }
     
-    class private func contextualEditCategoryAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: (Category) -> Void) -> UIContextualAction {
-//        let category = categoryModelController.getCategory(atIndex: indexPath.row)
+    class private func contextualEditCategoryAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: @escaping (CategoryViewModel) -> Void) -> UIContextualAction {
+        let categoryViewModel = categoryModelController.getCategoryViewModel(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
-//            action(category)
+            action(categoryViewModel)
             tableView.reloadRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }

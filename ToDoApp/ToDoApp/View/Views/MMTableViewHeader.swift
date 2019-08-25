@@ -8,7 +8,9 @@
 
 import UIKit
 
-class MMTableViewHeader: UITableViewCell {
+class MMTableViewHeader: UITableViewHeaderFooterView{
+    
+    static let reuseIdentifier = "Header"
     
     @IBAction func touchRightSideButton(_ sender: UIButton) {
         if let action = rightSideButtonAction {

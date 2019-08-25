@@ -10,12 +10,23 @@ import UIKit
 import ISEmojiView
 
 class EmojiPickerTableViewCell: UITableViewCell {
+    
+    var categoryViewModel: CategoryViewModel? {
+        didSet {
+            textField.text = categoryViewModel?.emoji
+        }
+    }
 
     @IBOutlet weak var textField: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setupTextField()
+        
+    }
+    
+    private func setupTextField() {
         let keyboardSettings = KeyboardSettings(bottomType: .categories)
         let emojiView = EmojiView(keyboardSettings: keyboardSettings)
         emojiView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +35,7 @@ class EmojiPickerTableViewCell: UITableViewCell {
         textField.doneAccessory = true
         textField.clearsOnBeginEditing = true
         textField.borderStyle = .roundedRect
+        textField.text = ""
     }
 
 

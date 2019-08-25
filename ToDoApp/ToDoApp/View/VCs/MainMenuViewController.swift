@@ -30,6 +30,7 @@ class MainMenuViewController: UIViewController {
         categoryViewModels = categoryModelController.getAllCategoryViewModels(forDisplayingOnMenu: true)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: "MMTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: MMTableViewHeader.reuseIdentifier)
         
         
     }
@@ -45,12 +46,15 @@ class MainMenuViewController: UIViewController {
             todoVC.categoryModelController = self.categoryModelController
         } else if segue.identifier == CategorySegue, let vc = segue.destination as? CategoryViewController {
             // segue to add a new category or edit an existing category
-//            if let category = sender as? Category {
-//                vc.function = .edit
-//                vc.category = category
-//            } else {
-//                vc.function = .add
-//            }
+            if let index = sender as? IndexPath {
+                vc.function = .edit
+                vc.categoryViewModel = categoryViewModels[index.row]
+                vc.completion = {
+                    self.tableView.reloadRows(at: [index], with: .fade)
+                }
+            } else {
+                vc.function = .add
+            }
         }
     }
 
@@ -95,6 +99,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let categoryViewModel = categoryViewModels[indexPath.row]
             cell.primaryCategoryViewModel = categoryViewModel
+            cell.taskTitleLabel.text = categoryViewModel.name
             
         default:
             return cell
@@ -143,10 +148,10 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             return TaskTableView.categoryEditSwipe(forTableView: tableView, forRowAt: indexPath) { category in
                 
-                self.performSegue(withIdentifier: self.CategorySegue, sender: category)
+                self.performSegue(withIdentifier: self.CategorySegue, sender: indexPath)
             }
         default:
-            return nil
+            return UISwipeActionsConfiguration(actions: [])
         }
     }
     
@@ -165,17 +170,18 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     /// Header height
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 50
     }
     
     /// Header for categories section
     /// Has a + button that when pressed causes a segue to the Add Category screen described in CategoryViewController.swift and Category.storyboard
     private func setupCategoriesHeader(forTableView tableView: UITableView) -> UIView? {
         
-        let view = tableView.dequeueReusableCell(withIdentifier: "header") as! MMTableViewHeader
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: MMTableViewHeader.reuseIdentifier) as! MMTableViewHeader
         view.rightSideButtonAction = { button in
             self.performSegue(withIdentifier: self.CategorySegue, sender: nil)
         }
+        view.frame.size.height = 50
         return view
     }
 

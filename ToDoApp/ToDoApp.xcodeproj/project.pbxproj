@@ -23,6 +23,7 @@
 		040A744E22F8B14E00E67C5F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744D22F8B14E00E67C5F /* Config.swift */; };
 		040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A744F22F9D58E00E67C5F /* AddTodo.storyboard */; };
 		045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D27702311F15E006E29EA /* CategoryViewModel.swift */; };
+		045D277323122350006E29EA /* MMTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045D277223122350006E29EA /* MMTableViewHeader.xib */; };
 		047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E115F22ECB33D00097A8E /* TasksTableViewController.swift */; };
 		047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */; };
 		04E7759F2307374700D1EFBB /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7759E2307374700D1EFBB /* TodoResponse.swift */; };
@@ -35,7 +36,7 @@
 		04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */; };
 		04E775BB230B79E500D1EFBB /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775BA230B79E500D1EFBB /* Category.storyboard */; };
 		04E775BD230B815E00D1EFBB /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BC230B815E00D1EFBB /* CategoryViewController.swift */; };
-		04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BE230B829900D1EFBB /* NameTableViewCell.swift */; };
+		04E775BF230B829900D1EFBB /* CategoryNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775BE230B829900D1EFBB /* CategoryNameTableViewCell.swift */; };
 		04E775C3230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */; };
 		04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */; };
 		04E775CB230CDFEA00D1EFBB /* MMTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775CA230CDFEA00D1EFBB /* MMTableViewHeader.swift */; };
@@ -61,6 +62,7 @@
 		040A744D22F8B14E00E67C5F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		040A744F22F9D58E00E67C5F /* AddTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTodo.storyboard; sourceTree = "<group>"; };
 		045D27702311F15E006E29EA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		045D277223122350006E29EA /* MMTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTableViewHeader.xib; sourceTree = "<group>"; };
 		047E115F22ECB33D00097A8E /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAndEditTaskViewController.swift; sourceTree = "<group>"; };
 		04E7759E2307374700D1EFBB /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
@@ -73,7 +75,7 @@
 		04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDisplayEnum.swift; sourceTree = "<group>"; };
 		04E775BA230B79E500D1EFBB /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
 		04E775BC230B815E00D1EFBB /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		04E775BE230B829900D1EFBB /* NameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
+		04E775BE230B829900D1EFBB /* CategoryNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNameTableViewCell.swift; sourceTree = "<group>"; };
 		04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerTableViewCell.swift; sourceTree = "<group>"; };
 		04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPickerTableViewCell.swift; sourceTree = "<group>"; };
 		04E775CA230CDFEA00D1EFBB /* MMTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTableViewHeader.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
 				04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */,
 				04E775BA230B79E500D1EFBB /* Category.storyboard */,
+				045D277223122350006E29EA /* MMTableViewHeader.xib */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -217,7 +220,7 @@
 				04E775A62309CC9500D1EFBB /* TaskTableView.swift */,
 				04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */,
 				04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */,
-				04E775BE230B829900D1EFBB /* NameTableViewCell.swift */,
+				04E775BE230B829900D1EFBB /* CategoryNameTableViewCell.swift */,
 				04E775C4230C6F8200D1EFBB /* ColourPickerTableViewCell.swift */,
 				04E775CA230CDFEA00D1EFBB /* MMTableViewHeader.swift */,
 			);
@@ -306,6 +309,7 @@
 				040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */,
 				040A6A3122C73A900035D7BC /* Assets.xcassets in Resources */,
 				04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */,
+				045D277323122350006E29EA /* MMTableViewHeader.xib in Resources */,
 				04E775BB230B79E500D1EFBB /* Category.storyboard in Resources */,
 				040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */,
 				040A6A2C22C73A8F0035D7BC /* Main.storyboard in Resources */,
@@ -366,7 +370,7 @@
 				040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */,
 				04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */,
 				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
-				04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */,
+				04E775BF230B829900D1EFBB /* CategoryNameTableViewCell.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
 				04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */,

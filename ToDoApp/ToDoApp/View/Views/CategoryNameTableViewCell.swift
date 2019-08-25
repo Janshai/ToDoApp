@@ -8,9 +8,15 @@
 
 import UIKit
 
-class NameTableViewCell: UITableViewCell {
+class CategoryNameTableViewCell: UITableViewCell {
 
     @IBOutlet weak var textField: UITextField!
+    
+    var categoryViewModel: CategoryViewModel? {
+        didSet {
+            self.textField.text = categoryViewModel?.name
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,6 +24,7 @@ class NameTableViewCell: UITableViewCell {
         textField.doneAccessory = true
         textField.autocorrectionType = .no
         textField.borderStyle = .roundedRect
+        textField.placeholder = "Category Name"
     }
 
 
