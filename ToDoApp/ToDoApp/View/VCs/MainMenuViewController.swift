@@ -10,11 +10,11 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
 
-    let todoScreenSegue = "TodoScreen"
-    let CategorySegue = "Category"
-    var tableviewDataSource: UITableViewDataSource?
-    var tableviewDelegate: UITableViewDelegate?
-    lazy var categoryModelController = CategoryModelController()
+    private let todoScreenSegue = "TodoScreen"
+    private let CategorySegue = "Category"
+    
+    private var categoryModelController = CategoryModelController()
+    private var categoryViewModels = [CategoryViewModel]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,8 +22,9 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableviewDataSource = MMTableViewDataSource(tableView: tableView, categoryModelController: categoryModelController)
-        tableviewDelegate = MMTableViewDelegate(tableView: tableView, categoryModelController: categoryModelController, selectRowAction: tableViewSelectBehaviour(_:display:), editBehaviour: editCategoryBehaviour(category:), addBehaviour: addCategoryBehaviour )
+        categoryViewModels = categoryModelController.getAllCategoryViewModels(forDisplayingOnMenu: true)
+        tableView.delegate = self
+        tableView.dataSource = self
         
         
     }
@@ -34,25 +35,113 @@ class MainMenuViewController: UIViewController {
             todoVC.displaying = display
             todoVC.categoryModelController = self.categoryModelController
         } else if segue.identifier == CategorySegue, let vc = segue.destination as? CategoryViewController {
-            if let category = sender as? Category {
-                vc.function = .edit
-                vc.category = category
-            } else {
-                vc.function = .add
-            }
+//            if let category = sender as? Category {
+//                vc.function = .edit
+//                vc.category = category
+//            } else {
+//                vc.function = .add
+//            }
+        }
+    }
+
+}
+
+extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return categoryViewModels.count
+        default:
+            return 0
         }
     }
     
-    private func tableViewSelectBehaviour(_: UITableView, display: TaskDisplay) {
-        performSegue(withIdentifier: todoScreenSegue, sender: display)
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TaskTableViewCell
+        
+        switch indexPath.section {
+        case 0:
+            cell.taskTitleLabel.text = "All Todos"
+            cell.emojiLabel.text = "📝"
+        case 1:
+            let categoryViewModel = categoryViewModels[indexPath.row]
+            cell.primaryCategoryViewModel = categoryViewModel
+            
+        default:
+            return cell
+        }
+        
+        return cell
     }
     
-    private func editCategoryBehaviour(category: Category) {
-        performSegue(withIdentifier: CategorySegue, sender: category)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var displayType: TaskDisplay
+        switch indexPath.section {
+        case 1:
+            let category = categoryModelController.getCategory(atIndex: indexPath.row)
+            displayType = .category(category)
+        default:
+            displayType = .allTodos
+        }
+        
+        performSegue(withIdentifier: todoScreenSegue, sender: displayType)
+        
     }
     
-    private func addCategoryBehaviour() {
-        performSegue(withIdentifier: CategorySegue, sender: nil)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        switch indexPath.section {
+        case 1:
+            return TaskTableView.categoryDeleteSwipe(forTableView: tableView, forRowAt: indexPath)
+        default:
+            return nil
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        switch indexPath.section {
+        case 1:
+            return TaskTableView.categoryEditSwipe(forTableView: tableView, forRowAt: indexPath) { category in
+                
+                self.performSegue(withIdentifier: self.CategorySegue, sender: category)
+            }
+        default:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case 1:
+            return setupCategoriesHeader(forTableView: tableView)
+        default:
+            return nil
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    private func setupCategoriesHeader(forTableView tableView: UITableView) -> UIView? {
+        
+        let view = tableView.dequeueReusableCell(withIdentifier: "header") as! MMTableViewHeader
+        view.rightSideButtonAction = { button in
+            self.performSegue(withIdentifier: self.CategorySegue, sender: nil)
+        }
+        return view
     }
 
 }

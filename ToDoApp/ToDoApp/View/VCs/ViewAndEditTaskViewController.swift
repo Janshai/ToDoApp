@@ -13,11 +13,10 @@ class ViewAndEditTaskViewController: UIViewController {
     var todo: Todo!
     var taskIndex: Int!
     var todoModelController: ToDoModelController!
+    var categoryModelController: CategoryModelController!
     var changed = false
     var callback: ((Bool) -> Void)?
     
-    var categoryCollectionDataSource: CategoriesCollectionDataSource?
-    var categoryCollectionDelegate: CategoriesCollectionDelegate?
     
     var isEditingTodo = false {
         didSet {
@@ -74,11 +73,8 @@ class ViewAndEditTaskViewController: UIViewController {
         
         todo = todoModelController.getTodo(atIndex: taskIndex)
         
-        categoryCollectionDelegate = CategoriesCollectionDelegate()
-        categoryCollectionDataSource = CategoriesCollectionDataSource()
+
         
-        categoriesCollectionView.delegate = categoryCollectionDelegate
-        categoriesCollectionView.dataSource = categoryCollectionDataSource
         
         titleTextView.text = todo.title
         titleTextView.delegate = self

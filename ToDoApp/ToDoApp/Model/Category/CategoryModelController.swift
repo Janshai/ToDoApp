@@ -39,6 +39,10 @@ class CategoryModelController {
         return categories[index]
     }
     
+    public func getAllCategoryViewModels(forDisplayingOnMenu menu: Bool? = nil) -> [CategoryViewModel] {
+        return categories.map({return CategoryViewModel(category: $0, onMenu: menu)})
+    }
+    
     public func deleteCategory(withID id: String) {
         categories.removeAll() { $0.id == id }
     }

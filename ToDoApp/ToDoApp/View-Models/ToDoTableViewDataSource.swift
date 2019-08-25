@@ -47,7 +47,7 @@ extension ToDoTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TodoTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TaskTableViewCell {
             
             let todo = toDoModelController.getTodo(atIndex: indexPath.row, applyingFilter: createCorrectFilter())
             cell.taskTitleLabel.text = todo.title

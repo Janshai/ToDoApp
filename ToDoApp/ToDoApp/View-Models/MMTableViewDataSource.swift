@@ -12,9 +12,11 @@ import UIKit
 class MMTableViewDataSource: NSObject {
     
     private var categoryModel: CategoryModelController
+    private var categoryViewModels = [CategoryViewModel]()
     
     init(tableView: UITableView, categoryModelController: CategoryModelController) {
         self.categoryModel = categoryModelController
+        self.categoryViewModels = self.categoryModel.getAllCategoryViewModels(forDisplayingOnMenu: true)
         super.init()
         tableView.dataSource = self
     }
@@ -32,7 +34,7 @@ extension MMTableViewDataSource: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return categoryModel.numberOfCategories
+            return categoryViewModels.count
         default:
             return 0
         }
@@ -43,18 +45,15 @@ extension MMTableViewDataSource: UITableViewDataSource {
         let backupCell = UITableViewCell(style: .default, reuseIdentifier: nil)
         backupCell.textLabel?.text = "Error"
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TodoTableViewCell {
-            cell.primaryCategoryLabel.isHidden = true
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TaskTableViewCell {
             
             switch indexPath.section {
             case 0:
                 cell.taskTitleLabel.text = "All Todos"
                 cell.emojiLabel.text = "📝"
             case 1:
-                let category = categoryModel.getCategory(atIndex: indexPath.row)
-                cell.taskTitleLabel.text = category.name
-                cell.emojiLabel.text = category.emoji
-                cell.contentView.backgroundColor = category.UIColor().withAlphaComponent(0.5)
+                let categoryViewModel = categoryViewModels[indexPath.row]
+                cell.primaryCategoryViewModel = categoryViewModel
                 
             default:
                 return backupCell
@@ -66,14 +65,6 @@ extension MMTableViewDataSource: UITableViewDataSource {
         }
     }
     
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return "Categories"
-        } else {
-            return nil
-        }
-    }
     
     
 }

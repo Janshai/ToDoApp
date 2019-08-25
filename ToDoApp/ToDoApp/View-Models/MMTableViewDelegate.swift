@@ -25,32 +25,7 @@ class MMTableViewDelegate: NSObject {
         tableView.delegate = self
     }
     
-    private func contextualDeletionAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath) -> UIContextualAction {
-        
-        let category = categoryModelController.getCategory(atIndex: indexPath.row)
-        let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
-            self.categoryModelController.deleteCategory(withID: category.id)
-            tableView.deleteRows(at: [indexPath], with: .right)
-            completionHandler(true)
-        }
-        action.backgroundColor = #colorLiteral(red: 1, green: 0.20458019, blue: 0.1013487829, alpha: 1)
-        return action
-    }
     
-    private func contextualEditAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath) -> UIContextualAction {
-        let category = categoryModelController.getCategory(atIndex: indexPath.row)
-        let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
-            if let setEditCategoryBehaviour = self.editCategoryBehaviour {
-                setEditCategoryBehaviour(category)
-            }
-            tableView.reloadRows(at: [indexPath], with: .fade)
-            completionHandler(true)
-        }
-        action.backgroundColor = #colorLiteral(red: 0.1932181939, green: 0.660575954, blue: 1, alpha: 1)
-        action.image = UIImage(named: "EditIcon")
-        
-        return action
-    }
     
     private func setupCategoriesHeader(forTableView tableView: UITableView) -> UIView? {
         if let view = tableView.dequeueReusableCell(withIdentifier: "header") as? MMTableViewHeader {
@@ -93,10 +68,7 @@ extension MMTableViewDelegate: UITableViewDelegate {
         
         switch indexPath.section {
         case 1:
-            let deleteAction = contextualDeletionAction(forTableView: tableView, forRowAt: indexPath)
-            let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
-            swipeAction.performsFirstActionWithFullSwipe = true
-            return swipeAction
+            return TaskTableView.categoryDeleteSwipe(forTableView: tableView, forRowAt: indexPath)
         default:
             return nil
         }
@@ -108,10 +80,7 @@ extension MMTableViewDelegate: UITableViewDelegate {
         switch indexPath.section {
         case 1:
             if editCategoryBehaviour != nil {
-                let editAction = contextualEditAction(forTableView: tableView, forRowAt: indexPath)
-                let swipeAction = UISwipeActionsConfiguration(actions: [editAction])
-                swipeAction.performsFirstActionWithFullSwipe = true
-                return swipeAction
+                return TaskTableView.categoryEditSwipe(forTableView: tableView, forRowAt: indexPath, withAction: editCategoryBehaviour!)
             } else {
                 return emptySwipe
             }

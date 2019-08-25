@@ -91,6 +91,7 @@ class TasksTableViewController: UIViewController {
             let addTodoController = segue.destination as? AddToDoViewController
             addTodoController?.todoModelController = todoModelController
             addTodoController?.callback = addTodoCompletion(withChanges:)
+            addTodoController?.categoryModelController = categoryModelController
         }
     }
     

@@ -22,14 +22,13 @@
 		040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744922F8A57D00E67C5F /* TodoDataProvider.swift */; };
 		040A744E22F8B14E00E67C5F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744D22F8B14E00E67C5F /* Config.swift */; };
 		040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A744F22F9D58E00E67C5F /* AddTodo.storyboard */; };
+		045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D27702311F15E006E29EA /* CategoryViewModel.swift */; };
 		047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E115F22ECB33D00097A8E /* TasksTableViewController.swift */; };
 		047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */; };
 		04E7759F2307374700D1EFBB /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7759E2307374700D1EFBB /* TodoResponse.swift */; };
 		04E775A22309A56C00D1EFBB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A12309A56C00D1EFBB /* Category.swift */; };
 		04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A32309A66300D1EFBB /* CategoryModelController.swift */; };
-		04E775A72309CC9500D1EFBB /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */; };
-		04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */; };
-		04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */; };
+		04E775A72309CC9500D1EFBB /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A62309CC9500D1EFBB /* TaskTableView.swift */; };
 		04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */; };
 		04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */; };
 		04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */; };
@@ -63,14 +62,13 @@
 		040A744922F8A57D00E67C5F /* TodoDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataProvider.swift; sourceTree = "<group>"; };
 		040A744D22F8B14E00E67C5F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		040A744F22F9D58E00E67C5F /* AddTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTodo.storyboard; sourceTree = "<group>"; };
+		045D27702311F15E006E29EA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		047E115F22ECB33D00097A8E /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAndEditTaskViewController.swift; sourceTree = "<group>"; };
 		04E7759E2307374700D1EFBB /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
 		04E775A12309A56C00D1EFBB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		04E775A32309A66300D1EFBB /* CategoryModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelController.swift; sourceTree = "<group>"; };
-		04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
-		04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDataSource.swift; sourceTree = "<group>"; };
-		04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionDelegate.swift; sourceTree = "<group>"; };
+		04E775A62309CC9500D1EFBB /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
 		04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewAndEditTodo.storyboard; sourceTree = "<group>"; };
 		04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -150,10 +148,9 @@
 			children = (
 				040A6A4122C8189A0035D7BC /* ToDoTableViewDelegate.swift */,
 				040A6A3F22C813530035D7BC /* ToDoTableViewDataSource.swift */,
-				04E775A82309F2A200D1EFBB /* CategoriesCollectionDataSource.swift */,
-				04E775AA2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift */,
 				04E775B2230AFEFA00D1EFBB /* MMTableViewDataSource.swift */,
 				04E775B6230B29E000D1EFBB /* MMTableViewDelegate.swift */,
+				045D27702311F15E006E29EA /* CategoryViewModel.swift */,
 			);
 			path = "View-Models";
 			sourceTree = "<group>";
@@ -223,7 +220,7 @@
 		04E775A52309CC0A00D1EFBB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04E775A62309CC9500D1EFBB /* TodoTableViewCell.swift */,
+				04E775A62309CC9500D1EFBB /* TaskTableView.swift */,
 				04E775C2230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift */,
 				04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */,
 				04E775BE230B829900D1EFBB /* NameTableViewCell.swift */,
@@ -370,13 +367,12 @@
 				040A6A4222C8189A0035D7BC /* ToDoTableViewDelegate.swift in Sources */,
 				040A6A2F22C73A8F0035D7BC /* ToDoApp.xcdatamodeld in Sources */,
 				04E7759F2307374700D1EFBB /* TodoResponse.swift in Sources */,
+				045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */,
 				040A6A4022C813530035D7BC /* ToDoTableViewDataSource.swift in Sources */,
-				04E775AB2309F39E00D1EFBB /* CategoriesCollectionDelegate.swift in Sources */,
 				040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */,
 				04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */,
 				04E775B7230B29E000D1EFBB /* MMTableViewDelegate.swift in Sources */,
 				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
-				04E775A92309F2A200D1EFBB /* CategoriesCollectionDataSource.swift in Sources */,
 				04E775BF230B829900D1EFBB /* NameTableViewCell.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
@@ -385,7 +381,7 @@
 				040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */,
 				047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */,
 				040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */,
-				04E775A72309CC9500D1EFBB /* TodoTableViewCell.swift in Sources */,
+				04E775A72309CC9500D1EFBB /* TaskTableView.swift in Sources */,
 				047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */,
 				04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */,
 				04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */,

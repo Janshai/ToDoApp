@@ -8,14 +8,23 @@
 
 import UIKit
 class AddToDoViewController: UIViewController {
-    @IBOutlet weak var PopUpBoxView: UIView!
-    @IBOutlet weak var AddToDoLabel: UILabel!
+    
+    
+    var todoModelController: ToDoModelController!
+    var categoryModelController: CategoryModelController!
+    var callback: ((Bool) -> Void)?
+    var isAddingCategory = false
+    
+    var newTodoCategoryIDs: [String] = []
+    
+    @IBOutlet weak var headerView: UIView!
+    
     @IBOutlet weak var TitleTextField: UITextField!
+    @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
     
     @IBAction func touchPlusButton(_ sender: UIButton) {
         
-        //TODO: fix this in the same way i fixed it in the edit vc
         if let title = self.TitleTextField.text {
             DispatchQueue.global(qos: .userInitiated).async {
                 //TODO: pop up an error message if the todo doesn't add correctly and handle that.
@@ -45,53 +54,49 @@ class AddToDoViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    var todoModelController: ToDoModelController!
-    var callback: ((Bool) -> Void)?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        PopUpBoxView.layer.masksToBounds = true
-        PopUpBoxView.layer.cornerRadius = 6.0
-        PopUpBoxView.layer.borderWidth = 0.3
-        PopUpBoxView.layer.borderColor = UIColor.black.cgColor
-        AddToDoLabel.layer.masksToBounds = true
-        AddToDoLabel.layer.cornerRadius = 3.0
-        AddToDoLabel.layer.borderWidth = 0.3
-        AddToDoLabel.layer.borderColor = UIColor.black.cgColor
         
+        setupTitleTextField()
+        setupHeaderView()
+        
+        
+        self.categoriesCollectionView.dataSource = self
+        self.categoriesCollectionView.delegate = self
+        
+    
+    }
+    
+    private func setupTitleTextField() {
         TitleTextField.borderStyle = .roundedRect
         TitleTextField.autocorrectionType = .no
         TitleTextField.delegate = self
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowOrChangeFrame(notification:)), name: UIResponder.keyboardWillShowNotification
-            , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShowOrChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    
+        TitleTextField.doneAccessory = true
     }
     
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    private func setupHeaderView() {
+        headerView.clipsToBounds = true
+        headerView.layer.cornerRadius = 8.0
+        headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
-    
-    @objc func handleKeyboardShowOrChangeFrame(notification: Notification) {
-        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let height = keyboardFrame.cgRectValue.height
-            self.view.frame.origin.y = -(height)
-        }
-    }
-    
-    @objc func handleKeyboardHide(notification: Notification) {
-        self.view.frame.origin.y = 0
-    }
+
     
     private func hideKeyboard() {
         TitleTextField.resignFirstResponder()
+    }
+    
+    
+    func addCategoryButtonTouched(_ sender: UIButton) {
+        isAddingCategory = !isAddingCategory
+        categoriesCollectionView.performBatchUpdates( {
+            categoriesCollectionView.reloadSections(IndexSet(integer: 0))
+        }, completion: nil)
+    }
+    
+    func alphaForCell(withCategory category: Category) -> CGFloat {
+        return newTodoCategoryIDs.contains(category.id) ? 0.9 : 0.1
     }
 
 }
@@ -101,4 +106,70 @@ extension AddToDoViewController: UITextFieldDelegate {
         hideKeyboard()
         return true
     }
+}
+
+extension AddToDoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return isAddingCategory ? categoryModelController.numberOfCategories : newTodoCategoryIDs.count
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+//
+//        var category: Category
+//
+//        if isAddingCategory {
+//            category = categoryModelController.getCategory(atIndex: indexPath.item)
+//        } else {
+//            if let modelCategory = categoryModelController.getCategory(withID: newTodoCategoryIDs[indexPath.item]) {
+//                category = modelCategory
+//            } else {
+//                return UICollectionViewCell()
+//            }
+//        }
+//
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as? CategoryCollectionViewCell {
+//            cell.nameLabel.text = category.name
+//            cell.nameLabel.adjustsFontSizeToFitWidth = true
+//            let alpha: CGFloat = alphaForCell(withCategory: category)
+//            cell.backgroundColor = category.UIColor().withAlphaComponent(alpha)
+//
+//            return cell
+//        } else {
+//            return UICollectionViewCell()
+//        }
+//
+//
+//
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as? CategoryCollectionViewHeader
+//
+//        headerView?.frame.size.height = 50
+//        headerView?.touchedPlus = addCategoryButtonTouched(_:)
+//        return headerView!
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if isAddingCategory, let cell = collectionView.cellForItem(at: indexPath) {
+//            let category = categoryModelController.getCategory(atIndex: indexPath.item)
+//            if newTodoCategoryIDs.contains(category.id) {
+//                newTodoCategoryIDs.removeAll() {$0 == category.id}
+//            } else {
+//                newTodoCategoryIDs.append(category.id)
+//            }
+//            UIView.animate(withDuration: 0.5) {
+//                cell.backgroundColor = category.UIColor().withAlphaComponent(self.alphaForCell(withCategory: category))
+//            }
+//        }
+//    }
 }
