@@ -137,12 +137,11 @@ extension AddToDoViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isAddingCategory, let cell = collectionView.cellForItem(at: indexPath) {
+        if isAddingCategory {
+            let cell = collectionView.cellForItem(at: indexPath) as! CategoryCollectionViewCell
             let categoryViewModel = categoryViewModels[indexPath.item]
             categoryViewModel.isCurrentlySelectedForTask = !categoryViewModel.isCurrentlySelectedForTask
-            UIView.animate(withDuration: 0.5) {
-                cell.backgroundColor = categoryViewModel.backgroundColour
-            }
+            cell.animateSelection()
         }
     }
 }

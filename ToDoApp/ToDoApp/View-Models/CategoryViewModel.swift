@@ -20,6 +20,8 @@ class CategoryViewModel {
     var name: String
     var foregroundColour: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     var backgroundColour: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    var borderColour: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    var textColour: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     
     var isDisplayingOnMenu: Bool {
         didSet {
@@ -60,17 +62,19 @@ class CategoryViewModel {
         let rawColour = rawUIColor()
         foregroundColour = rawColour
         
-        var alpha: CGFloat
+        
         
         if isDisplayingOnMenu {
-            alpha = 0.5
+            backgroundColour = rawColour.withAlphaComponent(0.5)
         } else if isCurrentlySelectedForTask {
-            alpha = 0.9
+            backgroundColour = rawColour.withAlphaComponent(0.8)
+            borderColour = backgroundColour
+            textColour = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         } else {
-            alpha = 0.1
+            backgroundColour = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            borderColour = foregroundColour
+            textColour = foregroundColour
         }
-        
-        backgroundColour = rawColour.withAlphaComponent(alpha)
         
     }
     

@@ -14,7 +14,17 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         didSet {
             nameLabel.text = categoryViewModel.name
             self.backgroundColor = categoryViewModel.backgroundColour
+            self.layer.borderColor = categoryViewModel.borderColour.cgColor
+            nameLabel.textColor = categoryViewModel.textColour
             
+        }
+    }
+    
+    func animateSelection() {
+        UIView.animate(withDuration: 0.5) {
+            self.backgroundColor = self.categoryViewModel.backgroundColour
+            self.layer.borderColor = self.categoryViewModel.borderColour.cgColor
+            self.nameLabel.textColor = self.categoryViewModel.textColour
         }
     }
     
@@ -24,6 +34,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 12.0
         nameLabel.adjustsFontSizeToFitWidth = true
+        self.layer.borderWidth = 1.0
     }
     
 }
