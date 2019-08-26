@@ -14,8 +14,8 @@ import UIKit
 class CategoryViewModel {
     
     private var category: Category!
+    private var categoryModelController: CategoryModelController!
     
-    var isDisplayingOnTask = false
     
     var name: String
     var foregroundColour: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -26,28 +26,33 @@ class CategoryViewModel {
             setUIColors()
         }
     }
-    var isCurrentlySelectedForTask: Bool? {
+    var isCurrentlySelectedForTask: Bool = false {
         didSet {
             setUIColors()
         }
     }
     
     var taskFilter: (Todo) -> Bool {
-        return { (todo) -> Bool in
+        return { todo in
             return todo.categoryIDs.contains(self.category.id)
         }
     }
     
     var emoji: String
     
-    init(category: Category, onMenu: Bool = false) {
+    init(category: Category, categoryModelController: CategoryModelController, onMenu: Bool = false) {
         self.category = category
+        self.categoryModelController = categoryModelController
         self.name = category.name
         self.emoji = category.emoji
         self.isDisplayingOnMenu = onMenu
         setUIColors()
         
         
+    }
+    
+    func delete() {
+        categoryModelController.deleteCategory(withID: category.id)
     }
     
     
@@ -59,10 +64,10 @@ class CategoryViewModel {
         
         if isDisplayingOnMenu {
             alpha = 0.5
-        } else if let selected = isCurrentlySelectedForTask, !selected {
-            alpha = 0.2
+        } else if isCurrentlySelectedForTask {
+            alpha = 0.9
         } else {
-            alpha = 0.8
+            alpha = 0.1
         }
         
         backgroundColour = rawColour.withAlphaComponent(alpha)

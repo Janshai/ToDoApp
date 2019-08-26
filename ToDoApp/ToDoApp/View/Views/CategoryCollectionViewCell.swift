@@ -9,11 +9,21 @@
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
+    
+    var categoryViewModel: CategoryViewModel! {
+        didSet {
+            nameLabel.text = categoryViewModel.name
+            self.backgroundColor = categoryViewModel.backgroundColour
+            
+        }
+    }
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 12.0
+        nameLabel.adjustsFontSizeToFitWidth = true
     }
     
 }

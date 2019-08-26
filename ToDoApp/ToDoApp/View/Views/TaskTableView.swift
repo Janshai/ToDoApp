@@ -13,7 +13,7 @@ class TaskTableViewCell: UITableViewCell {
     var categoryViewModel: CategoryViewModel! {
         didSet {
             self.taskTitleLabel.text = categoryViewModel.name
-            self.primaryCategoryLabel.isHidden = !categoryViewModel.isDisplayingOnTask
+            self.primaryCategoryLabel.isHidden = true
             self.emojiLabel.text = categoryViewModel.emoji
             self.contentView.backgroundColor = categoryViewModel.backgroundColour
         }
@@ -51,9 +51,7 @@ class TaskTableView {
     
     class func categoryEditSwipe(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: @escaping (CategoryViewModel) -> Void) -> UISwipeActionsConfiguration {
         let editAction = contextualEditCategoryAction(forTableView: tableView, forRowAt: indexPath, withAction: action)
-        let swipeAction = UISwipeActionsConfiguration(actions: [editAction])
-        swipeAction.performsFirstActionWithFullSwipe = true
-        return swipeAction
+        return createSingleSwipe(withContextualAction: editAction)
     }
     
     class private func contextualEditCategoryAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction editAction: @escaping (CategoryViewModel) -> Void) -> UIContextualAction {
@@ -69,15 +67,12 @@ class TaskTableView {
         return action
     }
     
-    class func categoryDeleteSwipe(forTableView tableView: UITableView, forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration {
-//        let category = categoryModelController.getCategory(atIndex: indexPath.row)
+    class func categoryDeleteSwipe(forCategory category: CategoryViewModel, onTableView tableView: UITableView, forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration {
     
         let deleteAction = createDeletionAction(forTableView: tableView, forRowAt: indexPath) {
-//            self.categoryModelController.deleteCategory(withID: category.id)
+            category.delete()
         }
-        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
-        swipeAction.performsFirstActionWithFullSwipe = true
-        return swipeAction
+        return createSingleSwipe(withContextualAction: deleteAction)
     }
     
     
@@ -86,16 +81,12 @@ class TaskTableView {
         let deleteAction = createDeletionAction(forTableView: tableView, forRowAt: indexPath) {
             task.delete()
         }
-        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
-        swipeAction.performsFirstActionWithFullSwipe = true
-        return swipeAction
+        return createSingleSwipe(withContextualAction: deleteAction)
     }
     
     class func taskCompleteSwipe(forTask task: TaskViewModel, onTableView tableView: UITableView, forRowAt indexPath: IndexPath)  -> UISwipeActionsConfiguration{
         let completeAction = contextualCompletionAction(forTask: task, onTableView: tableView, forRowAt: indexPath)
-        let swipeAction = UISwipeActionsConfiguration(actions: [completeAction])
-        swipeAction.performsFirstActionWithFullSwipe = true
-        return swipeAction
+        return createSingleSwipe(withContextualAction: completeAction)
     }
     
     class private func createDeletionAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withDeleteAction deleteAction: @escaping () -> Void) -> UIContextualAction {
@@ -117,6 +108,12 @@ class TaskTableView {
         action.image = UIImage(named: "TickIcon")
         action.backgroundColor = #colorLiteral(red: 0.001046009478, green: 0.8197078109, blue: 0, alpha: 1)
         return action
+    }
+    
+    class private func createSingleSwipe(withContextualAction action: UIContextualAction) -> UISwipeActionsConfiguration {
+        let swipeAction = UISwipeActionsConfiguration(actions: [action])
+        swipeAction.performsFirstActionWithFullSwipe = true
+        return swipeAction
     }
     
     

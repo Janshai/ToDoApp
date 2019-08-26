@@ -132,7 +132,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.section {
         case 1:
-            return TaskTableView.categoryDeleteSwipe(forTableView: tableView, forRowAt: indexPath)
+            return TaskTableView.categoryDeleteSwipe(forCategory: categoryViewModels[indexPath.row], onTableView: tableView, forRowAt: indexPath)
         default:
             return nil
         }
