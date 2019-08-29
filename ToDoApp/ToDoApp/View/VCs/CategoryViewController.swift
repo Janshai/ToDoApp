@@ -12,7 +12,7 @@ import UIKit
 class CategoryViewController: UIViewController {
     
     //MARK: Required Properties - Must be set by presenter or app will crash
-    var categoryViewModel: CategoryViewModel!
+    private var categoryViewModel: CategoryViewModel?
     var completion: (() -> Void)!
     var function: CategoryVCFunction!
     
@@ -33,6 +33,14 @@ class CategoryViewController: UIViewController {
     //MARK: VC Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        switch function! {
+        case .edit(let vm):
+            categoryViewModel = vm
+        default:
+            break
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -67,20 +75,19 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let isEditing = function! == .edit
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "name") as! CategoryNameTableViewCell
-            cell.categoryViewModel = isEditing ? categoryViewModel : nil
+            cell.categoryViewModel = categoryViewModel
             return cell
                 
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "colour") as! ColourPickerTableViewCell
-            cell.categoryViewModel = isEditing ? categoryViewModel : nil
+            cell.categoryViewModel = categoryViewModel
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "emoji") as! EmojiPickerTableViewCell
-            cell.categoryViewModel = isEditing ? categoryViewModel : nil
+            cell.categoryViewModel = categoryViewModel
             return cell
             
         default: break
@@ -95,6 +102,6 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
 
 enum CategoryVCFunction {
     case add
-    case edit
+    case edit(viewModel: CategoryViewModel)
 }
 

@@ -187,6 +187,7 @@
                     <connections>
                         <outlet property="TitleTextField" destination="2rI-Nn-Dvt" id="DYP-MA-snf"/>
                         <outlet property="categoriesCollectionView" destination="EdW-EN-oLE" id="but-kV-F4Q"/>
+                        <outlet property="headerLabel" destination="DqA-I8-fNb" id="XOU-ox-MZJ"/>
                         <outlet property="headerView" destination="UdE-FU-07T" id="6UC-xh-6gT"/>
                     </connections>
                 </viewController>

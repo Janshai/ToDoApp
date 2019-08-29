@@ -16,18 +16,16 @@ class TaskViewModel {
             setCategoryFields()
         }
     }
-    var taskModel: ToDoModelController
     
     var title: String
     var primaryCategory: CategoryViewModel?
     var categories = [CategoryViewModel]()
     var isDisplayingOnMenu: Bool
     
-    init(task: Todo, taskModel: ToDoModelController, categoryModel: CategoryModelController?, onMenu: Bool = false) {
+    init(task: Todo, categoryModel: CategoryModelController?, onMenu: Bool = false) {
         self.task = task
         self.title = task.title
         self.isDisplayingOnMenu = onMenu
-        self.taskModel = taskModel
         self.categoryModel = categoryModel
         setCategoryFields()
     }
@@ -43,6 +41,29 @@ class TaskViewModel {
     }
     
     func delete() {
-        taskModel.deleteTodo(withIdentifier: task.id) { _ in }
+        ToDoModelController.shared.deleteTodo(withIdentifier: task.id) { _ in }
     }
+    
+    class func getAllTaskViewModels(applyingFilter filter: ((Todo) -> Bool)? = nil, forDisplayingOnMenu menu: Bool = false) -> [TaskViewModel] {
+        let tasks = ToDoModelController.shared.getAllTasks(applyingFilter: filter)
+        return tasks.map(){ TaskViewModel(task: $0, categoryModel: nil, onMenu: menu) }
+    }
+    
+    class func addTask(withTitle title: String, completion: @escaping (Bool) -> Void) {
+        ToDoModelController.shared.addTodo(withTitle: title){ result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(_):
+                print("Failure caught in VC")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+        }
+        
+    }
+    
 }

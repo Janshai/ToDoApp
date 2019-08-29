@@ -10,14 +10,20 @@ import Foundation
 
 
 class ToDoModelController {
+    private(set) static var shared = ToDoModelController()
     
     private var todoDataProvider: TodoDataProvider
     private var todos: [Todo] = []
     
     //TODO: make init optional and then handle this at the front end by hiding the tableview and displaying try again later message
     
-    init(todoDataProvider: TodoDataProvider? = nil, group: DispatchGroup) {
+    init(todoDataProvider: TodoDataProvider? = nil) {
         self.todoDataProvider = todoDataProvider ?? NetworkTodoDataProvider()
+        
+        
+    }
+    
+    func fetchTasks(group: DispatchGroup) {
         group.enter()
         self.todoDataProvider.fetchTodos() { result in
             switch result {
@@ -26,7 +32,6 @@ class ToDoModelController {
             }
             group.leave()
         }
-
     }
     
     func numberOfTodos(applyingFilter filter: ((Todo) -> Bool)? = nil) -> Int {
@@ -91,6 +96,17 @@ class ToDoModelController {
         
     }
     
+    func getAllTasks(applyingFilter filter: ((Todo) -> Bool)? = nil) -> [Todo] {
+        var desiredTasks: [Todo]
+        if let setFilter = filter {
+            desiredTasks = todos.filter(setFilter)
+        } else {
+            desiredTasks = todos
+        }
+        
+        return desiredTasks
+    }
+    
     func getAllTaskViewModels(applyingFilter filter: ((Todo) -> Bool)? = nil, forDisplayingOnMenu menu: Bool = false) -> [TaskViewModel] {
         var desiredTasks: [Todo]
         if let setFilter = filter {
@@ -99,7 +115,7 @@ class ToDoModelController {
             desiredTasks = todos
         }
         
-        return desiredTasks.map(){ TaskViewModel(task: $0, taskModel: self, categoryModel: nil, onMenu: menu) }
+        return desiredTasks.map(){ TaskViewModel(task: $0, categoryModel: nil, onMenu: menu) }
     }
 }
 

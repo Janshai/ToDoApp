@@ -10,14 +10,16 @@ import UIKit
 class AddToDoViewController: UIViewController {
     
     
-    var todoModelController: ToDoModelController!
     var categoryModelController: CategoryModelController!
     var callback: ((Bool) -> Void)?
-    var isAddingCategory = false
+    var function: TaskVCFunction!
     
-    var categoryViewModels = [CategoryViewModel]()
+    private var taskViewModel: TaskViewModel?
+    private var categoryViewModels = [CategoryViewModel]()
+    private var isAddingCategory = false
     
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerLabel: UILabel!
     
     @IBOutlet weak var TitleTextField: UITextField!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
@@ -29,20 +31,11 @@ class AddToDoViewController: UIViewController {
             DispatchQueue.global(qos: .userInitiated).async {
                 //TODO: pop up an error message if the todo doesn't add correctly and handle that.
                
-                self.todoModelController.addTodo(withTitle: title){ result in
-                    switch result {
-                    case .success(_):
-                        DispatchQueue.main.async {
-                            if let completion = self.callback {
-                                completion(true)
-                            }
-                            
-                        }
-                    case .failure(_): print("Failure caught in VC")
+                TaskViewModel.addTask(withTitle: title) { success in
+                    if let completion = self.callback {
+                        completion(success)
                     }
                 }
-                
-                
             }
         }
         hideKeyboard()
@@ -59,6 +52,13 @@ class AddToDoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        switch function! {
+        case .edit(let vm):
+            taskViewModel = vm
+        default:
+            break
+        }
+        
         setupTitleTextField()
         setupHeaderView()
         
@@ -66,6 +66,7 @@ class AddToDoViewController: UIViewController {
         self.categoriesCollectionView.delegate = self
         
         categoryViewModels = categoryModelController.getAllCategoryViewModels()
+        //TODO: if the task view model is set, add all the categories
         
     }
     
@@ -74,12 +75,16 @@ class AddToDoViewController: UIViewController {
         TitleTextField.autocorrectionType = .no
         TitleTextField.delegate = self
         TitleTextField.doneAccessory = true
+        if let task = taskViewModel {
+            TitleTextField.text = task.title
+        }
     }
     
     private func setupHeaderView() {
         headerView.clipsToBounds = true
         headerView.layer.cornerRadius = 8.0
         headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        headerLabel.text = taskViewModel == nil ? "Add Task" : "Edit Task"
     }
 
     
@@ -144,4 +149,9 @@ extension AddToDoViewController: UICollectionViewDataSource, UICollectionViewDel
             cell.animateSelection()
         }
     }
+}
+
+enum TaskVCFunction {
+    case add
+    case edit(viewModel: TaskViewModel)
 }

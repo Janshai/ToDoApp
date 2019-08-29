@@ -12,7 +12,6 @@ class ViewAndEditTaskViewController: UIViewController {
     
     var todo: Todo!
     var taskIndex: Int!
-    var todoModelController: ToDoModelController!
     var categoryModelController: CategoryModelController!
     var changed = false
     var callback: ((Bool) -> Void)?
@@ -63,7 +62,7 @@ class ViewAndEditTaskViewController: UIViewController {
             let dict = createNewValuesDict()
             changed = true
             //call edit todo on model controller
-            todoModelController.editTodo(withIdentifier: todo.id, andNewValues: dict) {_ in}
+            ToDoModelController.shared.editTodo(withIdentifier: todo.id, andNewValues: dict) {_ in}
         }
         isEditingTodo = !isEditingTodo
     }
@@ -71,7 +70,7 @@ class ViewAndEditTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        todo = todoModelController.getTodo(atIndex: taskIndex)
+        todo = ToDoModelController.shared.getTodo(atIndex: taskIndex)
         
         titleTextView.text = todo.title
         titleTextView.delegate = self

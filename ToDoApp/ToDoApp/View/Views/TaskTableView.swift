@@ -15,7 +15,7 @@ class TaskTableViewCell: UITableViewCell {
             self.taskTitleLabel.text = categoryViewModel.name
             self.primaryCategoryLabel.isHidden = true
             self.emojiLabel.text = categoryViewModel.emoji
-            self.contentView.backgroundColor = categoryViewModel.backgroundColour
+            self.backgroundColor = categoryViewModel.backgroundColour
         }
     }
     
@@ -24,7 +24,7 @@ class TaskTableViewCell: UITableViewCell {
             taskTitleLabel.text = taskViewModel.title
             primaryCategoryLabel.text = taskViewModel.primaryCategory?.name
             emojiLabel.text = taskViewModel.primaryCategory?.emoji
-            self.contentView.backgroundColor = taskViewModel.primaryCategory?.backgroundColour
+            self.backgroundColor = taskViewModel.primaryCategory?.backgroundColour ?? UIColor.white
         }
     }
 
@@ -35,6 +35,7 @@ class TaskTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        self.contentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

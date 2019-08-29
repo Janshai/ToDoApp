@@ -13,8 +13,6 @@ class TasksTableViewController: UIViewController {
     let selectSegueIdetifier = "showTask"
     let addTodoSegueIdentifier =  "addToDo"
    
-    let initialTodoLoadingGroup = DispatchGroup()
-    var todoModelController: ToDoModelController!
     var categoryModelController: CategoryModelController!
     
     private var taskViewModels = [TaskViewModel]()
@@ -36,18 +34,11 @@ class TasksTableViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let loadingView = UIActivityIndicatorView()
-        setup(LoadingView: loadingView)
         setupNavBar()
         
-        todoModelController = ToDoModelController(group: initialTodoLoadingGroup)
         toDoTableView.delegate = self
         toDoTableView.dataSource = self
         
-        initialTodoLoadingGroup.notify(queue: .main) {
-            loadingView.stopAnimating()
-            self.toDoTableView.reloadData()
-        }
         
     }
     
@@ -61,7 +52,6 @@ class TasksTableViewController: UIViewController {
     
     private func prepareForAddTodo(segue: UIStoryboardSegue) {
         let addTodoController = segue.destination as? AddToDoViewController
-        addTodoController?.todoModelController = todoModelController
         addTodoController?.callback = { changed in
             if changed {
                 self.toDoTableView.performBatchUpdates({
@@ -70,12 +60,12 @@ class TasksTableViewController: UIViewController {
             }
         }
         addTodoController?.categoryModelController = categoryModelController
+        addTodoController?.function = .add
     }
     
     private func prepareForViewAndEdit(segue: UIStoryboardSegue) {
         let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
         viewAndEditTaskController?.taskIndex = selectedTaskIndex
-        viewAndEditTaskController?.todoModelController = todoModelController
         viewAndEditTaskController?.callback = { changed in
             if changed {
                 if let index = self.selectedTaskIndex {
@@ -85,15 +75,6 @@ class TasksTableViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    
-    private func setup(LoadingView loadingView: UIActivityIndicatorView) {
-        loadingView.hidesWhenStopped = true
-        loadingView.center = self.view.center
-        loadingView.style = .gray
-        view.addSubview(loadingView)
-        loadingView.startAnimating()
     }
     
     private func setupNavBar() {
@@ -121,7 +102,7 @@ class TasksTableViewController: UIViewController {
 
 extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.taskViewModels = todoModelController.getAllTaskViewModels(applyingFilter: createCorrectFilter(), forDisplayingOnMenu: true)
+        self.taskViewModels = ToDoModelController.shared.getAllTaskViewModels(applyingFilter: createCorrectFilter(), forDisplayingOnMenu: true)
         taskViewModels.forEach() { $0.categoryModel = self.categoryModelController }
         return taskViewModels.count
     }

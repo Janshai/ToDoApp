@@ -87,8 +87,8 @@
                         <constraints>
                             <constraint firstItem="f3L-OD-Cnd" firstAttribute="top" secondItem="IJF-4L-ohT" secondAttribute="top" constant="1" id="Xc0-Ip-QZx"/>
                             <constraint firstAttribute="bottom" secondItem="f3L-OD-Cnd" secondAttribute="bottom" id="k0E-jD-a7S"/>
-                            <constraint firstItem="f3L-OD-Cnd" firstAttribute="leading" secondItem="IJF-4L-ohT" secondAttribute="leading" id="qr9-JJ-QZV"/>
-                            <constraint firstItem="IJF-4L-ohT" firstAttribute="trailing" secondItem="f3L-OD-Cnd" secondAttribute="trailing" id="y82-ub-11u"/>
+                            <constraint firstItem="f3L-OD-Cnd" firstAttribute="leading" secondItem="doB-5p-KHP" secondAttribute="leading" id="qr9-JJ-QZV"/>
+                            <constraint firstAttribute="trailing" secondItem="f3L-OD-Cnd" secondAttribute="trailing" id="y82-ub-11u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IJF-4L-ohT"/>
                     </view>
@@ -219,8 +219,8 @@
                         <constraints>
                             <constraint firstItem="wA2-Qa-PHq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B4P-aa-uq2"/>
                             <constraint firstItem="Hpi-IS-lYv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="CBR-MF-b1f"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hpi-IS-lYv" secondAttribute="trailing" id="W15-Sj-P4u"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wA2-Qa-PHq" secondAttribute="bottom" constant="30" id="bw2-nS-tTX"/>
+                            <constraint firstAttribute="trailing" secondItem="Hpi-IS-lYv" secondAttribute="trailing" id="W15-Sj-P4u"/>
+                            <constraint firstAttribute="bottom" secondItem="wA2-Qa-PHq" secondAttribute="bottom" constant="30" id="bw2-nS-tTX"/>
                             <constraint firstItem="wA2-Qa-PHq" firstAttribute="top" secondItem="Hpi-IS-lYv" secondAttribute="bottom" constant="10" id="mAA-sR-xUN"/>
                             <constraint firstItem="Hpi-IS-lYv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="p3B-gm-073"/>
                             <constraint firstItem="wA2-Qa-PHq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="vOP-pW-OUT"/>

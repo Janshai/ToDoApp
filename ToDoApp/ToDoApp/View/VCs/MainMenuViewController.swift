@@ -17,6 +17,9 @@ class MainMenuViewController: UIViewController {
     private var categoryModelController = CategoryModelController()
     private var categoryViewModels = [CategoryViewModel]()
     
+    //MARK: Other properties
+    private var initialLoadingGroup = DispatchGroup()
+    
     //MARK: Outlets
     /// Outlet for Main TableView
     @IBOutlet weak var tableView: UITableView!
@@ -27,10 +30,22 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        categoryViewModels = categoryModelController.getAllCategoryViewModels(forDisplayingOnMenu: true)
+        let loadingView = UIActivityIndicatorView()
+        setup(LoadingView: loadingView)
+        fetchData()
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MMTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: MMTableViewHeader.reuseIdentifier)
+        
+        initialLoadingGroup.notify(queue: .main) {
+                        loadingView.stopAnimating()
+                        UIView.animate(withDuration: 0.3) {
+                            self.tableView.alpha = 1
+                        }
+                        self.tableView.reloadData()
+        }
         
         
     }
@@ -47,8 +62,7 @@ class MainMenuViewController: UIViewController {
         } else if segue.identifier == CategorySegue, let vc = segue.destination as? CategoryViewController {
             // segue to add a new category or edit an existing category
             if let index = sender as? IndexPath {
-                vc.function = .edit
-                vc.categoryViewModel = categoryViewModels[index.row]
+                vc.function = .edit(viewModel: categoryViewModels[index.row])
                 vc.completion = {
                     self.tableView.reloadRows(at: [index], with: .fade)
                 }
@@ -56,6 +70,20 @@ class MainMenuViewController: UIViewController {
                 vc.function = .add
             }
         }
+    }
+    
+    private func setup(LoadingView loadingView: UIActivityIndicatorView) {
+        tableView.alpha = 0
+        loadingView.hidesWhenStopped = true
+        loadingView.center = self.view.center
+        loadingView.style = .gray
+        view.addSubview(loadingView)
+        loadingView.startAnimating()
+    }
+    
+    fileprivate func fetchData() {
+        ToDoModelController.shared.fetchTasks(group: initialLoadingGroup)
+        categoryViewModels = categoryModelController.getAllCategoryViewModels(forDisplayingOnMenu: true)
     }
 
 }
