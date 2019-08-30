@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 
 class TaskViewModel {
-    private var task: Todo
+    private var task: Todo {
+        didSet {
+            self.title = task.title
+            setCategoryFields()
+        }
+    }
     var categoryModel: CategoryModelController? {
         didSet {
             setCategoryFields()
         }
     }
     
-    var title: String
+    var title: String!
     var primaryCategory: CategoryViewModel?
     var categories = [CategoryViewModel]()
     var isDisplayingOnMenu: Bool
@@ -40,6 +45,18 @@ class TaskViewModel {
     
     }
     
+    func edit(withNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<TaskViewModel, Error>) -> Void) {
+        ToDoModelController.shared.editTodo(withIdentifier: task.id, andNewValues: values) { result in
+            switch result {
+            case .success(let task):
+                self.task = task
+                completion(.success(self))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func delete() {
         ToDoModelController.shared.deleteTodo(withIdentifier: task.id) { _ in }
     }
@@ -49,8 +66,11 @@ class TaskViewModel {
         return tasks.map(){ TaskViewModel(task: $0, categoryModel: nil, onMenu: menu) }
     }
     
-    class func addTask(withTitle title: String, completion: @escaping (Bool) -> Void) {
-        ToDoModelController.shared.addTodo(withTitle: title){ result in
+    class func addTask(withValues values: [TodoFields: Encodable], completion: @escaping (Bool) -> Void) {
+        
+        
+        
+        ToDoModelController.shared.addTodo(withValues: values){ result in
             switch result {
             case .success(_):
                 DispatchQueue.main.async {

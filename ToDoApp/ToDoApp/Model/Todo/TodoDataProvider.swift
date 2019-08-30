@@ -29,14 +29,18 @@ class NetworkTodoDataProvider: TodoDataProvider {
         }
     }
 
-    func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable]) {
+    func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
+        let decoder = createDecoderForMongoDates()
         let params = TodoParameters(withFieldsDict: values)
         let url = baseURL + "/" + id
-        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseJSON() { response in
+        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
             
-            switch response.result {
-            case .success(let json): print(json)
-            case .failure(let error): print(error)
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todo):
+                completion(.success(todo[0]))
+            case .failure(let error):
+                completion(.failure(error))
+                print(error)
             }
         }
     }
@@ -110,7 +114,7 @@ protocol TodoDataProvider {
     
     func addTodo(withValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
-    func updateTodo(withID: String, withNewValues: [TodoFields: Encodable])
+    func updateTodo(withID: String, withNewValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
     func deleteTodo(withID: String)
 }

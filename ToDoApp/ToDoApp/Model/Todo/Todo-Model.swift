@@ -52,9 +52,7 @@ class ToDoModelController {
         
     }
     
-    func addTodo(withTitle title: String, andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void){
-        
-        let values: [TodoFields: Encodable] = [TodoFields.title: title]
+    func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void){
         
         todoDataProvider.addTodo(withValues: values) { result in
             switch result {
@@ -84,14 +82,30 @@ class ToDoModelController {
     /// The function pre-emptively updates the todo locally so the UI can be reloaded immediately if you wish. Then asynchronously updates the remote version.
     /// - Parameter withIdentifier: The String Identifier of the Todo you wish to update
     /// - Parameter andOnCompletion: Completion block to be called once the remote update has been executed. A Result is passed into the completion block that contains the String ID of the updated Todo if the update is successful, or a SyncError struct with details of the failure .
-    func editTodo(withIdentifier id: String, andNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<String, SyncError>) -> Void) {
-        //TODO: Use the Completion
-        let todo = todos.first(where: {$0.id == id})
-        if let newTitle = values[.title] as? String {
-            todo?.title = newTitle
+    func editTodo(withIdentifier id: String, andNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, SyncError>) -> Void) {
+        
+        func createEditSyncError() -> SyncError {
+            let index = self.todos.firstIndex(where: {$0.id == id})
+            return SyncError(index: index, method: .updateTodo)
         }
         
-        todoDataProvider.updateTodo(withID: id, withNewValues: values)
+        todoDataProvider.updateTodo(withID: id, withNewValues: values) { result in
+            switch result {
+            case .success(let todo):
+                if let editedTodo = self.todos.first(where: {$0.id == todo.id}) {
+                    editedTodo.title = todo.title
+                    editedTodo.categoryIDs = todo.categoryIDs
+                    completion(.success(editedTodo))
+                } else {
+                    completion(.failure(createEditSyncError()))
+                }
+                
+            case .failure(_):
+                completion(.failure(createEditSyncError()))
+            }
+            
+            
+        }
         
         
     }

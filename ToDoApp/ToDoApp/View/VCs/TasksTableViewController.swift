@@ -11,7 +11,7 @@ import UIKit
 class TasksTableViewController: UIViewController {
     
     let selectSegueIdetifier = "showTask"
-    let addTodoSegueIdentifier =  "addToDo"
+    let taskSegueIdentifier =  "addToDo"
    
     var categoryModelController: CategoryModelController!
     
@@ -21,8 +21,8 @@ class TasksTableViewController: UIViewController {
     
     var selectedTaskIndex: Int? {
         didSet {
-            if selectedTaskIndex != nil {
-                performSegue(withIdentifier: selectSegueIdetifier, sender: nil)
+            if let index = selectedTaskIndex {
+                performSegue(withIdentifier: taskSegueIdentifier, sender: taskViewModels[index])
             }
         }
     }
@@ -43,15 +43,17 @@ class TasksTableViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == selectSegueIdetifier {
-            prepareForViewAndEdit(segue: segue)
-        } else if segue.identifier == addTodoSegueIdentifier {
-            prepareForAddTodo(segue: segue)
+        if segue.identifier == taskSegueIdentifier {
+            if let task = sender as? TaskViewModel {
+                prepareForEdit(segue: segue, withTask: task)
+            } else {
+                prepareForAddTodo(segue: segue)
+            }
         }
     }
     
     private func prepareForAddTodo(segue: UIStoryboardSegue) {
-        let addTodoController = segue.destination as? AddToDoViewController
+        let addTodoController = segue.destination as? TaskViewController
         addTodoController?.callback = { changed in
             if changed {
                 self.toDoTableView.performBatchUpdates({
@@ -63,18 +65,19 @@ class TasksTableViewController: UIViewController {
         addTodoController?.function = .add
     }
     
-    private func prepareForViewAndEdit(segue: UIStoryboardSegue) {
-        let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-        viewAndEditTaskController?.taskIndex = selectedTaskIndex
-        viewAndEditTaskController?.callback = { changed in
-            if changed {
-                if let index = self.selectedTaskIndex {
-                    let path = IndexPath(row: index, section: 0)
-                    self.toDoTableView.reloadRows(at: [path], with: .fade)
-                    self.selectedTaskIndex = nil
-                }
+    private func prepareForEdit(segue: UIStoryboardSegue, withTask task: TaskViewModel) {
+        let editTaskController = segue.destination as? TaskViewController
+        editTaskController?.callback = { changed in
+            if let index = self.selectedTaskIndex {
+                let path = IndexPath(row: index, section: 0)
+                self.toDoTableView.reloadRows(at: [path], with: .fade)
+                self.selectedTaskIndex = nil
             }
         }
+        editTaskController?.categoryModelController = categoryModelController
+        editTaskController?.function = .edit(viewModel: task)
+        
+        
     }
     
     private func setupNavBar() {

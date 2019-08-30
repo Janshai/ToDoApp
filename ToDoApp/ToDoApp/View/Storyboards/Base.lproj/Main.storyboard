@@ -83,7 +83,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.93715304136276245" green="0.93731355667114258" blue="0.93714290857315063" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="f3L-OD-Cnd" firstAttribute="top" secondItem="IJF-4L-ohT" secondAttribute="top" constant="1" id="Xc0-Ip-QZx"/>
                             <constraint firstAttribute="bottom" secondItem="f3L-OD-Cnd" secondAttribute="bottom" id="k0E-jD-a7S"/>
@@ -229,25 +229,16 @@
                     </view>
                     <connections>
                         <outlet property="toDoTableView" destination="Hpi-IS-lYv" id="0eC-Mr-6bh"/>
-                        <segue destination="Onm-XE-hcD" kind="presentation" identifier="showTask" modalPresentationStyle="overFullScreen" id="1PA-PU-nqC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="84" y="98"/>
         </scene>
-        <!--ViewAndEditTodo-->
-        <scene sceneID="apd-JM-kNe">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ViewAndEditTodo" id="Onm-XE-hcD" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mns-Qs-MmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="938" y="176"/>
-        </scene>
-        <!--AddTodo-->
+        <!--Task-->
         <scene sceneID="86e-CI-Ikf">
             <objects>
-                <viewControllerPlaceholder storyboardName="AddTodo" id="tff-iP-Xzw" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Task" id="tff-iP-Xzw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oja-V5-Vqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="757" y="580"/>

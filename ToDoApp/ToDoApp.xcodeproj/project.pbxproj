@@ -14,23 +14,21 @@
 		040A6A3422C73A900035D7BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A6A3222C73A900035D7BC /* LaunchScreen.storyboard */; };
 		040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A3B22C7D47F0035D7BC /* Todo-Model.swift */; };
 		040A6A3E22C7D5C70035D7BC /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A3D22C7D5C70035D7BC /* Todo.swift */; };
-		040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A4322C94A100035D7BC /* AddToDoViewController.swift */; };
+		040A6A4422C94A100035D7BC /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A6A4322C94A100035D7BC /* TaskViewController.swift */; };
 		040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A743E22F46C4C00E67C5F /* Extensions.swift */; };
 		040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 040A744722F88E6F00E67C5F /* Default-568h@2x.png */; };
 		040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744922F8A57D00E67C5F /* TodoDataProvider.swift */; };
 		040A744E22F8B14E00E67C5F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744D22F8B14E00E67C5F /* Config.swift */; };
-		040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A744F22F9D58E00E67C5F /* AddTodo.storyboard */; };
+		040A745022F9D58E00E67C5F /* Task.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A744F22F9D58E00E67C5F /* Task.storyboard */; };
 		043D8BD12312FECE00CBF120 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D8BD02312FECE00CBF120 /* TaskViewModel.swift */; };
 		045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D27702311F15E006E29EA /* CategoryViewModel.swift */; };
 		045D277323122350006E29EA /* MMTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045D277223122350006E29EA /* MMTableViewHeader.xib */; };
 		047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E115F22ECB33D00097A8E /* TasksTableViewController.swift */; };
-		047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */; };
 		04E7759F2307374700D1EFBB /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7759E2307374700D1EFBB /* TodoResponse.swift */; };
 		04E775A22309A56C00D1EFBB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A12309A56C00D1EFBB /* Category.swift */; };
 		04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A32309A66300D1EFBB /* CategoryModelController.swift */; };
 		04E775A72309CC9500D1EFBB /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775A62309CC9500D1EFBB /* TaskTableView.swift */; };
 		04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */; };
-		04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */; };
 		04E775B1230AFB3800D1EFBB /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */; };
 		04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */; };
 		04E775BB230B79E500D1EFBB /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E775BA230B79E500D1EFBB /* Category.storyboard */; };
@@ -52,23 +50,21 @@
 		040A6A3522C73A900035D7BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		040A6A3B22C7D47F0035D7BC /* Todo-Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo-Model.swift"; sourceTree = "<group>"; };
 		040A6A3D22C7D5C70035D7BC /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
-		040A6A4322C94A100035D7BC /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
+		040A6A4322C94A100035D7BC /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		040A743E22F46C4C00E67C5F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		040A744722F88E6F00E67C5F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		040A744922F8A57D00E67C5F /* TodoDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataProvider.swift; sourceTree = "<group>"; };
 		040A744D22F8B14E00E67C5F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		040A744F22F9D58E00E67C5F /* AddTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTodo.storyboard; sourceTree = "<group>"; };
+		040A744F22F9D58E00E67C5F /* Task.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Task.storyboard; sourceTree = "<group>"; };
 		043D8BD02312FECE00CBF120 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		045D27702311F15E006E29EA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		045D277223122350006E29EA /* MMTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTableViewHeader.xib; sourceTree = "<group>"; };
 		047E115F22ECB33D00097A8E /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
-		047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAndEditTaskViewController.swift; sourceTree = "<group>"; };
 		04E7759E2307374700D1EFBB /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
 		04E775A12309A56C00D1EFBB /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		04E775A32309A66300D1EFBB /* CategoryModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelController.swift; sourceTree = "<group>"; };
 		04E775A62309CC9500D1EFBB /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
 		04E775AC2309F8E900D1EFBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewAndEditTodo.storyboard; sourceTree = "<group>"; };
 		04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		04E775B8230B2FC300D1EFBB /* TaskDisplayEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDisplayEnum.swift; sourceTree = "<group>"; };
 		04E775BA230B79E500D1EFBB /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
@@ -172,8 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				047E115F22ECB33D00097A8E /* TasksTableViewController.swift */,
-				047E116122ECC99C00097A8E /* ViewAndEditTaskViewController.swift */,
-				040A6A4322C94A100035D7BC /* AddToDoViewController.swift */,
+				040A6A4322C94A100035D7BC /* TaskViewController.swift */,
 				04E775B0230AFB3800D1EFBB /* MainMenuViewController.swift */,
 				04E775BC230B815E00D1EFBB /* CategoryViewController.swift */,
 			);
@@ -183,9 +178,8 @@
 		040A744522F88DF500E67C5F /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				040A744F22F9D58E00E67C5F /* AddTodo.storyboard */,
+				040A744F22F9D58E00E67C5F /* Task.storyboard */,
 				040A6A2A22C73A8F0035D7BC /* Main.storyboard */,
-				04E775AE230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard */,
 				04E775BA230B79E500D1EFBB /* Category.storyboard */,
 				045D277223122350006E29EA /* MMTableViewHeader.xib */,
 			);
@@ -305,10 +299,9 @@
 				040A6A3422C73A900035D7BC /* LaunchScreen.storyboard in Resources */,
 				040A744822F88E6F00E67C5F /* Default-568h@2x.png in Resources */,
 				040A6A3122C73A900035D7BC /* Assets.xcassets in Resources */,
-				04E775AF230AEFDA00D1EFBB /* ViewAndEditTodo.storyboard in Resources */,
 				045D277323122350006E29EA /* MMTableViewHeader.xib in Resources */,
 				04E775BB230B79E500D1EFBB /* Category.storyboard in Resources */,
-				040A745022F9D58E00E67C5F /* AddTodo.storyboard in Resources */,
+				040A745022F9D58E00E67C5F /* Task.storyboard in Resources */,
 				040A6A2C22C73A8F0035D7BC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,14 +357,13 @@
 				045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */,
 				040A744A22F8A57D00E67C5F /* TodoDataProvider.swift in Sources */,
 				04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */,
-				040A6A4422C94A100035D7BC /* AddToDoViewController.swift in Sources */,
+				040A6A4422C94A100035D7BC /* TaskViewController.swift in Sources */,
 				04E775BF230B829900D1EFBB /* CategoryNameTableViewCell.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
 				04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */,
 				04E775BD230B815E00D1EFBB /* CategoryViewController.swift in Sources */,
 				040A743F22F46C4C00E67C5F /* Extensions.swift in Sources */,
-				047E116222ECC99C00097A8E /* ViewAndEditTaskViewController.swift in Sources */,
 				040A6A3C22C7D47F0035D7BC /* Todo-Model.swift in Sources */,
 				04E775A72309CC9500D1EFBB /* TaskTableView.swift in Sources */,
 				047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */,

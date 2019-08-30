@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class AddToDoViewController: UIViewController {
+class TaskViewController: UIViewController {
     
     
     var categoryModelController: CategoryModelController!
@@ -18,31 +18,42 @@ class AddToDoViewController: UIViewController {
     private var categoryViewModels = [CategoryViewModel]()
     private var isAddingCategory = false
     
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak private var headerView: UIView!
+    @IBOutlet weak private var headerLabel: UILabel!
+    @IBOutlet weak private var TitleTextField: UITextField!
+    @IBOutlet weak private var categoriesCollectionView: UICollectionView!
+    @IBOutlet weak private var headerButton: UIButton!
     
-    @IBOutlet weak var TitleTextField: UITextField!
-    @IBOutlet weak var categoriesCollectionView: UICollectionView!
-    
-    
-    @IBAction func touchPlusButton(_ sender: UIButton) {
+    @IBAction private func touchHeaderButton(_ sender: UIButton) {
         
-        if let title = self.TitleTextField.text {
-            DispatchQueue.global(qos: .userInitiated).async {
-                //TODO: pop up an error message if the todo doesn't add correctly and handle that.
-               
-                TaskViewModel.addTask(withTitle: title) { success in
-                    if let completion = self.callback {
-                        completion(success)
-                    }
+        if let task = taskViewModel {
+            
+            let values = createEditedValuesDict()
+            task.edit(withNewValues: values) { result in
+                switch result {
+                case .success(_):
+                    self.callback?(true)
+                case .failure(_):
+                    self.callback?(false)
                 }
             }
+            
+        } else {
+            let values = createAddValuesDict()
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                //TODO: pop up an error message if the todo doesn't add correctly and handle that.
+                TaskViewModel.addTask(withValues: values) { success in self.callback?(success) }
+            }
         }
+        
+        
+        
         hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func touchCancelButton(_ sender: UIButton) {
+    @IBAction private func touchCancelButton(_ sender: UIButton) {
         hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
@@ -84,7 +95,12 @@ class AddToDoViewController: UIViewController {
         headerView.clipsToBounds = true
         headerView.layer.cornerRadius = 8.0
         headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        headerLabel.text = taskViewModel == nil ? "Add Task" : "Edit Task"
+        if taskViewModel != nil {
+            headerLabel.text = "Edit Task"
+            headerButton.setTitle("", for: .normal)
+            headerButton.setImage(UIImage(named: "TickIcon"), for: .normal)
+            headerButton.imageView?.setImageColor(color: .white)
+        }
     }
 
     
@@ -93,24 +109,43 @@ class AddToDoViewController: UIViewController {
     }
     
     
-    func addCategoryButtonTouched(_ sender: UIButton) {
+    private func addCategoryButtonTouched(_ sender: UIButton) {
         isAddingCategory = !isAddingCategory
         categoriesCollectionView.performBatchUpdates( {
             categoriesCollectionView.reloadSections(IndexSet(integer: 0))
         }, completion: nil)
     }
     
+    
+    private func createAddValuesDict() -> [TodoFields: Encodable] {
+        var dict = [TodoFields: Encodable]()
+        if let title = TitleTextField.text {
+            dict[.title] = title
+        }
+        
+        return dict
+    }
+    
+    private func createEditedValuesDict() -> [TodoFields: Encodable] {
+        var dict = [TodoFields: Encodable]()
+        if let title = TitleTextField.text, title != taskViewModel?.title {
+            dict[.title] = title
+        }
+        
+        return dict
+    }
+        
 
 }
 
-extension AddToDoViewController: UITextFieldDelegate {
+extension TaskViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         hideKeyboard()
         return true
     }
 }
 
-extension AddToDoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension TaskViewController: UICollectionViewDataSource, UICollectionViewDelegate {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return isAddingCategory ? categoryViewModels.count

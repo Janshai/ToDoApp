@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add To Do View Controller-->
+        <!--Task View Controller-->
         <scene sceneID="zua-hp-Cph">
             <objects>
-                <viewController id="IaA-UL-4ZR" customClass="AddToDoViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IaA-UL-4ZR" customClass="TaskViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GCJ-2I-LSC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,10 +74,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1y-KJ-5hN">
-                                                            <rect key="frame" x="0.0" y="0.0" width="281" height="75"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="450" height="75"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9g-MW-KDW">
-                                                                    <rect key="frame" x="261" y="27.5" width="20" height="20"/>
+                                                                    <rect key="frame" x="430" y="27.5" width="20" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="B9g-MW-KDW" secondAttribute="height" multiplier="1:1" id="FrZ-H0-ycs"/>
                                                                         <constraint firstAttribute="height" constant="20" id="fSn-iO-Aqi"/>
@@ -131,7 +131,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Ey-hBJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqe-Ey-hBJ">
                                         <rect key="frame" x="319" y="9.5" width="48" height="48"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -142,7 +142,7 @@
                                             <color key="titleColor" red="0.99719095680000003" green="0.99719095680000003" blue="0.99719095680000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="touchPlusButton:" destination="IaA-UL-4ZR" eventType="touchUpInside" id="Skl-iU-BRg"/>
+                                            <action selector="touchHeaderButton:" destination="IaA-UL-4ZR" eventType="touchUpInside" id="Skl-iU-BRg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBJ-QE-7dn">
@@ -187,6 +187,7 @@
                     <connections>
                         <outlet property="TitleTextField" destination="2rI-Nn-Dvt" id="DYP-MA-snf"/>
                         <outlet property="categoriesCollectionView" destination="EdW-EN-oLE" id="but-kV-F4Q"/>
+                        <outlet property="headerButton" destination="iqe-Ey-hBJ" id="tlm-Dh-MVM"/>
                         <outlet property="headerLabel" destination="DqA-I8-fNb" id="XOU-ox-MZJ"/>
                         <outlet property="headerView" destination="UdE-FU-07T" id="6UC-xh-6gT"/>
                     </connections>
