@@ -21,6 +21,9 @@
 		040A744E22F8B14E00E67C5F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A744D22F8B14E00E67C5F /* Config.swift */; };
 		040A745022F9D58E00E67C5F /* Task.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040A744F22F9D58E00E67C5F /* Task.storyboard */; };
 		043D8BD12312FECE00CBF120 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D8BD02312FECE00CBF120 /* TaskViewModel.swift */; };
+		044FA36623198E1500EA09D3 /* CategoryDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044FA36523198E1500EA09D3 /* CategoryDataProvider.swift */; };
+		044FA36823198FDE00EA09D3 /* MongoDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044FA36723198FDE00EA09D3 /* MongoDecoder.swift */; };
+		044FA36A2319A50400EA09D3 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044FA3692319A50400EA09D3 /* CategoryResponse.swift */; };
 		045D27712311F15E006E29EA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D27702311F15E006E29EA /* CategoryViewModel.swift */; };
 		045D277323122350006E29EA /* MMTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045D277223122350006E29EA /* MMTableViewHeader.xib */; };
 		047E116022ECB33E00097A8E /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E115F22ECB33D00097A8E /* TasksTableViewController.swift */; };
@@ -57,6 +60,9 @@
 		040A744D22F8B14E00E67C5F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		040A744F22F9D58E00E67C5F /* Task.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Task.storyboard; sourceTree = "<group>"; };
 		043D8BD02312FECE00CBF120 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		044FA36523198E1500EA09D3 /* CategoryDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataProvider.swift; sourceTree = "<group>"; };
+		044FA36723198FDE00EA09D3 /* MongoDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongoDecoder.swift; sourceTree = "<group>"; };
+		044FA3692319A50400EA09D3 /* CategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
 		045D27702311F15E006E29EA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		045D277223122350006E29EA /* MMTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTableViewHeader.xib; sourceTree = "<group>"; };
 		047E115F22ECB33D00097A8E /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 			children = (
 				04E775A02309A54000D1EFBB /* Category */,
 				040A744322F8805300E67C5F /* Todo */,
+				044FA36723198FDE00EA09D3 /* MongoDecoder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +208,8 @@
 			children = (
 				04E775A12309A56C00D1EFBB /* Category.swift */,
 				04E775A32309A66300D1EFBB /* CategoryModelController.swift */,
+				044FA36523198E1500EA09D3 /* CategoryDataProvider.swift */,
+				044FA3692319A50400EA09D3 /* CategoryResponse.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -359,6 +368,8 @@
 				04E775C5230C6F8200D1EFBB /* ColourPickerTableViewCell.swift in Sources */,
 				040A6A4422C94A100035D7BC /* TaskViewController.swift in Sources */,
 				04E775BF230B829900D1EFBB /* CategoryNameTableViewCell.swift in Sources */,
+				044FA36A2319A50400EA09D3 /* CategoryResponse.swift in Sources */,
+				044FA36623198E1500EA09D3 /* CategoryDataProvider.swift in Sources */,
 				040A744E22F8B14E00E67C5F /* Config.swift in Sources */,
 				040A6A2722C73A8F0035D7BC /* AppDelegate.swift in Sources */,
 				04E775AD2309F8E900D1EFBB /* CategoryCollectionViewCell.swift in Sources */,
@@ -372,6 +383,7 @@
 				04E775B9230B2FC300D1EFBB /* TaskDisplayEnum.swift in Sources */,
 				040A6A3E22C7D5C70035D7BC /* Todo.swift in Sources */,
 				04E775C3230B8FD100D1EFBB /* EmojiPickerTableViewCell.swift in Sources */,
+				044FA36823198FDE00EA09D3 /* MongoDecoder.swift in Sources */,
 				04E775A22309A56C00D1EFBB /* Category.swift in Sources */,
 				04E775A42309A66300D1EFBB /* CategoryModelController.swift in Sources */,
 			);

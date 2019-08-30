@@ -10,11 +10,8 @@ import UIKit
 
 class TasksTableViewController: UIViewController {
     
-    let selectSegueIdetifier = "showTask"
     let taskSegueIdentifier =  "addToDo"
    
-    var categoryModelController: CategoryModelController!
-    
     private var taskViewModels = [TaskViewModel]()
     
     var displaying: TaskDisplay!
@@ -61,7 +58,6 @@ class TasksTableViewController: UIViewController {
                 }, completion: nil)
             }
         }
-        addTodoController?.categoryModelController = categoryModelController
         addTodoController?.function = .add
     }
     
@@ -74,7 +70,6 @@ class TasksTableViewController: UIViewController {
                 self.selectedTaskIndex = nil
             }
         }
-        editTaskController?.categoryModelController = categoryModelController
         editTaskController?.function = .edit(viewModel: task)
         
         
@@ -106,7 +101,6 @@ class TasksTableViewController: UIViewController {
 extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.taskViewModels = ToDoModelController.shared.getAllTaskViewModels(applyingFilter: createCorrectFilter(), forDisplayingOnMenu: true)
-        taskViewModels.forEach() { $0.categoryModel = self.categoryModelController }
         return taskViewModels.count
     }
     

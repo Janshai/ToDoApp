@@ -9,22 +9,50 @@
 import Foundation
 
 class CategoryModelController {
-    private var categories: [Category]
-//    private let categoryDataProvider: CategoryDataProvider
+    
+    private(set) static var shared = CategoryModelController()
+    
+    private var categories = [Category]()
+    private let categoryDataProvider: CategoryDataProvider
     public var numberOfCategories: Int {
         return categories.count
     }
     
-//    init (categoryDataProvider: CategoryDataProvider? = nil) {
-//        self.categoryDataProvider = categoryDataProvider ?? DefaultCategoryDataProvider()
-//        self.categories = categoryDataProvider.fetchCategories()
-//    }
+    init (categoryDataProvider: CategoryDataProvider? = nil) {
+        self.categoryDataProvider = categoryDataProvider ?? NetworkCategoryDataProvider()
+    }
     
-    init () {
-        self.categories = [Category(name: "Productivity", colour: .lightGreen, emoji: "💡"),
-                           Category(name: "Uni", colour: .yellow, emoji: "👨🏼‍🎓"),
-                           Category(name: "Work", colour: .brown, emoji: "💩"),
-                           Category(name: "Reading", colour: .darkGreen, emoji: "📕")]
+    func fetchCategories(inDispatchGroup group: DispatchGroup) {
+        group.enter()
+        categoryDataProvider.fetchCategories() { result in
+            switch result {
+            case .success(let categories):
+                self.categories = categories
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+            group.leave()
+        }
+    }
+    
+    func addCategory(withValues values: [CategoryFields:Encodable], onCompletion completion: @escaping (_ result: Result<Category, Error>) -> Void) {
+        
+        categoryDataProvider.addCategory(withValues: values) { result in
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let category):
+                    self.categories += [category]
+                    completion(.success(category))
+                case .failure(let error):
+                    completion(.failure(error))
+                    
+                }
+            }
+            
+            
+        }
     }
     
     public func getCategory(withID id: String) -> Category? {
@@ -40,16 +68,16 @@ class CategoryModelController {
     }
     
     public func getAllCategoryViewModels(forDisplayingOnMenu menu: Bool = false) -> [CategoryViewModel] {
-        return categories.map({return CategoryViewModel(category: $0, categoryModelController: self, onMenu: menu)})
+        return categories.map({return CategoryViewModel(category: $0, onMenu: menu)})
     }
     
     public func getCategoryViewModel(atIndex index: Int, forDisplayingOnMenu menu: Bool = false) -> CategoryViewModel {
-        return CategoryViewModel(category: categories[index], categoryModelController: self, onMenu: menu)
+        return CategoryViewModel(category: categories[index], onMenu: menu)
     }
     
     public func getCategoryViewModel(withID id: String, forDisplayingOnMenu menu: Bool = false) -> CategoryViewModel? {
         if let index = categories.firstIndex(where: { $0.id == id }) {
-            return CategoryViewModel(category: categories[index], categoryModelController: self, onMenu: menu)
+            return CategoryViewModel(category: categories[index], onMenu: menu)
         } else {
             return nil
         }

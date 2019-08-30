@@ -13,8 +13,7 @@ class MainMenuViewController: UIViewController {
     private let todoScreenSegue = "TodoScreen"
     private let CategorySegue = "Category"
     
-    //MARK: Category Model related properties
-    private var categoryModelController = CategoryModelController()
+    //MARK: Category related properties
     private var categoryViewModels = [CategoryViewModel]()
     
     //MARK: Other properties
@@ -40,11 +39,11 @@ class MainMenuViewController: UIViewController {
         tableView.register(UINib(nibName: "MMTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: MMTableViewHeader.reuseIdentifier)
         
         initialLoadingGroup.notify(queue: .main) {
-                        loadingView.stopAnimating()
-                        UIView.animate(withDuration: 0.3) {
-                            self.tableView.alpha = 1
-                        }
-                        self.tableView.reloadData()
+            loadingView.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.alpha = 1
+            }
+            self.tableView.reloadData()
         }
         
         
@@ -58,16 +57,24 @@ class MainMenuViewController: UIViewController {
         if segue.identifier == todoScreenSegue, let display = sender as? TaskDisplay, let todoVC = segue.destination as? TasksTableViewController {
             // segue to Tasks screen
             todoVC.displaying = display
-            todoVC.categoryModelController = self.categoryModelController
         } else if segue.identifier == CategorySegue, let vc = segue.destination as? CategoryViewController {
             // segue to add a new category or edit an existing category
             if let index = sender as? IndexPath {
                 vc.function = .edit(viewModel: categoryViewModels[index.row])
-                vc.completion = {
-                    self.tableView.reloadRows(at: [index], with: .fade)
+                vc.completion = { changed in
+                    if changed {
+                        self.tableView.reloadRows(at: [index], with: .fade)
+                    }
+                    
                 }
             } else {
                 vc.function = .add
+                vc.completion = { changed in
+                    if changed {
+                        self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+                        
+                    }
+                }
             }
         }
     }
@@ -82,8 +89,8 @@ class MainMenuViewController: UIViewController {
     }
     
     fileprivate func fetchData() {
-        ToDoModelController.shared.fetchTasks(group: initialLoadingGroup)
-        categoryViewModels = categoryModelController.getAllCategoryViewModels(forDisplayingOnMenu: true)
+        ToDoModelController.shared.fetchTasks(inDispatchGroup: initialLoadingGroup)
+        CategoryModelController.shared.fetchCategories(inDispatchGroup: initialLoadingGroup)
     }
 
 }
@@ -102,10 +109,12 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
     /// - First Section has one row for segueing to display all todos
     /// - Second Section has as many rows as there are Categories
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         switch section {
         case 0:
             return 1
         case 1:
+            categoryViewModels = CategoryModelController.shared.getAllCategoryViewModels(forDisplayingOnMenu: true)
             return categoryViewModels.count
         default:
             return 0
@@ -144,7 +153,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         var displayType: TaskDisplay
         switch indexPath.section {
         case 1:
-            let categoryViewModel = categoryModelController.getCategoryViewModel(atIndex: indexPath.row)
+            let categoryViewModel = CategoryModelController.shared.getCategoryViewModel(atIndex: indexPath.row)
             displayType = .category(categoryViewModel)
         default:
             displayType = .allTodos

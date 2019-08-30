@@ -48,7 +48,6 @@ class TaskTableViewCell: UITableViewCell {
 
 
 class TaskTableView {
-    private static var categoryModelController = CategoryModelController()
     
     class func categoryEditSwipe(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction action: @escaping (CategoryViewModel) -> Void) -> UISwipeActionsConfiguration {
         let editAction = contextualEditCategoryAction(forTableView: tableView, forRowAt: indexPath, withAction: action)
@@ -56,7 +55,7 @@ class TaskTableView {
     }
     
     class private func contextualEditCategoryAction(forTableView tableView: UITableView, forRowAt indexPath: IndexPath, withAction editAction: @escaping (CategoryViewModel) -> Void) -> UIContextualAction {
-        let categoryViewModel = categoryModelController.getCategoryViewModel(atIndex: indexPath.row)
+        let categoryViewModel = CategoryModelController.shared.getCategoryViewModel(atIndex: indexPath.row)
         let action = UIContextualAction(style: .normal, title: "X") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
             editAction(categoryViewModel)
             tableView.reloadRows(at: [indexPath], with: .fade)

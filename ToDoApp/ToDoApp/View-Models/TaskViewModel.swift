@@ -16,22 +16,16 @@ class TaskViewModel {
             setCategoryFields()
         }
     }
-    var categoryModel: CategoryModelController? {
-        didSet {
-            setCategoryFields()
-        }
-    }
     
     var title: String!
     var primaryCategory: CategoryViewModel?
     var categories = [CategoryViewModel]()
     var isDisplayingOnMenu: Bool
     
-    init(task: Todo, categoryModel: CategoryModelController?, onMenu: Bool = false) {
+    init(task: Todo, onMenu: Bool = false) {
         self.task = task
         self.title = task.title
         self.isDisplayingOnMenu = onMenu
-        self.categoryModel = categoryModel
         setCategoryFields()
     }
     
@@ -41,7 +35,7 @@ class TaskViewModel {
     }
     
     private func fetchCategoryViewModels() -> [CategoryViewModel] {
-        return task.categoryIDs.compactMap({ self.categoryModel?.getCategoryViewModel(withID: $0, forDisplayingOnMenu: self.isDisplayingOnMenu)})
+        return task.categoryIDs.compactMap({ CategoryModelController.shared.getCategoryViewModel(withID: $0, forDisplayingOnMenu: self.isDisplayingOnMenu)})
     
     }
     
@@ -63,10 +57,10 @@ class TaskViewModel {
     
     class func getAllTaskViewModels(applyingFilter filter: ((Todo) -> Bool)? = nil, forDisplayingOnMenu menu: Bool = false) -> [TaskViewModel] {
         let tasks = ToDoModelController.shared.getAllTasks(applyingFilter: filter)
-        return tasks.map(){ TaskViewModel(task: $0, categoryModel: nil, onMenu: menu) }
+        return tasks.map(){ TaskViewModel(task: $0, onMenu: menu) }
     }
     
-    class func addTask(withValues values: [TodoFields: Encodable], completion: @escaping (Bool) -> Void) {
+    class func addTask(withValues values: [TodoFields: Encodable], onCompletion completion: @escaping (Bool) -> Void) {
         
         
         

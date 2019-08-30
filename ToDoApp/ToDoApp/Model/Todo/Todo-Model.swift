@@ -23,7 +23,7 @@ class ToDoModelController {
         
     }
     
-    func fetchTasks(group: DispatchGroup) {
+    func fetchTasks(inDispatchGroup group: DispatchGroup) {
         group.enter()
         self.todoDataProvider.fetchTodos() { result in
             switch result {
@@ -129,7 +129,7 @@ class ToDoModelController {
             desiredTasks = todos
         }
         
-        return desiredTasks.map(){ TaskViewModel(task: $0, categoryModel: nil, onMenu: menu) }
+        return desiredTasks.map(){ TaskViewModel(task: $0, onMenu: menu) }
     }
 }
 

@@ -14,7 +14,7 @@ class Category: Codable {
     public private(set) var id: String
     public var name: String
     public var colour: String
-    public var emoji: String
+    public var emoji: String?
     
     init(name: String, colour: CategoryColours, emoji: String) {
         self.name = name

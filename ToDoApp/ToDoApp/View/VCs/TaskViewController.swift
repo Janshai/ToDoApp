@@ -9,8 +9,6 @@
 import UIKit
 class TaskViewController: UIViewController {
     
-    
-    var categoryModelController: CategoryModelController!
     var callback: ((Bool) -> Void)?
     var function: TaskVCFunction!
     
@@ -76,7 +74,7 @@ class TaskViewController: UIViewController {
         self.categoriesCollectionView.dataSource = self
         self.categoriesCollectionView.delegate = self
         
-        categoryViewModels = categoryModelController.getAllCategoryViewModels()
+        categoryViewModels = CategoryModelController.shared.getAllCategoryViewModels()
         //TODO: if the task view model is set, add all the categories
         
     }

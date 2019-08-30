@@ -14,7 +14,6 @@ import UIKit
 class CategoryViewModel {
     
     private var category: Category!
-    private var categoryModelController: CategoryModelController!
     
     
     var name: String
@@ -40,11 +39,10 @@ class CategoryViewModel {
         }
     }
     
-    var emoji: String
+    var emoji: String?
     
-    init(category: Category, categoryModelController: CategoryModelController, onMenu: Bool = false) {
+    init(category: Category, onMenu: Bool = false) {
         self.category = category
-        self.categoryModelController = categoryModelController
         self.name = category.name
         self.emoji = category.emoji
         self.isDisplayingOnMenu = onMenu
@@ -54,7 +52,7 @@ class CategoryViewModel {
     }
     
     func delete() {
-        categoryModelController.deleteCategory(withID: category.id)
+        CategoryModelController.shared.deleteCategory(withID: category.id)
     }
     
     
@@ -86,6 +84,17 @@ class CategoryViewModel {
         }
         
         return #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    class func addCategory(withValues values: [CategoryFields:Encodable], onCompletion completion: @escaping (Bool) -> Void) {
+        
+        CategoryModelController.shared.addCategory(withValues: values) { result in
+            switch result {
+            case .success(_): completion(true)
+            case .failure(_): completion(false)
+            }
+        }
+        
     }
     
     

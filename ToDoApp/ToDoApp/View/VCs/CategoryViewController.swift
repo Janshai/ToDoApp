@@ -13,7 +13,7 @@ class CategoryViewController: UIViewController {
     
     //MARK: Required Properties - Must be set by presenter or app will crash
     private var categoryViewModel: CategoryViewModel?
-    var completion: (() -> Void)!
+    var completion: ((Bool) -> Void)!
     var function: CategoryVCFunction!
     
     // MARK: Outlets
@@ -26,8 +26,15 @@ class CategoryViewController: UIViewController {
     //MARK: Actions
     
     @IBAction func tapConfirmButton(_ sender: UIButton) {
-
-        dismiss(animated: true, completion: completion)
+        if let category = categoryViewModel {
+            
+        } else {
+            let values = createAddValuesDict()
+            CategoryViewModel.addCategory(withValues: values) { success in
+                self.completion(true)
+            }
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     //MARK: VC Life cycle
@@ -46,8 +53,6 @@ class CategoryViewController: UIViewController {
 
         setupHeaderView()
 
-        self.completion = {}
-
     }
     
     /// Sets up the header at the top of the view
@@ -62,6 +67,26 @@ class CategoryViewController: UIViewController {
             titleLabel.text = "Edit Category"
         }
         confirmButton.imageView?.setImageColor(color: .white)
+    }
+    
+    private func createAddValuesDict() -> [CategoryFields:Encodable] {
+        var dict = [CategoryFields:Encodable]()
+        if let nameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CategoryNameTableViewCell, let name = nameCell.textField.text {
+            
+            dict[.name] = name
+        }
+        
+        if let colourCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? ColourPickerTableViewCell, let uiColor = colourCell.colourField.backgroundColor, let categoryColour = Config.categoryColours.first(where: {$0.colour == uiColor})?.name.rawValue {
+            
+            dict[.colour] = categoryColour
+        }
+        
+        if let emojiCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? EmojiPickerTableViewCell, let emoji = emojiCell.textField.text {
+            
+            dict[.emoji] = emoji
+        }
+        
+        return dict
     }
 
 }

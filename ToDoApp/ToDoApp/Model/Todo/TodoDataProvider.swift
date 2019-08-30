@@ -16,7 +16,7 @@ class NetworkTodoDataProvider: TodoDataProvider {
     }
     
     func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
-        let decoder = createDecoderForMongoDates()
+        let decoder = MongoDecoder.createDecoder()
         let params = TodoParameters(withFieldsDict: values)
         
         AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
@@ -30,7 +30,7 @@ class NetworkTodoDataProvider: TodoDataProvider {
     }
 
     func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
-        let decoder = createDecoderForMongoDates()
+        let decoder = MongoDecoder.createDecoder()
         let params = TodoParameters(withFieldsDict: values)
         let url = baseURL + "/" + id
         AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
@@ -54,7 +54,7 @@ class NetworkTodoDataProvider: TodoDataProvider {
     
     func fetchTodos(onCompletion completion: @escaping (_ result: Result<[Todo], Error>) -> Void ) {
         
-        let decoder = createDecoderForMongoDates()
+        let decoder = MongoDecoder.createDecoder()
         
         AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
             switch self.handleErrors(forTodoDataResponse: response) {
@@ -64,23 +64,6 @@ class NetworkTodoDataProvider: TodoDataProvider {
 
         }
     }
-    
-    private func createDecoderForMongoDates() -> JSONDecoder {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .custom() { decoder in
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
-            let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            if let date = df.date(from: dateString) {
-                return date
-            } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Couldn't convert date")
-            }
-        }
-        return decoder
-    }
-    
     private func handleErrors(forTodoDataResponse response: DataResponse<TodoResponse>) -> Result<[Todo], Error> {
         switch response.result {
         case .failure(let error): return .failure(error)
@@ -120,7 +103,7 @@ protocol TodoDataProvider {
 }
 
 fileprivate class TodoParameters: Encodable {
-    var title: String
+    var title: String?
     init?(withFieldsDict dict: [TodoFields:Encodable]) {
         if let t = dict[.title] as? String {
             self.title = t
