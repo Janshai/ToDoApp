@@ -35,7 +35,7 @@ class TaskViewController: UIViewController {
                     self.callback?(false)
                 }
             }
-            
+            task.isDisplayingOnMenu = false
         } else {
             let values = createAddValuesDict()
             
@@ -74,8 +74,14 @@ class TaskViewController: UIViewController {
         self.categoriesCollectionView.dataSource = self
         self.categoriesCollectionView.delegate = self
         
-        categoryViewModels = CategoryModelController.shared.getAllCategoryViewModels()
-        //TODO: if the task view model is set, add all the categories
+        
+        if let task = taskViewModel {
+            task.isDisplayingOnMenu = false
+            categoryViewModels = task.categories
+        } else {
+            categoryViewModels = CategoryModelController.shared.getAllCategoryViewModels()
+        }
+        
         
     }
     
@@ -112,6 +118,7 @@ class TaskViewController: UIViewController {
         categoriesCollectionView.performBatchUpdates( {
             categoriesCollectionView.reloadSections(IndexSet(integer: 0))
         }, completion: nil)
+        
     }
     
     
@@ -121,6 +128,14 @@ class TaskViewController: UIViewController {
             dict[.title] = title
         }
         
+        var ids = [String]()
+        categoryViewModels.forEach() {
+            if $0.isCurrentlySelectedForTask {
+                ids.append($0.id)
+            }
+        }
+        dict[.categoryIDs] = ids
+        
         return dict
     }
     
@@ -129,6 +144,11 @@ class TaskViewController: UIViewController {
         if let title = TitleTextField.text, title != taskViewModel?.title {
             dict[.title] = title
         }
+        
+        if let ids = taskViewModel?.getCategoryIDsIfUpdated() {
+            dict[.categoryIDs] = ids
+        }
+        
         
         return dict
     }
@@ -146,6 +166,13 @@ extension TaskViewController: UITextFieldDelegate {
 extension TaskViewController: UICollectionViewDataSource, UICollectionViewDelegate {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        categoryViewModels.sort() { (a, b) in
+            if a.isCurrentlySelectedForTask && !b.isCurrentlySelectedForTask {
+                return true
+            } else {
+                return false
+            }
+        }
         return isAddingCategory ? categoryViewModels.count
             : categoryViewModels.filter({ $0.isCurrentlySelectedForTask }).count
     }

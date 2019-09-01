@@ -133,6 +133,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             cell.taskTitleLabel.text = "All Todos"
             cell.emojiLabel.text = "📝"
+            cell.primaryCategoryLabel.isHidden = true
         case 1:
             let categoryViewModel = categoryViewModels[indexPath.row]
             cell.categoryViewModel = categoryViewModel
@@ -153,7 +154,7 @@ extension MainMenuViewController: UITableViewDelegate, UITableViewDataSource {
         var displayType: TaskDisplay
         switch indexPath.section {
         case 1:
-            let categoryViewModel = CategoryModelController.shared.getCategoryViewModel(atIndex: indexPath.row)
+            let categoryViewModel = categoryViewModels[indexPath.row]
             displayType = .category(categoryViewModel)
         default:
             displayType = .allTodos

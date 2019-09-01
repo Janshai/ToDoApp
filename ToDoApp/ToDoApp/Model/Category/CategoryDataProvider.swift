@@ -14,7 +14,7 @@ class NetworkCategoryDataProvider: CategoryDataProvider {
     private var baseURL: String
     
     init(baseURL: String? = nil) {
-        self.baseURL = (baseURL ?? Config.apiBaseURL) + "category"
+        self.baseURL = (baseURL ?? Config.apiBaseURL) + "category/"
     }
     
     func fetchCategories(onCompletion completion: @escaping (Result<[Category], Error>) -> Void) {
@@ -41,12 +41,36 @@ class NetworkCategoryDataProvider: CategoryDataProvider {
         }
     }
     
-    func updateCategory(withID: String, withNewValues: [CategoryFields : Encodable], andOnCompletion completion: @escaping (Result<Category, Error>) -> Void) {
-        return
+    func updateCategory(withID id: String, withNewValues newValues: [CategoryFields : Encodable], andOnCompletion completion: @escaping (Result<Category, Error>) -> Void) {
+        let url = baseURL + id
+        let params = CategoryParameters(withDict: newValues)
+        
+        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable() { (response: DataResponse<CategoryResponse>) in
+            
+            switch self.handleErrors(forCategoryDataResponse: response) {
+            case .success(let category): completion(.success(category[0]))
+            case .failure(let error): completion(.failure(error))
+            }
+        }
+        
     }
     
-    func deleteTodo(withID: String) {
-        return
+    func deleteCategory(withID id: String) {
+        
+        let url = baseURL + id
+        AF.request(url, method: .delete).responseDecodable() { (response: DataResponse<CategoryResponse>) in
+            switch response.value?.success {
+            case true:
+                print("successfully deleted")
+            case false:
+                if let error = response.value?.error {
+                    print(error)
+                }
+            default:
+                break
+                
+            }
+        }
     }
     
     private func handleErrors(forCategoryDataResponse response: DataResponse<CategoryResponse>) -> Result<[Category], Error> {
@@ -82,7 +106,7 @@ protocol CategoryDataProvider {
     
     func updateCategory(withID: String, withNewValues: [CategoryFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Category, Error>) -> Void)
     
-    func deleteTodo(withID: String)
+    func deleteCategory(withID: String)
 }
 
 fileprivate class CategoryParameters: Encodable {

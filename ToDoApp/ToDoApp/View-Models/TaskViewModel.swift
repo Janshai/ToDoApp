@@ -20,7 +20,13 @@ class TaskViewModel {
     var title: String!
     var primaryCategory: CategoryViewModel?
     var categories = [CategoryViewModel]()
-    var isDisplayingOnMenu: Bool
+    var isDisplayingOnMenu: Bool {
+        didSet {
+            categories.forEach() {
+                $0.isDisplayingOnMenu = isDisplayingOnMenu
+            }
+        }
+    }
     
     init(task: Todo, onMenu: Bool = false) {
         self.task = task
@@ -31,11 +37,29 @@ class TaskViewModel {
     
     private func setCategoryFields() {
         self.categories = fetchCategoryViewModels()
-        self.primaryCategory = categories.count >= 1 ? categories[0] : nil
+        let selectedCategories = categories.filter() { $0.isCurrentlySelectedForTask }
+        self.primaryCategory = selectedCategories.count >= 1 ? selectedCategories[0] : nil
+    }
+    
+    func getCategoryIDsIfUpdated() -> [String]? {
+        var ids = [String]()
+        categories.forEach() {
+            if $0.isCurrentlySelectedForTask {
+                ids.append($0.id)
+            }
+        }
+        return ids != task.categoryIDs ? ids : nil
     }
     
     private func fetchCategoryViewModels() -> [CategoryViewModel] {
-        return task.categoryIDs.compactMap({ CategoryModelController.shared.getCategoryViewModel(withID: $0, forDisplayingOnMenu: self.isDisplayingOnMenu)})
+        let categories = CategoryModelController.shared.getAllCategoryViewModels(forDisplayingOnMenu: isDisplayingOnMenu)
+        task.categoryIDs.forEach() { id in
+            if let index = categories.firstIndex(where: { $0.id == id }) {
+                categories[index].isCurrentlySelectedForTask = true
+            }
+           
+        }
+        return categories
     
     }
     

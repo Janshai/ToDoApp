@@ -45,7 +45,9 @@ extension EmojiPickerTableViewCell: EmojiViewDelegate {
     func emojiViewDidSelectEmoji(_ emoji: String, emojiView: EmojiView) {
         textField.insertText(emoji)
         textField.resignFirstResponder()
+        categoryViewModel?.emoji = emoji
     }
-    
+
     
 }
+

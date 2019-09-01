@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryNameTableViewCell: UITableViewCell {
+class CategoryNameTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
     
@@ -25,7 +25,15 @@ class CategoryNameTableViewCell: UITableViewCell {
         textField.autocorrectionType = .no
         textField.borderStyle = .roundedRect
         textField.placeholder = "Category Name"
+        textField.delegate = self
     }
-
-
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let name = textField.text {
+            categoryViewModel?.name = name
+        }
+        
+    }
 }
+
+

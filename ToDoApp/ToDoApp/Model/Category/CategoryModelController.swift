@@ -55,18 +55,6 @@ class CategoryModelController {
         }
     }
     
-    public func getCategory(withID id: String) -> Category? {
-        if let index = categories.firstIndex(where: { $0.id == id }) {
-            return categories[index]
-        } else {
-            return nil
-        }
-    }
-    
-    public func getCategory(atIndex index: Int) -> Category {
-        return categories[index]
-    }
-    
     public func getAllCategoryViewModels(forDisplayingOnMenu menu: Bool = false) -> [CategoryViewModel] {
         return categories.map({return CategoryViewModel(category: $0, onMenu: menu)})
     }
@@ -84,7 +72,24 @@ class CategoryModelController {
     }
     
     public func deleteCategory(withID id: String) {
+        
+        categoryDataProvider.deleteCategory(withID: id)
         categories.removeAll() { $0.id == id }
+    }
+    
+    public func editCategory(withID id: String, andNewValues newValues: [CategoryFields:Encodable], onCompletion completion: @escaping (_ result: Result<Category, Error>) -> Void) {
+        categoryDataProvider.updateCategory(withID: id, withNewValues: newValues) { result in
+            switch result {
+            case .success(let newCategory):
+                if let index = self.categories.firstIndex(where: { $0.id == newCategory.id}) {
+                    self.categories[index] = newCategory
+                }
+                
+            default:
+                break
+            }
+            completion(result)
+        }
     }
     
 }

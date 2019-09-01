@@ -27,14 +27,16 @@ class CategoryViewController: UIViewController {
     
     @IBAction func tapConfirmButton(_ sender: UIButton) {
         if let category = categoryViewModel {
-            
+            category.updateModel() { success in
+                self.completion(success)
+            }
         } else {
             let values = createAddValuesDict()
             CategoryViewModel.addCategory(withValues: values) { success in
-                self.completion(true)
+                self.completion(success)
             }
         }
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: { self.categoryViewModel?.reset() })
     }
     
     //MARK: VC Life cycle

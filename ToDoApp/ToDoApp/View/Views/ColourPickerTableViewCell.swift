@@ -73,7 +73,9 @@ extension ColourPickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        colourField.backgroundColor = colours[row].colour
+        let colour = colours[row]
+        colourField.backgroundColor = colour.colour
+        categoryViewModel?.colour = colour.name
     }
     
     

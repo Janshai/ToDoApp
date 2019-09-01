@@ -34,7 +34,6 @@ class NetworkTodoDataProvider: TodoDataProvider {
         let params = TodoParameters(withFieldsDict: values)
         let url = baseURL + "/" + id
         AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
-            
             switch self.handleErrors(forTodoDataResponse: response) {
             case .success(let todo):
                 completion(.success(todo[0]))
@@ -104,11 +103,14 @@ protocol TodoDataProvider {
 
 fileprivate class TodoParameters: Encodable {
     var title: String?
-    init?(withFieldsDict dict: [TodoFields:Encodable]) {
+    var categories: [String]?
+    init(withFieldsDict dict: [TodoFields:Encodable]) {
         if let t = dict[.title] as? String {
             self.title = t
-        } else {
-            return nil
+        }
+        
+        if let ids = dict[.categoryIDs] as? [String] {
+            self.categories = ids
         }
     }
     
