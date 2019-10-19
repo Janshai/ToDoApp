@@ -10,17 +10,20 @@ import Foundation
 
 
 class ToDoModelController {
+    private(set) static var shared = ToDoModelController()
     
     private var todoDataProvider: TodoDataProvider
     private var todos: [Todo] = []
-    var numberOfTodos: Int {
-        return todos.count
-    }
     
     //TODO: make init optional and then handle this at the front end by hiding the tableview and displaying try again later message
     
-    init(todoDataProvider: TodoDataProvider? = nil, group: DispatchGroup) {
+    init(todoDataProvider: TodoDataProvider? = nil) {
         self.todoDataProvider = todoDataProvider ?? NetworkTodoDataProvider()
+        
+        
+    }
+    
+    func fetchTasks(inDispatchGroup group: DispatchGroup) {
         group.enter()
         self.todoDataProvider.fetchTodos() { result in
             switch result {
@@ -29,16 +32,27 @@ class ToDoModelController {
             }
             group.leave()
         }
-
     }
     
-    func getTodo(atIndex index: Int) -> Todo {
-        return todos[index]
+    func numberOfTodos(applyingFilter filter: ((Todo) -> Bool)? = nil) -> Int {
+        if let setFilter = filter {
+            return todos.filter(setFilter).count
+        } else {
+            return todos.count
+        }
     }
     
-    func addTodo(withTitle title: String, andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void){
+    func getTodo(atIndex index: Int, applyingFilter filter: ((Todo) -> Bool)? = nil) -> Todo {
+        if let setFilter = filter {
+            let filteredTodos = todos.filter(setFilter)
+            return filteredTodos[index]
+        } else {
+            return todos[index]
+        }
         
-        let values: [TodoFields: Encodable] = [TodoFields.title: title]
+    }
+    
+    func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void){
         
         todoDataProvider.addTodo(withValues: values) { result in
             switch result {
@@ -68,16 +82,54 @@ class ToDoModelController {
     /// The function pre-emptively updates the todo locally so the UI can be reloaded immediately if you wish. Then asynchronously updates the remote version.
     /// - Parameter withIdentifier: The String Identifier of the Todo you wish to update
     /// - Parameter andOnCompletion: Completion block to be called once the remote update has been executed. A Result is passed into the completion block that contains the String ID of the updated Todo if the update is successful, or a SyncError struct with details of the failure .
-    func editTodo(withIdentifier id: String, andNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<String, SyncError>) -> Void) {
-        //TODO: Use the Completion
-        let todo = todos.first(where: {$0.id == id})
-        if let newTitle = values[.title] as? String {
-            todo?.title = newTitle
+    func editTodo(withIdentifier id: String, andNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, SyncError>) -> Void) {
+        
+        func createEditSyncError() -> SyncError {
+            let index = self.todos.firstIndex(where: {$0.id == id})
+            return SyncError(index: index, method: .updateTodo)
         }
         
-        todoDataProvider.updateTodo(withID: id, withNewValues: values)
+        todoDataProvider.updateTodo(withID: id, withNewValues: values) { result in
+            switch result {
+            case .success(let todo):
+                if let editedTodo = self.todos.first(where: {$0.id == todo.id}) {
+                    editedTodo.title = todo.title
+                    editedTodo.categoryIDs = todo.categoryIDs
+                    completion(.success(editedTodo))
+                } else {
+                    completion(.failure(createEditSyncError()))
+                }
+                
+            case .failure(_):
+                completion(.failure(createEditSyncError()))
+            }
+            
+            
+        }
         
         
+    }
+    
+    func getAllTasks(applyingFilter filter: ((Todo) -> Bool)? = nil) -> [Todo] {
+        var desiredTasks: [Todo]
+        if let setFilter = filter {
+            desiredTasks = todos.filter(setFilter)
+        } else {
+            desiredTasks = todos
+        }
+        
+        return desiredTasks
+    }
+    
+    func getAllTaskViewModels(applyingFilter filter: ((Todo) -> Bool)? = nil, forDisplayingOnMenu menu: Bool = false) -> [TaskViewModel] {
+        var desiredTasks: [Todo]
+        if let setFilter = filter {
+            desiredTasks = todos.filter(setFilter)
+        } else {
+            desiredTasks = todos
+        }
+        
+        return desiredTasks.map(){ TaskViewModel(task: $0, onMenu: menu) }
     }
 }
 

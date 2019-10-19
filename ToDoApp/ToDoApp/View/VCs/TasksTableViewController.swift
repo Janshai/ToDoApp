@@ -9,97 +9,119 @@
 import UIKit
 
 class TasksTableViewController: UIViewController {
-   
-    let initialTodoLoadingGroup = DispatchGroup()
-    lazy var model: ToDoModelController = ToDoModelController(group: initialTodoLoadingGroup)
-   
-    var tableViewDataSource: ToDoTableViewDataSource?
-    var tableViewDelegate: ToDoTableViewDelegate?
     
-    let selectSegueIdetifier = "showTask"
-    let addTodoSegueIdentifier =  "addToDo"
+    let taskSegueIdentifier =  "addToDo"
+   
+    private var taskViewModels = [TaskViewModel]()
+    
+    var displaying: TaskDisplay!
     
     var selectedTaskIndex: Int? {
         didSet {
-            if selectedTaskIndex != nil {
-                performSegue(withIdentifier: selectSegueIdetifier, sender: nil)
+            if let index = selectedTaskIndex {
+                performSegue(withIdentifier: taskSegueIdentifier, sender: taskViewModels[index])
             }
         }
     }
+    
+    @IBOutlet weak var toDoTableView: UITableView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let loadingView = UIActivityIndicatorView()
-        setup(LoadingView: loadingView)
+        setupNavBar()
         
+        toDoTableView.delegate = self
+        toDoTableView.dataSource = self
         
-        tableViewDelegate = ToDoTableViewDelegate(tableView: toDoTableView, toDoModelController: model, vc: self)
-        
-        tableViewDataSource = ToDoTableViewDataSource(tableview: toDoTableView, toDoModelController: model)
-        
-        initialTodoLoadingGroup.notify(queue: .main) {
-            loadingView.stopAnimating()
-            self.toDoTableView.reloadData()
-            UIApplication.shared.endIgnoringInteractionEvents()
-        }
         
     }
     
-    func editModalCompletion(withChanges changed: Bool) {
-        if changed {
-            if let index = selectedTaskIndex {
-                let path = IndexPath(row: index, section: 0)
-                toDoTableView.reloadRows(at: [path], with: .fade)
-                selectedTaskIndex = nil
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == taskSegueIdentifier {
+            if let task = sender as? TaskViewModel {
+                prepareForEdit(segue: segue, withTask: task)
+            } else {
+                prepareForAddTodo(segue: segue)
             }
         }
     }
     
-    func addTodoCompletion(withChanges changed: Bool) {
-        if changed {
-            toDoTableView.reloadData()
+    private func prepareForAddTodo(segue: UIStoryboardSegue) {
+        let addTodoController = segue.destination as? TaskViewController
+        addTodoController?.callback = { changed in
+            if changed {
+                self.toDoTableView.performBatchUpdates({
+                    self.toDoTableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                }, completion: nil)
+            }
+        }
+        addTodoController?.function = .add
+    }
+    
+    private func prepareForEdit(segue: UIStoryboardSegue, withTask task: TaskViewModel) {
+        let editTaskController = segue.destination as? TaskViewController
+        editTaskController?.callback = { changed in
+            if let index = self.selectedTaskIndex {
+                let path = IndexPath(row: index, section: 0)
+                self.toDoTableView.reloadRows(at: [path], with: .fade)
+                self.selectedTaskIndex = nil
+            }
+        }
+        editTaskController?.function = .edit(viewModel: task)
+        
+        
+    }
+    
+    private func setupNavBar() {
+        switch displaying! {
+        case .allTodos:
+            navigationItem.title = "All Todos"
+        case .category(let categoryViewModel):
+            navigationItem.title = categoryViewModel.name
         }
     }
+    
+    private func createCorrectFilter() -> ((Todo) -> Bool)? {
+        var filter: ((Todo) -> Bool)?
+        switch displaying! {
+        case .allTodos:
+            filter = nil
+        case .category(let categoryViewModel):
+            filter = categoryViewModel.taskFilter
+        }
+        return filter
+    }
+    
+    
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.taskViewModels = ToDoModelController.shared.getAllTaskViewModels(applyingFilter: createCorrectFilter(), forDisplayingOnMenu: true)
+        return taskViewModels.count
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == selectSegueIdetifier {
-            let viewAndEditTaskController = segue.destination as? ViewAndEditTaskViewController
-            viewAndEditTaskController?.taskIndex = selectedTaskIndex
-            viewAndEditTaskController?.todoModelController = model
-            viewAndEditTaskController?.callback = editModalCompletion(withChanges:)
-        } else if segue.identifier == addTodoSegueIdentifier {
-            let addTodoController = segue.destination as? AddToDoViewController
-            addTodoController?.todoModelController = model
-            addTodoController?.callback = addTodoCompletion(withChanges:)
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TaskTableViewCell
+        let taskViewModel = taskViewModels[indexPath.row]
+        cell.taskViewModel = taskViewModel
+        return cell
+        
     }
     
-    func deleteTableViewData(atRow indexPath: IndexPath, withAnimation animation: UITableView.RowAnimation) {
-        toDoTableView.deleteRows(at: [indexPath], with: animation)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTaskIndex = indexPath.row
     }
     
-    @IBAction func pressAddTodo(_ sender: UIButton) {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return TaskTableView.taskCompleteSwipe(forTask: taskViewModels[indexPath.row], onTableView: tableView, forRowAt: indexPath)
     }
     
-    @IBOutlet weak var toDoTableView: UITableView!
-    
-    func setup(LoadingView loadingView: UIActivityIndicatorView) {
-        loadingView.hidesWhenStopped = true
-        loadingView.center = self.view.center
-        loadingView.style = .gray
-        view.addSubview(loadingView)
-        loadingView.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return TaskTableView.taskDeleteSwipe(forTask: taskViewModels[indexPath.row], onTableView: tableView, forRowAt: indexPath)
     }
-    
-    
 }
 

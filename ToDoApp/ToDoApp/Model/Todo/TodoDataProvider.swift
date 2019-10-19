@@ -16,22 +16,30 @@ class NetworkTodoDataProvider: TodoDataProvider {
     }
     
     func addTodo(withValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
-        let decoder = createDecoderForMongoDates()
+        let decoder = MongoDecoder.createDecoder()
         let params = TodoParameters(withFieldsDict: values)
-        AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<Todo>) in
-            completion(response.result)
+        
+        AF.request(baseURL, method: .post, parameters: params, encoder: JSONParameterEncoder.default).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
+            
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todos): completion(.success(todos[0]))
+            case .failure(let error): completion(.failure(error))
+            }
 
         }
     }
-    
-    func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable]) {
+
+    func updateTodo(withID id: String, withNewValues values: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void) {
+        let decoder = MongoDecoder.createDecoder()
         let params = TodoParameters(withFieldsDict: values)
         let url = baseURL + "/" + id
-        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseJSON() { response in
-            
-            switch response.result {
-            case .success(let json): print(json)
-            case .failure(let error): print(error)
+        AF.request(url, method: .put, parameters: params, encoder: JSONParameterEncoder.default).responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todo):
+                completion(.success(todo[0]))
+            case .failure(let error):
+                completion(.failure(error))
+                print(error)
             }
         }
     }
@@ -45,27 +53,38 @@ class NetworkTodoDataProvider: TodoDataProvider {
     
     func fetchTodos(onCompletion completion: @escaping (_ result: Result<[Todo], Error>) -> Void ) {
         
-        let decoder = createDecoderForMongoDates()
+        let decoder = MongoDecoder.createDecoder()
         
-        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<[Todo]>) in
-            completion(response.result)
+        AF.request(baseURL).validate().responseDecodable(decoder: decoder) { (response: DataResponse<TodoResponse>) in
+            switch self.handleErrors(forTodoDataResponse: response) {
+            case .success(let todos): completion(.success(todos))
+            case .failure(let error): completion(.failure(error))
+            }
+
         }
     }
-    
-    private func createDecoderForMongoDates() -> JSONDecoder {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .custom() { decoder in
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
-            let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            if let date = df.date(from: dateString) {
-                return date
+    private func handleErrors(forTodoDataResponse response: DataResponse<TodoResponse>) -> Result<[Todo], Error> {
+        switch response.result {
+        case .failure(let error): return .failure(error)
+        case .success(let todoResponse):
+            if todoResponse.success {
+                
+                if let todo = todoResponse.todo {
+                    return .success([todo])
+                } else if let todos = todoResponse.todos {
+                    return .success(todos)
+                } else {
+                    return .failure(NSError(domain: "Invalid Response", code: 0000))
+                }
             } else {
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Couldn't convert date")
+                
+                if let error = todoResponse.error {
+                    return .failure(NSError(domain: error, code: 0000))
+                } else {
+                    return .failure(NSError(domain: "Invalid Response", code: 0000))
+                }
             }
         }
-        return decoder
     }
     
 }
@@ -77,24 +96,28 @@ protocol TodoDataProvider {
     
     func addTodo(withValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
-    func updateTodo(withID: String, withNewValues: [TodoFields: Encodable])
+    func updateTodo(withID: String, withNewValues: [TodoFields: Encodable], andOnCompletion completion: @escaping (_ result: Result<Todo, Error>) -> Void)
     
     func deleteTodo(withID: String)
 }
 
 fileprivate class TodoParameters: Encodable {
-    var title: String
-    init?(withFieldsDict dict: [TodoFields:Encodable]) {
+    var title: String?
+    var categories: [String]?
+    init(withFieldsDict dict: [TodoFields:Encodable]) {
         if let t = dict[.title] as? String {
             self.title = t
-        } else {
-            return nil
+        }
+        
+        if let ids = dict[.categoryIDs] as? [String] {
+            self.categories = ids
         }
     }
     
 }
 enum TodoFields: String, Hashable {
     case title
+    case categoryIDs
     
 }
 
